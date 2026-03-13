@@ -789,6 +789,21 @@ img {
     justify-content: center;
 }
 
+/* Slideshow */
+.project-slideshow .slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.project-slideshow .slide.active {
+    opacity: 1;
+}
+
 .project-gradient {
     position: absolute;
     inset: 0;

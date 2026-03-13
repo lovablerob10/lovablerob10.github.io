@@ -210,3 +210,23 @@ window.addEventListener('load', () => {
         document.body.style.opacity = '1';
     });
 });
+
+
+// ---- Project Card Slideshows ----
+(function initSlideshows() {
+    const slideshows = document.querySelectorAll('.project-slideshow');
+
+    slideshows.forEach(slideshow => {
+        const slides = slideshow.querySelectorAll('.slide');
+        if (slides.length <= 1) return;
+
+        const interval = parseInt(slideshow.dataset.interval) || 3000;
+        let current = 0;
+
+        setInterval(() => {
+            slides[current].classList.remove('active');
+            current = (current + 1) % slides.length;
+            slides[current].classList.add('active');
+        }, interval);
+    });
+})();
