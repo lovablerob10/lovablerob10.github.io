@@ -1168,3 +1168,216 @@ section { position: relative; z-index: 2; }
 @media (max-width: 420px) {
     .work-tech span { font-size: 0.62rem; padding: 0.32rem 0.6rem; }
 }
+
+/* =========================================================
+   BELLA — chat no site
+   ========================================================= */
+.bella {
+    position: fixed;
+    right: clamp(1rem, 3vw, 2rem);
+    bottom: clamp(1rem, 3vw, 2rem);
+    z-index: 200;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.85rem;
+}
+
+/* ---------- botão ---------- */
+.bella-fab {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.85rem 1.4rem;
+    border-radius: 999px;
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    box-shadow: 0 12px 34px rgba(0, 0, 0, 0.45);
+    transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease), opacity 0.25s var(--ease);
+}
+.bella-fab:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 18px 44px rgba(124, 92, 255, 0.35);
+}
+.bella-fab-on {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #16a34a;
+    flex: none;
+    box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.55);
+    animation: pulse 2.2s infinite;
+}
+.bella-fab-x { display: none; }
+/* Com o painel aberto o botao nao tem funcao: o painel ja tem o proprio X, e
+   dois botoes de fechar na mesma tela so competem entre si. */
+.bella--aberta .bella-fab {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.9);
+}
+
+/* ---------- painel ---------- */
+.bella-painel {
+    width: min(94vw, 380px);
+    height: min(74vh, 560px);
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    border: 1px solid var(--line-hot);
+    background: var(--ink-2);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(14px) scale(0.97);
+    transform-origin: bottom right;
+    transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+}
+.bella--aberta .bella-painel { opacity: 1; transform: none; }
+
+.bella-topo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1.1rem;
+    border-bottom: 1px solid var(--line);
+    background: var(--ink-3);
+    flex: none;
+}
+.bella-eu { display: flex; align-items: center; gap: 0.7rem; }
+.bella-eu strong { display: block; font-size: 0.92rem; letter-spacing: -0.02em; }
+.bella-sub {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.64rem;
+    letter-spacing: 0.06em;
+    color: var(--faint);
+    margin-top: 0.15rem;
+}
+.bella-av {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: var(--grad);
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.9rem;
+    flex: none;
+}
+.bella-fechar {
+    color: var(--faint);
+    padding: 0.35rem;
+    border-radius: 8px;
+    transition: color 0.3s var(--ease), background 0.3s var(--ease);
+}
+.bella-fechar:hover { color: var(--paper); background: rgba(255, 255, 255, 0.06); }
+
+/* ---------- log ---------- */
+.bella-log {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    scrollbar-width: thin;
+    scrollbar-color: var(--line-hot) transparent;
+}
+.bella-log::-webkit-scrollbar { width: 6px; }
+.bella-log::-webkit-scrollbar-thumb { background: var(--line-hot); border-radius: 3px; }
+
+.bella-msg {
+    max-width: 84%;
+    padding: 0.7rem 0.95rem;
+    border-radius: 14px;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+.bella-msg--bella {
+    align-self: flex-start;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--line);
+    border-bottom-left-radius: 5px;
+    color: var(--paper);
+}
+.bella-msg--eu {
+    align-self: flex-end;
+    background: var(--v1);
+    border-bottom-right-radius: 5px;
+    color: #fff;
+}
+
+.bella-digitando { display: flex; gap: 4px; align-items: center; padding: 0.9rem 1rem; }
+.bella-digitando i {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--faint);
+    animation: bella-blink 1.3s infinite;
+}
+.bella-digitando i:nth-child(2) { animation-delay: 0.18s; }
+.bella-digitando i:nth-child(3) { animation-delay: 0.36s; }
+@keyframes bella-blink {
+    0%, 60%, 100% { opacity: 0.25; transform: translateY(0); }
+    30%           { opacity: 1;    transform: translateY(-3px); }
+}
+
+.bella-zap {
+    align-self: flex-start;
+    margin-top: 0.15rem;
+    padding: 0.6rem 1.1rem;
+    border-radius: 999px;
+    background: #16a34a;
+    color: #fff;
+    font-size: 0.84rem;
+    font-weight: 600;
+    transition: transform 0.3s var(--ease), filter 0.3s var(--ease);
+}
+.bella-zap:hover { transform: translateY(-2px); filter: brightness(1.08); }
+
+/* ---------- entrada ---------- */
+.bella-form {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.8rem;
+    border-top: 1px solid var(--line);
+    background: var(--ink-3);
+    flex: none;
+}
+.bella-input {
+    flex: 1;
+    min-width: 0;
+    padding: 0.75rem 1rem;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: var(--ink);
+    color: var(--paper);
+    font: inherit;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.3s var(--ease);
+}
+.bella-input::placeholder { color: var(--faint); }
+.bella-input:focus { border-color: var(--v1); }
+.bella-enviar {
+    width: 42px; height: 42px;
+    flex: none;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--paper);
+    color: var(--ink);
+    transition: transform 0.3s var(--ease), filter 0.3s var(--ease);
+}
+.bella-enviar:hover { transform: scale(1.06); }
+
+@media (max-width: 480px) {
+    .bella { left: 1rem; right: 1rem; align-items: stretch; }
+    .bella-fab { justify-content: center; }
+    .bella-painel { width: 100%; height: min(78vh, 540px); }
+}
