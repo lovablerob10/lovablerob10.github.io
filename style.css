@@ -1277,13 +1277,19 @@ section { position: relative; z-index: 2; }
     flex: none;
     border: 1px solid var(--line-hot);
 }
+.bella-topo > div:last-child,
+.bella-acoes { display: flex; align-items: center; gap: 0.15rem; }
+
+.bella-reset,
 .bella-fechar {
     color: var(--faint);
     padding: 0.35rem;
     border-radius: 8px;
     transition: color 0.3s var(--ease), background 0.3s var(--ease);
 }
+.bella-reset:hover,
 .bella-fechar:hover { color: var(--paper); background: rgba(255, 255, 255, 0.06); }
+.bella-reset:active svg { transform: rotate(-180deg); transition: transform 0.4s var(--ease); }
 
 /* ---------- log ---------- */
 .bella-log {

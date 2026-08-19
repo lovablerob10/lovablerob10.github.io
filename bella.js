@@ -37,10 +37,19 @@
                         <span class="bella-sub">IA do Robson · responde na hora</span>
                     </div>
                 </div>
+                <div class="bella-acoes">
+                <button class="bella-reset" type="button" aria-label="Começar uma conversa nova" title="Nova conversa">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 12a9 9 0 019-9 9 9 0 016.7 3H21"/><path d="M21 3v5h-5"/>
+                        <path d="M21 12a9 9 0 01-9 9 9 9 0 01-6.7-3H3"/><path d="M3 21v-5h5"/>
+                    </svg>
+                </button>
                 <button class="bella-fechar" type="button" aria-label="Fechar conversa">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                          stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
                 </button>
+                </div>
             </header>
 
             <div class="bella-log" role="log" aria-live="polite"></div>
@@ -65,6 +74,7 @@
     const form = root.querySelector('.bella-form');
     const input = root.querySelector('.bella-input');
     const fechar = root.querySelector('.bella-fechar');
+    const reset = root.querySelector('.bella-reset');
 
     /* ---------------------------------------------------------
        Estado
@@ -207,6 +217,24 @@
     fechar.addEventListener('click', fecharPainel);
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && root.classList.contains('bella--aberta')) fecharPainel();
+    });
+
+    /* ---------------------------------------------------------
+       Recomeçar
+       ---------------------------------------------------------
+       Some com o token: o servidor abre uma sessão nova na próxima
+       mensagem. Sem isso a conversa antiga ressuscita a cada visita, e
+       quem volta ao site semanas depois reencontra um papo esquecido. */
+    reset.addEventListener('click', () => {
+        token = null;
+        historico = [];
+        try {
+            localStorage.removeItem(CHAVE_TOKEN);
+            localStorage.removeItem(CHAVE_LOG);
+        } catch { /* sem storage: já está limpo */ }
+        log.innerHTML = '';
+        bolha('bella', 'Pronto, começamos de novo 😊 Como posso te ajudar?');
+        input.focus();
     });
 
     form.addEventListener('submit', (e) => {
