@@ -1,0 +1,11 @@
+# Os originais pesados ficam no repositorio, mas nao vao para o ar:
+# a pagina usa apenas assets/opt/*.webp (13 MB -> 0,6 MB).
+assets/*.png
+assets/*.jpg
+assets/avatar.webp
+
+# Especifico do GitHub Pages; no Cloudflare o dominio e configurado no projeto.
+CNAME
+
+.git
+github-profile-README.md
