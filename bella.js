@@ -23,14 +23,15 @@
     root.className = 'bella';
     root.innerHTML = `
         <button class="bella-fab" type="button" aria-expanded="false" aria-controls="bella-painel">
-            <span class="bella-fab-on" aria-hidden="true"></span>
+            <img class="bella-fab-face" src="assets/opt/bella.webp" alt="" width="34" height="34" loading="lazy">
             <span class="bella-fab-txt">Falar com a Bella</span>
+            <span class="bella-fab-on" aria-hidden="true"></span>
         </button>
 
         <section class="bella-painel" id="bella-painel" hidden aria-label="Conversa com a Bella">
             <header class="bella-topo">
                 <div class="bella-eu">
-                    <span class="bella-av" aria-hidden="true">B</span>
+                    <img class="bella-av" src="assets/opt/bella.webp" alt="Bella" width="38" height="38">
                     <div>
                         <strong>Bella</strong>
                         <span class="bella-sub">IA do Robson · responde na hora</span>
@@ -185,7 +186,10 @@
             if (historico.length) {
                 historico.forEach((h) => bolha(h.role === 'user' ? 'eu' : 'bella', h.content));
             } else {
-                bolha('bella', 'Oi! Eu sou a Bella, a IA do Robson. Me conta: qual é o seu negócio e o que você queria resolver?');
+                // Abertura curta de proposito: quem conduz a conversa e ela, e esta linha
+                // so abre a porta. Perguntar o negocio aqui competia com a
+                // pergunta do nome que ela faz em seguida.
+                bolha('bella', 'Oi! Eu sou a Bella, a IA do Robson 😊 Como posso te ajudar?');
             }
         }
         setTimeout(() => input.focus(), reduced ? 0 : 320);
