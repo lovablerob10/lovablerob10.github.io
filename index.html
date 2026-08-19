@@ -3,570 +3,563 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Robson Nobre — Full Stack Developer for AI. Portfólio profissional com projetos, experiência e formação.">
     <title>Robson Nobre — Full Stack Developer for AI</title>
+    <meta name="description" content="Robson Nobre — Full Stack Developer for AI. Plataformas SaaS, agentes autônomos e automação com inteligência artificial.">
+    <meta name="author" content="Robson Nobre">
+    <meta name="theme-color" content="#08080c">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Robson Nobre — Full Stack Developer for AI">
+    <meta property="og:description" content="Plataformas SaaS, agentes autônomos e automação com inteligência artificial.">
+    <meta property="og:image" content="assets/opt/avatar.webp">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%2308080c'/%3E%3Ctext x='50' y='50' dy='.35em' text-anchor='middle' font-family='monospace' font-size='46' font-weight='700' fill='%237c5cff'%3ERN%3C/text%3E%3C/svg%3E">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Animated background particles -->
-    <canvas id="particles-canvas"></canvas>
 
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <a href="#hero" class="nav-logo">
-                <span class="logo-bracket">&lt;</span>RN<span class="logo-bracket">/&gt;</span>
-            </a>
-            <ul class="nav-links" id="nav-links">
-                <li><a href="#about" class="nav-link">Sobre</a></li>
-                <li><a href="#experience" class="nav-link">Experiência</a></li>
-                <li><a href="#projects" class="nav-link">Projetos</a></li>
-                <li><a href="#education" class="nav-link">Formação</a></li>
-                <li><a href="#contact" class="nav-link nav-link--cta">Contato</a></li>
+<div class="ambient" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+<div class="cursor" id="cursor" aria-hidden="true"></div>
+
+<!-- ======================= NAV ======================= -->
+<header class="nav" id="nav">
+    <div class="nav-inner">
+        <a href="#top" class="brand" aria-label="Robson Nobre — início">
+            <i>&lt;</i>RN<i>/&gt;</i>
+        </a>
+        <nav>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#about">Sobre</a></li>
+                <li><a href="#work">Projetos</a></li>
+                <li><a href="#path">Trajetória</a></li>
+                <li><a href="#school">Formação</a></li>
+                <li><a href="#contact" class="nav-cta">Fale comigo</a></li>
             </ul>
-            <button class="nav-toggle" id="nav-toggle" aria-label="Menu">
-                <span></span><span></span><span></span>
-            </button>
-        </div>
-    </nav>
+        </nav>
+        <button class="burger" id="burger" aria-label="Abrir menu" aria-expanded="false" aria-controls="navLinks">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</header>
 
-    <!-- Hero Section -->
-    <section class="hero" id="hero">
-        <div class="hero-container">
-            <div class="hero-content">
-                <div class="hero-greeting" data-animate="fade-up">
-                    <span class="greeting-line"></span>
-                    <span class="greeting-text">Olá, eu sou</span>
-                </div>
-                <h1 class="hero-name" data-animate="fade-up" data-delay="100">
-                    Robson <span class="text-gradient">Nobre</span>
-                </h1>
-                <h2 class="hero-title" data-animate="fade-up" data-delay="200">
-                    Full Stack Developer <span class="text-gradient">for AI</span>
-                </h2>
-                <p class="hero-description" data-animate="fade-up" data-delay="300">
-                    Construindo pontes entre inteligência artificial e experiências digitais extraordinárias.
-                    Único no Brasil com uma gestora IA autônoma capaz de criar e gerenciar campanhas de tráfego 
-                    por inteligência artificial para o mercado imobiliário.
-                </p>
-                <div class="hero-actions" data-animate="fade-up" data-delay="400">
-                    <a href="#projects" class="btn btn-primary">
-                        <span>Ver Projetos</span>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                    </a>
-                    <a href="#contact" class="btn btn-outline">
-                        <span>Fale Comigo</span>
-                    </a>
-                </div>
-                <div class="hero-stats" data-animate="fade-up" data-delay="500">
-                    <div class="stat">
-                        <span class="stat-number" data-count="5">0</span><span class="stat-plus">+</span>
-                        <span class="stat-label">Anos de Experiência</span>
-                    </div>
-                    <div class="stat-divider"></div>
-                    <div class="stat">
-                        <span class="stat-number" data-count="20">0</span><span class="stat-plus">+</span>
-                        <span class="stat-label">Projetos Entregues</span>
-                    </div>
-                    <div class="stat-divider"></div>
-                    <div class="stat">
-                        <span class="stat-number" data-count="10">0</span><span class="stat-plus">+</span>
-                        <span class="stat-label">Tecnologias</span>
-                    </div>
-                </div>
-            </div>
-            <div class="hero-visual" data-animate="fade-left" data-delay="200">
-                <div class="hero-avatar-wrapper">
-                    <div class="avatar-ring"></div>
-                    <div class="avatar-ring avatar-ring--2"></div>
-                    <img src="assets/avatar.png" alt="Robson Nobre" class="hero-avatar">
-                </div>
-                <div class="floating-badge badge-1">
-                    <span class="badge-icon">🤖</span>
-                    <span class="badge-text">AI Engineer</span>
-                </div>
-                <div class="floating-badge badge-2">
-                    <span class="badge-icon">⚡</span>
-                    <span class="badge-text">Full Stack</span>
-                </div>
-                <div class="floating-badge badge-3">
-                    <span class="badge-icon">🚀</span>
-                    <span class="badge-text">Inovação</span>
-                </div>
-            </div>
-        </div>
-        <div class="scroll-indicator">
-            <div class="mouse">
-                <div class="mouse-wheel"></div>
-            </div>
-            <span>Scroll para explorar</span>
-        </div>
-    </section>
+<main id="top">
 
-    <!-- About Section -->
-    <section class="section about" id="about">
-        <div class="container">
-            <div class="section-header" data-animate="fade-up">
-                <span class="section-tag">01 — Sobre Mim</span>
-                <h2 class="section-title">Quem sou <span class="text-gradient">eu</span></h2>
+<!-- ======================= HERO ======================= -->
+<section class="hero wrap" id="hero">
+    <div class="hero-grid">
+        <div class="hero-content">
+            <p class="hero-kicker" data-reveal>Full Stack Developer for AI</p>
+
+            <h1 class="hero-name">
+                <span class="line-mask" data-mask><span>Robson</span></span>
+                <span class="line-mask l2" data-mask style="--d:110ms"><span>Nobre</span></span>
+            </h1>
+
+            <p class="hero-role" data-reveal style="--d:340ms">
+                <span data-scramble
+                      data-words="Plataformas SaaS|Agentes autônomos|Automação com IA|Produto de ponta a ponta">Plataformas SaaS</span>
+            </p>
+
+            <p class="hero-copy" data-reveal style="--d:440ms">
+                Construo pontes entre inteligência artificial e produto de verdade.
+                <strong>Único no Brasil</strong> com uma gestora de tráfego autônoma que cria
+                e gerencia campanhas por IA para o mercado imobiliário.
+            </p>
+
+            <div class="hero-actions" data-reveal style="--d:540ms">
+                <a href="#work" class="btn" data-hot>
+                    <span>Ver projetos</span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+                <a href="#contact" class="btn btn-ghost" data-hot><span>Fale comigo</span></a>
             </div>
-            <div class="about-grid">
-                <div class="about-text" data-animate="fade-right">
-                    <p class="about-lead">
-                        Sou um desenvolvedor Full Stack apaixonado por Inteligência Artificial, 
-                        com experiência sólida em construir plataformas SaaS, automações inteligentes 
-                        e sistemas multi-agentes que resolvem problemas reais.
+
+            <div class="hero-stats" data-reveal style="--d:640ms">
+                <div>
+                    <span class="stat-n" data-count="20"><sup>+</sup></span>
+                    <span class="stat-l">Anos em tecnologia</span>
+                </div>
+                <div>
+                    <span class="stat-n" data-count="70"><sup>+</sup></span>
+                    <span class="stat-l">Projetos entregues</span>
+                </div>
+                <div>
+                    <span class="stat-n" data-count="24"><sup></sup></span>
+                    <span class="stat-l">Agentes IA em produção</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-visual" data-reveal="scale" style="--d:300ms">
+            <figure class="portrait" data-tilt>
+                <img src="assets/opt/avatar.webp" alt="Retrato de Robson Nobre" width="900" height="1200" fetchpriority="high">
+                <figcaption class="portrait-tag">
+                    <span class="pulse">Disponível</span>
+                    <span>Campinas · BR</span>
+                </figcaption>
+            </figure>
+        </div>
+    </div>
+
+    <div class="scroll-hint" aria-hidden="true">
+        <span class="rail"></span>
+        <span>Role</span>
+    </div>
+</section>
+
+<!-- ======================= MARQUEE ======================= -->
+<div class="marquee" aria-hidden="true">
+    <div class="marquee-track" id="marquee">
+        <div class="marquee-set">
+            <span class="marquee-item">React</span>
+            <span class="marquee-item">TypeScript</span>
+            <span class="marquee-item">Supabase</span>
+            <span class="marquee-item">LLMs</span>
+            <span class="marquee-item">Node.js</span>
+            <span class="marquee-item">n8n</span>
+            <span class="marquee-item">Meta Ads API</span>
+            <span class="marquee-item">WhatsApp API</span>
+            <span class="marquee-item">Cloudflare</span>
+            <span class="marquee-item">PostgreSQL</span>
+        </div>
+    </div>
+</div>
+
+<!-- ======================= ABOUT ======================= -->
+<section class="band wrap" id="about">
+    <div class="head">
+        <span class="head-num" data-reveal>01 — Sobre</span>
+        <h2 class="head-title" data-reveal style="--d:80ms">
+            Tecnologia que <span class="accent">resolve</span>, não que impressiona
+        </h2>
+    </div>
+
+    <div class="about-grid">
+        <div class="about-body" data-reveal="left">
+            <p class="about-lead">
+                Desenvolvedor Full Stack apaixonado por IA, com experiência sólida em construir
+                plataformas SaaS, automações inteligentes e sistemas multi-agentes que resolvem
+                problemas reais.
+            </p>
+            <p>
+                Minha jornada combina desenvolvimento web moderno com engenharia de IA — de dashboards
+                analíticos com insights gerados por IA a chatbots conversacionais e pipelines de
+                automação com LLMs.
+            </p>
+            <p>
+                Acredito que a tecnologia mais poderosa é a que simplifica a vida das pessoas.
+                Por isso cada linha que escrevo é guiada pela <strong>experiência do usuário</strong>
+                e pelo <strong>impacto real no negócio</strong>.
+            </p>
+        </div>
+
+        <div class="about-stack" data-reveal="right" style="--d:120ms">
+            <p class="stack-title">Stack principal</p>
+            <div class="stack-row">
+                <span class="stack-name">React / Next.js</span>
+                <span class="stack-meta">Interface · SPA</span>
+            </div>
+            <div class="stack-row">
+                <span class="stack-name">Node.js / TypeScript</span>
+                <span class="stack-meta">Backend · Edge</span>
+            </div>
+            <div class="stack-row">
+                <span class="stack-name">Supabase / PostgreSQL</span>
+                <span class="stack-meta">Dados · Auth · RLS</span>
+            </div>
+            <div class="stack-row">
+                <span class="stack-name">LLMs / Agentes</span>
+                <span class="stack-meta">Gemini · Multi-agent</span>
+            </div>
+            <div class="stack-row">
+                <span class="stack-name">Vite / Cloudflare</span>
+                <span class="stack-meta">Build · Deploy</span>
+            </div>
+            <div class="stack-row">
+                <span class="stack-name">APIs / WhatsApp / n8n</span>
+                <span class="stack-meta">Integração · Automação</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ======================= WORK ======================= -->
+<section class="band wrap" id="work">
+    <div class="head">
+        <span class="head-num" data-reveal>02 — Projetos</span>
+        <h2 class="head-title" data-reveal style="--d:80ms">
+            Produtos no ar, <span class="accent">não protótipos</span>
+        </h2>
+        <p class="head-sub" data-reveal style="--d:160ms">
+            Plataformas construídas de ponta a ponta — arquitetura, interface, IA e operação.
+        </p>
+    </div>
+
+    <div class="work-stack" id="workStack">
+
+        <!-- 01 · Corretor 2.0 -->
+        <article class="work" data-spot>
+            <div class="work-inner">
+                <div class="work-body">
+                    <p class="work-index">
+                        <span>01</span>
+                        <span class="work-flag">Carro-chefe</span>
                     </p>
-                    <p>
-                        Minha jornada combina desenvolvimento web moderno com engenharia de IA — 
-                        criando desde dashboards analíticos com insights gerados por IA até 
-                        chatbots conversacionais e pipelines de automação com LLMs.
+                    <h3 class="work-title">Corretor 2.0</h3>
+                    <p class="work-desc">
+                        O maior projeto da carreira: plataforma completa para corretores de imóveis com a
+                        assistente <strong>Bella</strong> no WhatsApp, site builder, marketing automatizado e
+                        follow-up inteligente. <strong>Pioneiro no Brasil</strong> em gestora de tráfego
+                        autônoma por IA para o setor imobiliário.
                     </p>
-                    <p>
-                        Acredito que a tecnologia mais poderosa é aquela que simplifica a vida das pessoas. 
-                        Por isso, cada linha de código que escrevo é guiada pela experiência do usuário 
-                        e pelo impacto real no negócio.
+                    <div class="work-tech">
+                        <span>React</span><span>Supabase</span><span>WhatsApp API</span><span>Meta Ads API</span><span>AI Agents</span>
+                    </div>
+                    <span class="work-private"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg><span>Acesso restrito — plataforma de clientes</span></span>
+                </div>
+                <div class="work-shot" data-shot data-interval="3600">
+                    <div class="shot-bar">
+                        <i></i><i></i><i></i>
+                        <span class="shot-url">corretor 2.0 — gestora de tráfego IA</span>
+                    </div>
+                    <div class="shot-frame">
+                        <img src="assets/opt/corretor-1.webp" alt="Bella, a gestora de tráfego por IA do Corretor 2.0" loading="lazy" class="on">
+                        <img src="assets/opt/corretor-2.webp" alt="Dashboard do Corretor 2.0" loading="lazy">
+                        <img src="assets/opt/corretor-3.webp" alt="Landing page gerada pelo Corretor 2.0" loading="lazy">
+                        <div class="shot-dots"><b class="on"></b><b></b><b></b></div>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- 02 · BackStageFy -->
+        <article class="work work--flip" data-spot>
+            <div class="work-inner">
+                <div class="work-body">
+                    <p class="work-index"><span>02</span></p>
+                    <h3 class="work-title">BackStageFy</h3>
+                    <p class="work-desc">
+                        Ecossistema de comunidade com <strong>24 assistentes IA especializados</strong>,
+                        sistema LMS para cursos, gamificação e um hub de IA conversacional (Jarvis)
+                        que costura tudo.
                     </p>
+                    <div class="work-tech">
+                        <span>React</span><span>Supabase</span><span>Multi-Agent AI</span><span>LMS</span><span>Gamificação</span>
+                    </div>
+                    <span class="work-private"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg><span>Acesso restrito — área de membros</span></span>
                 </div>
-                <div class="about-skills" data-animate="fade-left">
-                    <h3 class="skills-title">Stack Principal</h3>
-                    <div class="skills-grid">
-                        <div class="skill-card">
-                            <div class="skill-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-                            </div>
-                            <span class="skill-name">React / Next.js</span>
-                            <div class="skill-bar"><div class="skill-progress" data-width="95"></div></div>
-                        </div>
-                        <div class="skill-card">
-                            <div class="skill-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 1v6m0 6v6m11-7h-6m-6 0H1m18.07-5.07l-4.24 4.24M9.17 9.17L4.93 4.93m14.14 14.14l-4.24-4.24M9.17 14.83L4.93 19.07"/></svg>
-                            </div>
-                            <span class="skill-name">Node.js / TypeScript</span>
-                            <div class="skill-bar"><div class="skill-progress" data-width="90"></div></div>
-                        </div>
-                        <div class="skill-card">
-                            <div class="skill-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7h16M4 12h16M4 17h10"/><circle cx="20" cy="17" r="2"/></svg>
-                            </div>
-                            <span class="skill-name">Supabase / PostgreSQL</span>
-                            <div class="skill-bar"><div class="skill-progress" data-width="92"></div></div>
-                        </div>
-                        <div class="skill-card">
-                            <div class="skill-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-3.5 4 4 0 0 1 .5-2A10 10 0 0 0 12 2z"/><circle cx="15" cy="9" r="1"/><circle cx="9" cy="9" r="1"/><path d="M9 14s1.5 2 3 2 3-2 3-2"/></svg>
-                            </div>
-                            <span class="skill-name">AI / LLMs / Gemini</span>
-                            <div class="skill-bar"><div class="skill-progress" data-width="88"></div></div>
-                        </div>
-                        <div class="skill-card">
-                            <div class="skill-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 002 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0022 16z"/></svg>
-                            </div>
-                            <span class="skill-name">Vite / Cloudflare</span>
-                            <div class="skill-bar"><div class="skill-progress" data-width="85"></div></div>
-                        </div>
-                        <div class="skill-card">
-                            <div class="skill-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                            </div>
-                            <span class="skill-name">APIs / WhatsApp</span>
-                            <div class="skill-bar"><div class="skill-progress" data-width="90"></div></div>
-                        </div>
+                <div class="work-shot" data-shot data-interval="3900">
+                    <div class="shot-bar">
+                        <i></i><i></i><i></i>
+                        <span class="shot-url">backstagefy — comunidade + LMS</span>
+                    </div>
+                    <div class="shot-frame">
+                        <img src="assets/opt/backstagefy-1.webp" alt="Painel do BackStageFy" loading="lazy" class="on">
+                        <img src="assets/opt/backstagefy-2.webp" alt="Base de conhecimento do BackStageFy" loading="lazy">
+                        <img src="assets/opt/backstagefy-3.webp" alt="Painel de vendas do BackStageFy" loading="lazy">
+                        <div class="shot-dots"><b class="on"></b><b></b><b></b></div>
                     </div>
                 </div>
+            </div>
+        </article>
+
+        <!-- 03 · FSA Launch Lab -->
+        <article class="work" data-spot>
+            <div class="work-inner">
+                <div class="work-body">
+                    <p class="work-index"><span>03</span></p>
+                    <h3 class="work-title">FSA Launch Lab</h3>
+                    <p class="work-desc">
+                        Plataforma SaaS <strong>multi-tenant</strong> para gestão de lançamentos digitais:
+                        IA generativa no planejamento, análise de performance via Meta Ads e relatórios
+                        automáticos entregues por WhatsApp.
+                    </p>
+                    <div class="work-tech">
+                        <span>React</span><span>Supabase</span><span>Gemini AI</span><span>Meta API</span><span>Multi-tenant</span>
+                    </div>
+                    <span class="work-private"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg><span>Acesso restrito — painel do cliente</span></span>
+                </div>
+                <div class="work-shot" data-shot data-interval="4200">
+                    <div class="shot-bar">
+                        <i></i><i></i><i></i>
+                        <span class="shot-url">fsa launch lab — SaaS de lançamentos</span>
+                    </div>
+                    <div class="shot-frame">
+                        <img src="assets/opt/fsa-1.webp" alt="Dashboard do FSA Launch Lab" loading="lazy" class="on">
+                        <img src="assets/opt/fsa-2.webp" alt="Calendário com IA do FSA Launch Lab" loading="lazy">
+                        <img src="assets/opt/fsa-3.webp" alt="Equipe de agentes IA do FSA Launch Lab" loading="lazy">
+                        <div class="shot-dots"><b class="on"></b><b></b><b></b></div>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- 04 · Valtair Imobiliária -->
+        <article class="work work--flip" data-spot>
+            <div class="work-inner">
+                <div class="work-body">
+                    <p class="work-index"><span>04</span></p>
+                    <h3 class="work-title">Valtair Imobiliária</h3>
+                    <p class="work-desc">
+                        Gestão imobiliária completa — controle de imóveis, leads, visitas agendadas,
+                        painel financeiro e dashboards de performance para a operação inteira.
+                    </p>
+                    <div class="work-tech">
+                        <span>React</span><span>Supabase</span><span>Node.js</span><span>PostgreSQL</span>
+                    </div>
+                    <span class="work-private"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg><span>Acesso restrito — sistema interno</span></span>
+                </div>
+                <div class="work-shot" data-shot data-interval="4000">
+                    <div class="shot-bar">
+                        <i></i><i></i><i></i>
+                        <span class="shot-url">valtair — gestão imobiliária</span>
+                    </div>
+                    <div class="shot-frame">
+                        <img src="assets/opt/valtair-1.webp" alt="Tela de login da Valtair Imobiliária" loading="lazy" class="on">
+                        <img src="assets/opt/valtair-2.webp" alt="Dashboard da Valtair Imobiliária" loading="lazy">
+                        <div class="shot-dots"><b class="on"></b><b></b></div>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- 05 · Natibi IA -->
+        <article class="work" data-spot>
+            <div class="work-inner">
+                <div class="work-body">
+                    <p class="work-index"><span>05</span></p>
+                    <h3 class="work-title">Natibi IA — Natalia Beauty</h3>
+                    <p class="work-desc">
+                        Assistente de IA construída para Natalia Martins. A Natibi atende, orienta e
+                        acompanha a jornada de cada aluno — três anos dedicados à experiência de
+                        aprendizado com inteligência artificial.
+                    </p>
+                    <div class="work-tech">
+                        <span>AI Agent</span><span>Supabase</span><span>WhatsApp API</span><span>LLMs</span>
+                    </div>
+                    <span class="work-private"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg><span>Acesso restrito — alunos Natalia Beauty</span></span>
+                </div>
+                <div class="work-shot" data-shot>
+                    <div class="shot-bar">
+                        <i></i><i></i><i></i>
+                        <span class="shot-url">natibi — assistente de IA</span>
+                    </div>
+                    <div class="shot-frame">
+                        <img src="assets/opt/natibi-avatar.webp" alt="Avatar da Natibi, assistente de IA da Natalia Beauty" loading="lazy" class="on">
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- 06 · Raceman Kart -->
+        <article class="work work--flip" data-spot>
+            <div class="work-inner">
+                <div class="work-body">
+                    <p class="work-index"><span>06</span></p>
+                    <h3 class="work-title">Raceman Kart</h3>
+                    <p class="work-desc">
+                        Plataforma de gestão para kartismo: cronometragem de corridas, rankings ao vivo,
+                        perfis de pilotos, campeonatos e painel administrativo com estatísticas detalhadas.
+                    </p>
+                    <div class="work-tech">
+                        <span>React</span><span>Node.js</span><span>PostgreSQL</span><span>Cloudflare</span>
+                    </div>
+                    <span class="work-private"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg><span>Acesso restrito — sistema do kartódromo</span></span>
+                </div>
+                <div class="work-shot" data-shot data-interval="4400">
+                    <div class="shot-bar">
+                        <i></i><i></i><i></i>
+                        <span class="shot-url">raceman kart — cronometragem e ranking</span>
+                    </div>
+                    <div class="shot-frame">
+                        <img src="assets/opt/raceman-1.webp" alt="Dashboard do Raceman Kart" loading="lazy" class="on">
+                        <img src="assets/opt/raceman-2.webp" alt="Site do Raceman Kart" loading="lazy">
+                        <div class="shot-dots"><b class="on"></b><b></b></div>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+    </div>
+</section>
+
+<!-- ======================= PATH ======================= -->
+<section class="band wrap" id="path">
+    <div class="head">
+        <span class="head-num" data-reveal>03 — Trajetória</span>
+        <h2 class="head-title" data-reveal style="--d:80ms">
+            De frontend a <span class="accent">arquiteto de IA</span>
+        </h2>
+    </div>
+
+    <div class="path" id="pathRoot">
+        <div class="path-rail" aria-hidden="true"><i id="pathFill"></i></div>
+
+        <div class="path-item" data-path>
+            <span class="path-dot" aria-hidden="true"></span>
+            <p class="path-when"><span>2026 — Presente</span><span class="path-now">Atual</span></p>
+            <h3 class="path-role">AI SaaS Builder &amp; Automation Specialist</h3>
+            <p class="path-org">Projetos próprios / Consultoria</p>
+            <p class="path-desc">
+                Automatizando tarefas repetitivas com inteligência artificial. Criação de plataformas
+                SaaS que trazem dados em tempo real, resolvem gargalos operacionais e entregam
+                rentabilidade para empresas de pequeno, médio e grande porte.
+            </p>
+            <div class="path-tags">
+                <span>SaaS</span><span>Automação IA</span><span>Tempo real</span><span>Gemini</span><span>Edge Functions</span>
             </div>
         </div>
-    </section>
 
-    <!-- Experience Section -->
-    <section class="section experience" id="experience">
-        <div class="container">
-            <div class="section-header" data-animate="fade-up">
-                <span class="section-tag">02 — Experiência</span>
-                <h2 class="section-title">Trajetória <span class="text-gradient">Profissional</span></h2>
-            </div>
-            <div class="timeline">
-                <div class="timeline-item" data-animate="fade-right">
-                    <div class="timeline-marker">
-                        <div class="timeline-dot"></div>
-                    </div>
-                    <div class="timeline-card glass-card">
-                        <div class="timeline-header">
-                            <span class="timeline-date">2026 — Presente</span>
-                            <span class="timeline-badge">Atual</span>
-                        </div>
-                        <h3 class="timeline-title">AI SaaS Builder & Automation Specialist</h3>
-                        <h4 class="timeline-company">Projetos Próprios / Consultoria</h4>
-                        <p class="timeline-description">
-                            Surfando nas possibilidades de automatizar tarefas repetitivas e cansativas 
-                            com inteligência artificial. Criação de plataformas SaaS que trazem dados em tempo real, 
-                            resolvem gargalos operacionais e entregam sucesso e rentabilidade 
-                            para empresas de pequeno, médio e grande porte.
-                        </p>
-                        <div class="timeline-tags">
-                            <span class="tag">SaaS</span>
-                            <span class="tag">Automação IA</span>
-                            <span class="tag">Dados em Tempo Real</span>
-                            <span class="tag">Gemini AI</span>
-                            <span class="tag">Edge Functions</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="timeline-item" data-animate="fade-left">
-                    <div class="timeline-marker">
-                        <div class="timeline-dot"></div>
-                    </div>
-                    <div class="timeline-card glass-card">
-                        <div class="timeline-header">
-                            <span class="timeline-date">2025</span>
-                        </div>
-                        <h3 class="timeline-title">Estudo de Mercado & Corretor 2.0</h3>
-                        <h4 class="timeline-company">Mercado Imobiliário</h4>
-                        <p class="timeline-description">
-                            Mergulho profundo no mercado imobiliário para construir o maior projeto 
-                            da carreira: o <strong>Corretor 2.0</strong>, uma plataforma completa direcionada 
-                            a corretores de imóveis. Único no Brasil a desenvolver uma gestora IA com autonomia 
-                            total para criar e gerenciar campanhas de tráfego por inteligência artificial 
-                            para o setor imobiliário.
-                        </p>
-                        <div class="timeline-tags">
-                            <span class="tag">Corretor 2.0</span>
-                            <span class="tag">Meta Ads API</span>
-                            <span class="tag">AI Traffic Manager</span>
-                            <span class="tag">WhatsApp API</span>
-                            <span class="tag">Pioneiro no Brasil</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="timeline-item" data-animate="fade-left">
-                    <div class="timeline-marker">
-                        <div class="timeline-dot"></div>
-                    </div>
-                    <div class="timeline-card glass-card">
-                        <div class="timeline-header">
-                            <span class="timeline-date">2021 — 2024</span>
-                        </div>
-                        <h3 class="timeline-title">Desenvolvedor Full Stack & AI Engineer</h3>
-                        <h4 class="timeline-company">Natalia Beauty — Natalia Martins</h4>
-                        <p class="timeline-description">
-                            3 anos dedicados à experiência de alunos com inteligência artificial. 
-                            Construí a <strong>Natibi</strong>, a IA assistente de Natalia Martins (Natalia Beauty), 
-                            além de um ecossistema completo de comunidade com 24 assistentes IA especializados, 
-                            sistema LMS, gamificação e hub de IA conversacional.
-                        </p>
-                        <div class="timeline-tags">
-                            <span class="tag">React</span>
-                            <span class="tag">Supabase</span>
-                            <span class="tag">Multi-Agent AI</span>
-                            <span class="tag">LMS</span>
-                            <span class="tag">WhatsApp API</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="timeline-item" data-animate="fade-right">
-                    <div class="timeline-marker">
-                        <div class="timeline-dot"></div>
-                    </div>
-                    <div class="timeline-card glass-card">
-                        <div class="timeline-header">
-                            <span class="timeline-date">2022 — 2024</span>
-                        </div>
-                        <h3 class="timeline-title">Desenvolvedor Full Stack</h3>
-                        <h4 class="timeline-company">Raceman Kart</h4>
-                        <p class="timeline-description">
-                            Desenvolvimento da plataforma Raceman Kart para gestão de corridas, 
-                            rankings e campeonatos. Construção de sistema completo de cronometragem, 
-                            perfis de pilotos e painel administrativo.
-                        </p>
-                        <div class="timeline-tags">
-                            <span class="tag">React</span>
-                            <span class="tag">Node.js</span>
-                            <span class="tag">PostgreSQL</span>
-                            <span class="tag">Cloudflare</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="timeline-item" data-animate="fade-left">
-                    <div class="timeline-marker">
-                        <div class="timeline-dot"></div>
-                    </div>
-                    <div class="timeline-card glass-card">
-                        <div class="timeline-header">
-                            <span class="timeline-date">2020 — 2022</span>
-                        </div>
-                        <h3 class="timeline-title">Desenvolvedor Frontend</h3>
-                        <h4 class="timeline-company">Início da Carreira Tech</h4>
-                        <p class="timeline-description">
-                            Desenvolvimento de interfaces modernas e responsivas. 
-                            Aprendizado de frameworks JavaScript, versionamento com Git 
-                            e metodologias ágeis.
-                        </p>
-                        <div class="timeline-tags">
-                            <span class="tag">HTML/CSS</span>
-                            <span class="tag">JavaScript</span>
-                            <span class="tag">React</span>
-                            <span class="tag">Git</span>
-                        </div>
-                    </div>
-                </div>
+        <div class="path-item" data-path>
+            <span class="path-dot" aria-hidden="true"></span>
+            <p class="path-when"><span>2025</span></p>
+            <h3 class="path-role">Estudo de mercado &amp; Corretor 2.0</h3>
+            <p class="path-org">Mercado imobiliário</p>
+            <p class="path-desc">
+                Mergulho profundo no mercado imobiliário para construir o maior projeto da carreira:
+                o <strong>Corretor 2.0</strong>. Único no Brasil a desenvolver uma gestora IA com autonomia
+                total para criar e gerenciar campanhas de tráfego para o setor.
+            </p>
+            <div class="path-tags">
+                <span>Corretor 2.0</span><span>Meta Ads API</span><span>AI Traffic Manager</span><span>WhatsApp API</span>
             </div>
         </div>
-    </section>
 
-    <!-- Projects Section -->
-    <section class="section projects" id="projects">
-        <div class="container">
-            <div class="section-header" data-animate="fade-up">
-                <span class="section-tag">03 — Projetos</span>
-                <h2 class="section-title">Trabalhos em <span class="text-gradient">Destaque</span></h2>
-                <p class="section-subtitle">Uma seleção de projetos que demonstram minha expertise em desenvolvimento full stack e inteligência artificial.</p>
-            </div>
-            <div class="projects-grid">
-                <!-- Corretor 2.0 -->
-                <div class="project-card glass-card" data-animate="fade-up" data-delay="0">
-                    <div class="project-image project-slideshow" data-interval="3000">
-                        <img src="assets/corretor-1.png" class="slide active" alt="Bella Gestora">
-                        <img src="assets/corretor-2.png" class="slide" alt="Corretor Dashboard">
-                        <img src="assets/corretor-3.png" class="slide" alt="Corretor Landing">
-                    </div>
-                    <div class="project-content">
-                        <div class="project-tags">
-                            <span class="project-tag">Corretores</span>
-                            <span class="project-tag">AI Chat</span>
-                            <span class="project-tag">Pioneiro</span>
-                        </div>
-                        <h3 class="project-title">Corretor 2.0</h3>
-                        <p class="project-description">
-                            O maior projeto da carreira: plataforma direcionada a corretores de imóveis 
-                            com assistente IA Bella (WhatsApp), site builder, marketing automatizado 
-                            e sistema de follow-up inteligente.
-                        </p>
-                        <div class="project-tech">
-                            <span>React</span><span>Supabase</span><span>WhatsApp API</span><span>AI Agents</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- BackStageFy -->
-                <div class="project-card glass-card" data-animate="fade-up" data-delay="100">
-                    <div class="project-image project-slideshow" data-interval="3000">
-                        <img src="assets/backstagefy-1.png" class="slide active" alt="BackStageFy Painel">
-                        <img src="assets/backstagefy-2.png" class="slide" alt="BackStageFy Base">
-                        <img src="assets/backstagefy-3.png" class="slide" alt="BackStageFy Vendas">
-                    </div>
-                    <div class="project-content">
-                        <div class="project-tags">
-                            <span class="project-tag">Community</span>
-                            <span class="project-tag">LMS</span>
-                            <span class="project-tag">Multi-Agent</span>
-                        </div>
-                        <h3 class="project-title">BackStageFy</h3>
-                        <p class="project-description">
-                            Ecossistema de comunidade com 24 assistentes IA especializados, 
-                            sistema LMS para cursos, gamificação e hub de IA conversacional 
-                            (Jarvis).
-                        </p>
-                        <div class="project-tech">
-                            <span>React</span><span>Supabase</span><span>Multi-Agent AI</span><span>Gamification</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Valtair Imobiliária -->
-                <div class="project-card glass-card" data-animate="fade-up" data-delay="200">
-                    <div class="project-image project-slideshow" data-interval="3000">
-                        <img src="assets/valtair-1.png" class="slide active" alt="Valtair Login">
-                        <img src="assets/valtair-2.png" class="slide" alt="Valtair Dashboard">
-                    </div>
-                    <div class="project-content">
-                        <div class="project-tags">
-                            <span class="project-tag">Imobiliária</span>
-                            <span class="project-tag">Gestão</span>
-                        </div>
-                        <h3 class="project-title">Valtair Imobiliária</h3>
-                        <p class="project-description">
-                            Plataforma completa de gestão imobiliária — controle de imóveis, 
-                            leads, visitas agendadas, painel financeiro e dashboards 
-                            de performance para a operação da imobiliária.
-                        </p>
-                        <div class="project-tech">
-                            <span>React</span><span>Supabase</span><span>Node.js</span><span>PostgreSQL</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- FSA Launch Lab -->
-                <div class="project-card glass-card" data-animate="fade-up" data-delay="300">
-                    <div class="project-image project-slideshow" data-interval="3000">
-                        <img src="assets/fsa-1.png" class="slide active" alt="FSA Dashboard">
-                        <img src="assets/fsa-2.png" class="slide" alt="FSA Calendário IA">
-                        <img src="assets/fsa-3.png" class="slide" alt="FSA Equipe IA">
-                    </div>
-                    <div class="project-content">
-                        <div class="project-tags">
-                            <span class="project-tag">SaaS</span>
-                            <span class="project-tag">AI</span>
-                            <span class="project-tag">Marketing</span>
-                        </div>
-                        <h3 class="project-title">FSA Launch Lab</h3>
-                        <p class="project-description">
-                            Plataforma SaaS multi-tenant para gestão de lançamentos digitais com IA generativa, 
-                            análise de performance via Meta Ads e relatórios automáticos por WhatsApp.
-                        </p>
-                        <div class="project-tech">
-                            <span>React</span><span>Supabase</span><span>Gemini AI</span><span>Meta API</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Natalia Beauty / Natibi -->
-                <div class="project-card glass-card" data-animate="fade-up" data-delay="400">
-                    <div class="project-image">
-                        <img src="assets/natibi-avatar.png" style="width:100%;height:100%;object-fit:cover;" alt="Natibi IA Avatar">
-                    </div>
-                    <div class="project-content">
-                        <div class="project-tags">
-                            <span class="project-tag">AI Assistant</span>
-                            <span class="project-tag">Natibi</span>
-                        </div>
-                        <h3 class="project-title">Natalia Beauty — Natibi IA</h3>
-                        <p class="project-description">
-                            IA assistente construída para Natalia Martins (Natalia Beauty). 
-                            Focada na experiência de alunos, a Natibi atende, orienta 
-                            e acompanha a jornada de cada aluno com inteligência artificial.
-                        </p>
-                        <div class="project-tech">
-                            <span>AI Agent</span><span>Supabase</span><span>WhatsApp API</span><span>LLMs</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Raceman Kart -->
-                <div class="project-card glass-card" data-animate="fade-up" data-delay="500">
-                    <div class="project-image project-slideshow" data-interval="3000">
-                        <img src="assets/raceman-1.png" class="slide active" alt="Raceman Dashboard">
-                        <img src="assets/raceman-2.png" class="slide" alt="Raceman Site">
-                    </div>
-                    <div class="project-content">
-                        <div class="project-tags">
-                            <span class="project-tag">Kart</span>
-                            <span class="project-tag">Racing</span>
-                            <span class="project-tag">Platform</span>
-                        </div>
-                        <h3 class="project-title">Raceman Kart</h3>
-                        <p class="project-description">
-                            Plataforma completa de gestão para kartismo: cronometragem de corridas, 
-                            rankings ao vivo, perfis de pilotos, campeonatos e painel administrativo 
-                            com estatísticas detalhadas.
-                        </p>
-                        <div class="project-tech">
-                            <span>React</span><span>Node.js</span><span>PostgreSQL</span><span>Cloudflare</span>
-                        </div>
-                    </div>
-                </div>
+        <div class="path-item" data-path>
+            <span class="path-dot" aria-hidden="true"></span>
+            <p class="path-when"><span>2021 — 2024</span></p>
+            <h3 class="path-role">Desenvolvedor Full Stack &amp; AI Engineer</h3>
+            <p class="path-org">Natalia Beauty — Natalia Martins</p>
+            <p class="path-desc">
+                Três anos dedicados à experiência de alunos com inteligência artificial. Construí a
+                <strong>Natibi</strong>, além de um ecossistema completo de comunidade com 24 assistentes
+                IA especializados, sistema LMS, gamificação e hub conversacional.
+            </p>
+            <div class="path-tags">
+                <span>React</span><span>Supabase</span><span>Multi-Agent AI</span><span>LMS</span><span>WhatsApp API</span>
             </div>
         </div>
-    </section>
 
-    <!-- Education Section -->
-    <section class="section education" id="education">
-        <div class="container">
-            <div class="section-header" data-animate="fade-up">
-                <span class="section-tag">04 — Formação</span>
-                <h2 class="section-title">Formação & <span class="text-gradient">Especialização</span></h2>
-            </div>
-            <div class="education-grid">
-                <div class="edu-card glass-card" data-animate="fade-up" data-delay="0">
-                    <div class="edu-icon">💻</div>
-                    <div class="edu-content">
-                        <span class="edu-period">2000</span>
-                        <h3 class="edu-title">Tecnologia da Informação</h3>
-                        <p class="edu-institution">Uninove — São Paulo</p>
-                        <p class="edu-description">
-                            Base sólida em fundamentos de TI, redes, programação e infraestrutura 
-                            — a fundação que impulsionou mais de duas décadas de construção de soluções tecnológicas.
-                        </p>
-                    </div>
-                </div>
-                <div class="edu-card glass-card" data-animate="fade-up" data-delay="100">
-                    <div class="edu-icon">🤖</div>
-                    <div class="edu-content">
-                        <span class="edu-period">Especialista</span>
-                        <h3 class="edu-title">Inteligência Artificial & Automação</h3>
-                        <p class="edu-institution">Especialista em IA & n8n Expert</p>
-                        <p class="edu-description">
-                            Domínio profundo em IA generativa, LLMs, agentes autônomos e 
-                            automações inteligentes com n8n — transformando processos complexos 
-                            em fluxos automatizados de alta performance.
-                        </p>
-                    </div>
-                </div>
-                <div class="edu-card glass-card" data-animate="fade-up" data-delay="200">
-                    <div class="edu-icon">🚀</div>
-                    <div class="edu-content">
-                        <span class="edu-period">+20 anos</span>
-                        <h3 class="edu-title">Autodidata & Visionário</h3>
-                        <p class="edu-institution">Aprendizado Contínuo na Prática</p>
-                        <p class="edu-description">
-                            Mais de duas décadas construindo, quebrando e reconstruindo — 
-                            a verdadeira escola é o campo de batalha. Cada projeto entregue 
-                            é um diploma forjado na experiência real.
-                        </p>
-                    </div>
-                </div>
+        <div class="path-item" data-path>
+            <span class="path-dot" aria-hidden="true"></span>
+            <p class="path-when"><span>2022 — 2024</span></p>
+            <h3 class="path-role">Desenvolvedor Full Stack</h3>
+            <p class="path-org">Raceman Kart</p>
+            <p class="path-desc">
+                Plataforma para gestão de corridas, rankings e campeonatos. Sistema completo de
+                cronometragem, perfis de pilotos e painel administrativo.
+            </p>
+            <div class="path-tags">
+                <span>React</span><span>Node.js</span><span>PostgreSQL</span><span>Cloudflare</span>
             </div>
         </div>
-    </section>
 
-    <!-- Contact Section -->
-    <section class="section contact" id="contact">
-        <div class="container">
-            <div class="section-header" data-animate="fade-up">
-                <span class="section-tag">05 — Contato</span>
-                <h2 class="section-title">Vamos <span class="text-gradient">Conversar</span>?</h2>
-                <p class="section-subtitle">Tenho interesse em oportunidades desafiadoras. Se você tem um projeto 
-                em mente ou apenas quer trocar uma ideia, minha caixa de entrada está sempre aberta.</p>
-            </div>
-            <div class="contact-grid" style="grid-template-columns: repeat(3, 1fr);" data-animate="fade-up" data-delay="100">
-                <a href="https://www.linkedin.com/in/robson-nobre-68a930379/" target="_blank" class="contact-card glass-card">
-                    <div class="contact-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-                    </div>
-                    <span class="contact-label">LinkedIn</span>
-                    <span class="contact-value">Robson Nobre</span>
-                </a>
-                <a href="https://github.com/lovablerob10" target="_blank" class="contact-card glass-card">
-                    <div class="contact-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
-                    </div>
-                    <span class="contact-label">GitHub</span>
-                    <span class="contact-value">lovablerob10</span>
-                </a>
-                <a href="https://wa.me/5519996597169" target="_blank" class="contact-card glass-card">
-                    <div class="contact-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
-                    </div>
-                    <span class="contact-label">WhatsApp</span>
-                    <span class="contact-value">(19) 99659-7169</span>
-                </a>
+        <div class="path-item" data-path>
+            <span class="path-dot" aria-hidden="true"></span>
+            <p class="path-when"><span>2020 — 2022</span></p>
+            <h3 class="path-role">Desenvolvedor Frontend</h3>
+            <p class="path-org">Início da carreira tech</p>
+            <p class="path-desc">
+                Interfaces modernas e responsivas. Aprendizado de frameworks JavaScript,
+                versionamento com Git e metodologias ágeis.
+            </p>
+            <div class="path-tags">
+                <span>HTML/CSS</span><span>JavaScript</span><span>React</span><span>Git</span>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <a href="#hero" class="footer-logo">
-                    <span class="logo-bracket">&lt;</span>RN<span class="logo-bracket">/&gt;</span>
-                </a>
-                <p class="footer-text">
-                    Desenhado & Construído por <span class="text-gradient">Robson Nobre</span>
-                </p>
-                <p class="footer-copyright">© 2026 — Todos os direitos reservados</p>
-            </div>
+<!-- ======================= SCHOOL ======================= -->
+<section class="band wrap" id="school">
+    <div class="head">
+        <span class="head-num" data-reveal>04 — Formação</span>
+        <h2 class="head-title" data-reveal style="--d:80ms">
+            Formação &amp; <span class="accent">especialização</span>
+        </h2>
+    </div>
+
+    <div class="school-grid">
+        <div class="school-card" data-reveal>
+            <span class="school-when">2000</span>
+            <h3 class="school-title">Tecnologia da Informação</h3>
+            <p class="school-org">Uninove — São Paulo</p>
+            <p class="school-desc">
+                Base sólida em fundamentos de TI, redes, programação e infraestrutura — a fundação
+                que impulsionou mais de duas décadas construindo soluções tecnológicas.
+            </p>
         </div>
-    </footer>
+        <div class="school-card" data-reveal style="--d:100ms">
+            <span class="school-when">Especialista</span>
+            <h3 class="school-title">Inteligência Artificial &amp; Automação</h3>
+            <p class="school-org">Especialista em IA &amp; n8n Expert</p>
+            <p class="school-desc">
+                Domínio profundo em IA generativa, LLMs, agentes autônomos e automações com n8n —
+                transformando processos complexos em fluxos de alta performance.
+            </p>
+        </div>
+        <div class="school-card" data-reveal style="--d:200ms">
+            <span class="school-when">+20 anos</span>
+            <h3 class="school-title">Autodidata &amp; visionário</h3>
+            <p class="school-org">Aprendizado contínuo na prática</p>
+            <p class="school-desc">
+                Mais de duas décadas construindo, quebrando e reconstruindo. A escola de verdade é o
+                campo de batalha — cada projeto entregue é um diploma forjado na experiência real.
+            </p>
+        </div>
+    </div>
+</section>
 
-    <script src="script.js"></script>
+<!-- ======================= CONTACT ======================= -->
+<section class="band wrap contact" id="contact">
+    <h2 class="contact-title" data-reveal>
+        Vamos <span class="grad-text">conversar</span>?
+    </h2>
+    <p class="contact-sub" data-reveal style="--d:100ms">
+        Tenho interesse em oportunidades desafiadoras. Se você tem um projeto em mente —
+        ou só quer trocar uma ideia — a caixa de entrada está sempre aberta.
+    </p>
+
+    <div class="contact-cta" data-reveal style="--d:180ms">
+        <a href="https://wa.me/5519996597169" target="_blank" rel="noopener" class="btn" data-burst data-hot>
+            <span>Chamar no WhatsApp</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+    </div>
+
+    <div class="contact-links" data-reveal style="--d:260ms">
+        <a href="https://www.linkedin.com/in/robson-nobre-68a930379/" target="_blank" rel="noopener" class="contact-link" data-hot>
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            <span>LinkedIn</span>
+        </a>
+        <a href="https://github.com/lovablerob10" target="_blank" rel="noopener" class="contact-link" data-hot>
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+            <span>lovablerob10</span>
+        </a>
+        <a href="https://wa.me/5519996597169" target="_blank" rel="noopener" class="contact-link" data-hot>
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+            <span>(19) 99659-7169</span>
+        </a>
+    </div>
+</section>
+
+</main>
+
+<!-- ======================= FOOTER ======================= -->
+<footer class="foot">
+    <div class="foot-inner">
+        <a href="#top" class="brand"><i>&lt;</i>RN<i>/&gt;</i></a>
+        <span>Desenhado &amp; construído por Robson Nobre</span>
+        <span>© 2026</span>
+    </div>
+</footer>
+
+<script src="script.js"></script>
 </body>
 </html>
