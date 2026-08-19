@@ -1,0 +1,37 @@
+# robsonobre.com.br
+User-agent: *
+Allow: /
+
+# Buscadores e assistentes de IA — liberados de propósito.
+# Quanto melhor eles lerem esta página, melhor as indicações.
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+Sitemap: https://robsonobre.com.br/sitemap.xml

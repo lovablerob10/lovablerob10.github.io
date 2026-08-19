@@ -4,15 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Robson Nobre — Full Stack Developer for AI</title>
-    <meta name="description" content="Robson Nobre — Full Stack Developer for AI. Plataformas SaaS, agentes autônomos e automação com inteligência artificial.">
+    <meta name="description" content="Full Stack Developer for AI em Campinas/SP. Construo plataformas SaaS, agentes autônomos e automações com IA. 20+ anos em tecnologia, 70+ projetos entregues.">
     <meta name="author" content="Robson Nobre">
     <meta name="theme-color" content="#08080c">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <link rel="canonical" href="https://robsonobre.com.br/">
+
+    <!-- Search Console: cole o content que o Google te der e descomente esta linha.
+    <meta name="google-site-verification" content="COLE_O_CODIGO_AQUI"> -->
 
     <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Robson Nobre">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:url" content="https://robsonobre.com.br/">
     <meta property="og:title" content="Robson Nobre — Full Stack Developer for AI">
-    <meta property="og:description" content="Plataformas SaaS, agentes autônomos e automação com inteligência artificial.">
-    <meta property="og:image" content="assets/opt/avatar.webp">
+    <meta property="og:description" content="Plataformas SaaS, agentes autônomos e automações com inteligência artificial. 20+ anos em tecnologia, 70+ projetos entregues.">
+    <meta property="og:image" content="https://robsonobre.com.br/assets/opt/avatar.webp">
+    <meta property="og:image:alt" content="Retrato de Robson Nobre">
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Robson Nobre — Full Stack Developer for AI">
+    <meta name="twitter:description" content="Plataformas SaaS, agentes autônomos e automações com inteligência artificial.">
+    <meta name="twitter:image" content="https://robsonobre.com.br/assets/opt/avatar.webp">
 
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%2308080c'/%3E%3Ctext x='50' y='50' dy='.35em' text-anchor='middle' font-family='monospace' font-size='46' font-weight='700' fill='%237c5cff'%3ERN%3C/text%3E%3C/svg%3E">
 
@@ -20,8 +32,131 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+
+    <!-- =========================================================
+         ANALYTICS - troque os dois IDs abaixo pelos seus.
+         Enquanto estiverem como estao, NADA e carregado e nenhuma
+         requisicao sai da pagina. E so colar e publicar.
+           GA4 : analytics.google.com > Admin > Fluxos de dados
+           GTM : tagmanager.google.com  (opcional - deixe vazio)
+         ========================================================= -->
+    <script>
+      window.RN_GA4 = 'G-XXXXXXXXXX';
+      window.RN_GTM = '';
+
+      (function () {
+        var ga = window.RN_GA4, gtm = window.RN_GTM;
+        var valido = function (v, pre) {
+          return typeof v === 'string' && v.indexOf(pre) === 0 && v.indexOf('X') === -1;
+        };
+
+        if (valido(gtm, 'GTM-')) {
+          window.dataLayer = window.dataLayer || [];
+          window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+          var g = document.createElement('script');
+          g.async = true;
+          g.src = 'https://www.googletagmanager.com/gtm.js?id=' + gtm;
+          document.head.appendChild(g);
+          document.addEventListener('DOMContentLoaded', function () {
+            var f = document.getElementById('gtm-ns');
+            if (f) f.src = 'https://www.googletagmanager.com/ns.html?id=' + gtm;
+          });
+        }
+
+        if (valido(ga, 'G-')) {
+          var s = document.createElement('script');
+          s.async = true;
+          s.src = 'https://www.googletagmanager.com/gtag/js?id=' + ga;
+          document.head.appendChild(s);
+          window.dataLayer = window.dataLayer || [];
+          window.gtag = function () { window.dataLayer.push(arguments); };
+          window.gtag('js', new Date());
+          window.gtag('config', ga, { anonymize_ip: true });
+        }
+      })();
+    </script>
+
+    <!-- Dados estruturados: e daqui que o Google e os assistentes de IA tiram
+         quem voce e, o que faz e como te indicar. -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Person",
+          "@id": "https://robsonobre.com.br/#robson",
+          "name": "Robson Nobre",
+          "url": "https://robsonobre.com.br/",
+          "image": "https://robsonobre.com.br/assets/opt/avatar.webp",
+          "jobTitle": "Full Stack Developer for AI",
+          "description": "Desenvolvedor full stack especializado em inteligencia artificial. Constroi plataformas SaaS, sistemas multi-agente e automacoes com LLMs. Pioneiro no Brasil em gestora de trafego autonoma por IA para o mercado imobiliario.",
+          "knowsLanguage": ["pt-BR", "en"],
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Campinas",
+            "addressRegion": "SP",
+            "addressCountry": "BR"
+          },
+          "knowsAbout": [
+            "Inteligencia Artificial",
+            "Large Language Models",
+            "Sistemas multi-agente",
+            "Plataformas SaaS multi-tenant",
+            "Automacao de prospeccao B2B",
+            "WhatsApp API",
+            "Meta Ads API",
+            "React",
+            "TypeScript",
+            "Node.js",
+            "Supabase",
+            "PostgreSQL",
+            "Cloudflare Workers",
+            "n8n"
+          ],
+          "alumniOf": {
+            "@type": "CollegeOrUniversity",
+            "name": "Uninove",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Sao Paulo",
+              "addressRegion": "SP",
+              "addressCountry": "BR"
+            }
+          },
+          "sameAs": [
+            "https://www.linkedin.com/in/robson-nobre-68a930379/",
+            "https://github.com/lovablerob10"
+          ],
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "business",
+            "telephone": "+55-19-99659-7169",
+            "availableLanguage": ["Portuguese"]
+          }
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://robsonobre.com.br/#site",
+          "url": "https://robsonobre.com.br/",
+          "name": "Robson Nobre - Full Stack Developer for AI",
+          "inLanguage": "pt-BR",
+          "publisher": { "@id": "https://robsonobre.com.br/#robson" }
+        },
+        {
+          "@type": "ProfilePage",
+          "url": "https://robsonobre.com.br/",
+          "name": "Portfolio de Robson Nobre",
+          "isPartOf": { "@id": "https://robsonobre.com.br/#site" },
+          "about": { "@id": "https://robsonobre.com.br/#robson" },
+          "inLanguage": "pt-BR"
+        }
+      ]
+    }
+    </script>
 </head>
 <body>
+<noscript><iframe id="gtm-ns" title="Google Tag Manager" height="0" width="0"
+        style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="ambient" aria-hidden="true"></div>
 <div class="grain" aria-hidden="true"></div>
