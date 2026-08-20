@@ -1,0 +1,232 @@
+/* =========================================================
+   ARTIGOS — a pagina de leitura
+   Herda tokens, nav e rodape do style.css. O que existe aqui
+   e o que muda quando o objetivo deixa de ser impressionar e
+   passa a ser LER: medida de linha curta, entrelinha larga,
+   e nada se movendo enquanto os olhos trabalham.
+   ========================================================= */
+
+.artigo-body { background: var(--ink); }
+.artigo-body .nav { background: rgba(8, 8, 12, 0.82); backdrop-filter: blur(18px); }
+
+.artigo {
+    padding-block: clamp(7rem, 14vh, 9rem) clamp(4rem, 10vh, 7rem);
+    max-width: 820px;              /* ~72 caracteres: a medida que o olho aguenta */
+}
+
+.voltar {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    color: var(--faint);
+    margin-bottom: 2.5rem;
+    transition: color 0.3s var(--ease);
+}
+.voltar:hover { color: var(--v2); }
+
+.artigo-meta {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--faint);
+    margin-bottom: 1.25rem;
+}
+
+.artigo-titulo {
+    font-size: clamp(2.1rem, 5.4vw, 3.4rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1.08;
+    margin-bottom: 1.5rem;
+}
+
+.artigo-linha {
+    font-size: clamp(1.1rem, 2vw, 1.35rem);
+    line-height: 1.6;
+    color: var(--muted);
+    padding-bottom: 2.5rem;
+    margin-bottom: 3rem;
+    border-bottom: 1px solid var(--line);
+}
+
+/* ---------- o corpo do texto ---------- */
+.artigo-corpo { font-size: 1.075rem; line-height: 1.85; color: #c8c8d8; }
+
+.artigo-corpo p { margin-bottom: 1.6rem; }
+.artigo-corpo strong { color: var(--paper); font-weight: 600; }
+.artigo-corpo em { color: #ddddea; }
+
+.artigo-corpo h2 {
+    font-size: clamp(1.5rem, 3vw, 1.95rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.25;
+    color: var(--paper);
+    margin: 3.4rem 0 1.2rem;
+    scroll-margin-top: 90px;
+}
+.artigo-corpo h3 {
+    font-size: clamp(1.15rem, 2.2vw, 1.35rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--paper);
+    margin: 2.4rem 0 0.9rem;
+    scroll-margin-top: 90px;
+}
+
+.artigo-corpo a {
+    color: var(--v2);
+    text-decoration: underline;
+    text-decoration-color: rgba(176, 108, 255, 0.35);
+    text-underline-offset: 3px;
+    transition: text-decoration-color 0.3s var(--ease);
+}
+.artigo-corpo a:hover { text-decoration-color: var(--v2); }
+
+.artigo-corpo ul,
+.artigo-corpo ol { margin: 0 0 1.6rem 1.3rem; }
+.artigo-corpo li { margin-bottom: 0.6rem; }
+.artigo-corpo li::marker { color: var(--v1); }
+
+/* citacao: o trecho que o leitor vai lembrar */
+.artigo-corpo blockquote {
+    margin: 2.2rem 0;
+    padding: 0.2rem 0 0.2rem 1.6rem;
+    border-left: 2px solid var(--v1);
+}
+.artigo-corpo blockquote p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: var(--paper);
+    font-style: italic;
+    margin: 0;
+}
+
+/* codigo */
+.artigo-corpo code {
+    font-family: var(--mono);
+    font-size: 0.86em;
+    background: rgba(124, 92, 255, 0.1);
+    border: 1px solid rgba(124, 92, 255, 0.16);
+    border-radius: 5px;
+    padding: 0.1em 0.4em;
+    color: #d6c9ff;
+}
+.artigo-corpo pre {
+    background: var(--ink-2);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 1.2rem 1.35rem;
+    margin: 0 0 1.8rem;
+    overflow-x: auto;           /* codigo longo rola sozinho, a pagina nao */
+    font-size: 0.88rem;
+    line-height: 1.65;
+}
+.artigo-corpo pre code {
+    background: none;
+    border: none;
+    padding: 0;
+    color: #cfcfe0;
+    font-size: inherit;
+}
+
+/* tabela */
+.tabela { overflow-x: auto; margin: 0 0 1.8rem; }
+.artigo-corpo table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+.artigo-corpo th {
+    text-align: left;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--faint);
+    padding: 0.7rem 0.9rem;
+    border-bottom: 1px solid var(--line-hot);
+    white-space: nowrap;
+}
+.artigo-corpo td {
+    padding: 0.8rem 0.9rem;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+}
+
+.artigo-corpo hr {
+    border: none;
+    border-top: 1px solid var(--line);
+    margin: 3rem 0;
+}
+
+.artigo-corpo img {
+    width: 100%;
+    border-radius: 12px;
+    border: 1px solid var(--line);
+    margin: 0.5rem 0 1.8rem;
+}
+
+/* ---------- o convite do fim ---------- */
+.artigo-cta {
+    margin-top: 4.5rem;
+    padding: 2.2rem;
+    border-radius: 18px;
+    border: 1px solid var(--line-hot);
+    background: linear-gradient(140deg, rgba(124, 92, 255, 0.09), transparent 62%);
+    text-align: center;
+}
+.artigo-cta p { color: var(--muted); margin-bottom: 1.5rem; }
+.artigo-cta strong { color: var(--paper); }
+
+/* ---------- o indice ---------- */
+.lista-artigos {
+    display: grid;
+    gap: 1.1rem;
+    margin-top: 1rem;
+}
+.card-artigo {
+    display: block;
+    padding: 1.9rem;
+    border-radius: 16px;
+    border: 1px solid var(--line);
+    background: var(--ink-2);
+    transition: transform 0.45s var(--ease), border-color 0.45s var(--ease), background 0.45s var(--ease);
+}
+.card-artigo:hover {
+    transform: translateY(-4px);
+    border-color: var(--line-hot);
+    background: var(--ink-3);
+}
+.card-meta {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--faint);
+    margin-bottom: 0.9rem;
+}
+.card-artigo h2 {
+    font-size: clamp(1.25rem, 2.4vw, 1.5rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.25;
+    margin-bottom: 0.7rem;
+}
+.card-artigo p {
+    color: var(--muted);
+    font-size: 0.98rem;
+    line-height: 1.7;
+    margin-bottom: 1.1rem;
+}
+.card-ler {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    color: var(--v2);
+}
+
+@media (max-width: 640px) {
+    .artigo-corpo { font-size: 1.02rem; line-height: 1.78; }
+    .artigo-cta { padding: 1.6rem 1.3rem; }
+    .card-artigo { padding: 1.4rem; }
+}

@@ -27,6 +27,9 @@ cat assets/fonts/fonts.css _site/style.css > _site/style.tmp && mv _site/style.t
 # O build-split.py fica no repo para a proxima tentativa, que precisa de
 # supressao de transicoes ate o resto chegar.
 
+# ARTIGOS: os .md viram paginas HTML dentro de _site/artigos/.
+python build-artigos.py
+
 # Early Hints das fontes da dobra + cache imutavel dos assets.
 cat > _site/_headers <<EOF
 /
