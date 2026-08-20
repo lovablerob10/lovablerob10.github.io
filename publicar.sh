@@ -14,6 +14,8 @@ mkdir -p _site/assets
 cp index.html style.css script.js bella.js _site/
 cp robots.txt sitemap.xml llms.txt _site/
 cp -r assets/opt _site/assets/opt
+# os videos cinematograficos (hero e retrato) — só existem depois de gerados
+[ -d assets/media ] && cp -r assets/media _site/assets/media
 
 echo "conteudo de _site:"
 du -sh _site

@@ -1428,3 +1428,59 @@ section { position: relative; z-index: 2; }
     }
     .bella-msg { max-width: 88%; }
 }
+
+/* =========================================================
+   CAMADAS CINEMATOGRÁFICAS (vídeo)
+   Entram por JS só quando o visitante aguenta: sem
+   prefers-reduced-motion, sem Save-Data. A imagem continua
+   por baixo — o vídeo é um upgrade, nunca uma dependência.
+   ========================================================= */
+.hero-cine {
+    /* full-bleed: o hero e um .wrap com max-width, mas cinema nao respeita
+       margem — o truque do 100vw ancorado no centro estoura o container e
+       cobre a viewport inteira, so na horizontal. */
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 100vw;
+    transform: translateX(-50%);
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 1.4s var(--ease);
+}
+.hero-cine.on { opacity: 1; }
+.hero-cine video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+/* O vídeo nunca disputa com o texto: o gradiente devolve o preto
+   nas bordas e na coluna da esquerda, onde mora a tipografia. */
+.hero-cine::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(90deg, var(--ink) 4%, rgba(8, 8, 12, 0.72) 38%, rgba(8, 8, 12, 0.25) 70%, rgba(8, 8, 12, 0.55) 100%),
+        linear-gradient(180deg, rgba(8, 8, 12, 0.6), transparent 28%, transparent 62%, var(--ink) 96%);
+}
+.hero-grid { position: relative; z-index: 1; }
+
+/* retrato vivo: o vídeo cobre a foto com o MESMO tratamento dela,
+   então a troca é invisível — só o movimento denuncia. */
+.portrait video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 18%;
+    filter: grayscale(0.35) contrast(1.06);
+    transition: filter 0.7s var(--ease), opacity 1s var(--ease);
+    opacity: 0;
+}
+.portrait video.on { opacity: 1; }
+.portrait:hover video { filter: grayscale(0) contrast(1); }

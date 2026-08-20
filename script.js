@@ -378,3 +378,63 @@
     if (yearEl) yearEl.textContent = '© ' + new Date().getFullYear();
 
 })();
+
+/* =========================================================
+   Camadas cinematográficas — vídeo no hero e retrato vivo.
+   Fora do IIFE principal de propósito: se algo aqui falhar,
+   o resto do site não sente.
+   ========================================================= */
+(() => {
+    'use strict';
+    const reduzido = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const con = navigator.connection || {};
+    // Quem pediu economia de dados ou está em rede lenta fica com as
+    // imagens — que já estão na tela e são ótimas.
+    if (reduzido || con.saveData || /(^|-)2g/.test(con.effectiveType || '')) return;
+
+    const fazVideo = (src, cls) => {
+        const v = document.createElement('video');
+        v.muted = true;
+        v.loop = true;
+        v.playsInline = true;
+        v.autoplay = true;
+        v.preload = 'metadata';
+        v.setAttribute('aria-hidden', 'true');
+        if (cls) v.className = cls;
+        v.src = src;
+        return v;
+    };
+
+    /* ---- fundo do hero ---- */
+    const hero = document.querySelector('.hero');
+    if (hero) {
+        const capa = document.createElement('div');
+        capa.className = 'hero-cine';
+        capa.setAttribute('aria-hidden', 'true');
+        const v = fazVideo('assets/media/hero-cine.mp4');
+        v.addEventListener('canplay', () => capa.classList.add('on'), { once: true });
+        capa.appendChild(v);
+        hero.prepend(capa);
+
+        // Fora da tela o vídeo pausa: rolou pros projetos, a bateria
+        // do visitante não paga pelo que ele não está vendo.
+        new IntersectionObserver(([e]) => {
+            if (e.isIntersecting) { v.play().catch(() => {}); }
+            else { v.pause(); }
+        }, { threshold: 0.05 }).observe(hero);
+    }
+
+    /* ---- retrato vivo ---- */
+    const port = document.querySelector('.portrait');
+    if (port) {
+        const v = fazVideo('assets/media/retrato.mp4');
+        v.addEventListener('canplay', () => v.classList.add('on'), { once: true });
+        // entra DEPOIS da foto no DOM: foto carrega primeiro, vídeo assume
+        // quando estiver pronto — a troca não tem flash.
+        port.insertBefore(v, port.querySelector('figcaption'));
+        new IntersectionObserver(([e]) => {
+            if (e.isIntersecting) { v.play().catch(() => {}); }
+            else { v.pause(); }
+        }, { threshold: 0.1 }).observe(port);
+    }
+})();
