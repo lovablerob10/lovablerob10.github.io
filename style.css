@@ -1436,15 +1436,8 @@ section { position: relative; z-index: 2; }
    por baixo — o vídeo é um upgrade, nunca uma dependência.
    ========================================================= */
 .hero-cine {
-    /* full-bleed: o hero e um .wrap com max-width, mas cinema nao respeita
-       margem — o truque do 100vw ancorado no centro estoura o container e
-       cobre a viewport inteira, so na horizontal. */
     position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 50%;
-    width: 100vw;
-    transform: translateX(-50%);
+    inset: 0;
     z-index: 0;
     overflow: hidden;
     pointer-events: none;
@@ -1456,6 +1449,8 @@ section { position: relative; z-index: 2; }
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transform: scale(1.14);
+    will-change: transform;
 }
 /* O vídeo nunca disputa com o texto: o gradiente devolve o preto
    nas bordas e na coluna da esquerda, onde mora a tipografia. */
@@ -1484,3 +1479,68 @@ section { position: relative; z-index: 2; }
 }
 .portrait video.on { opacity: 1; }
 .portrait:hover video { filter: grayscale(0) contrast(1); }
+
+/* =========================================================
+   RETRATO SOLTO (recorte sem fundo)
+   O arco com borda era para uma FOTO com fundo. O recorte
+   dispensa moldura: ele flutua sobre o vídeo, com um brilho
+   na paleta amarrando os dois, e a borda de baixo dissolve
+   em vez de terminar num corte seco de meia-coxa.
+   ========================================================= */
+.portrait--solto {
+    aspect-ratio: auto;
+    border-radius: 0;
+    overflow: visible;
+    border: none;
+    background: none;
+}
+.portrait--solto::after { display: none; }
+
+/* o brilho que o liga ao cenário */
+.portrait--solto::before {
+    content: '';
+    position: absolute;
+    inset: 6% -14% -4% -14%;
+    background:
+        radial-gradient(58% 52% at 55% 42%, rgba(124, 92, 255, 0.30), transparent 72%),
+        radial-gradient(46% 40% at 42% 72%, rgba(34, 211, 238, 0.16), transparent 70%);
+    filter: blur(14px);
+    pointer-events: none;
+}
+/* o video vivo cobre a foto exatamente (mesmo crop, mesma proporcao) */
+.portrait--solto video {
+    position: absolute !important;
+    inset: 0;
+    height: 100% !important;
+    opacity: 0;
+    transition: opacity 1s var(--ease);
+}
+.portrait--solto video.on { opacity: 1; }
+
+.portrait--solto img,
+.portrait--solto video {
+    position: relative;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 34px 60px rgba(0, 0, 0, 0.55));
+    -webkit-mask-image: linear-gradient(180deg, #000 84%, transparent 99%);
+    mask-image: linear-gradient(180deg, #000 84%, transparent 99%);
+}
+.portrait--solto:hover img,
+.portrait--solto:hover video { filter: drop-shadow(0 34px 60px rgba(0, 0, 0, 0.55)); }
+
+/* as etiquetas viram pílulas flutuantes */
+.portrait--solto .portrait-tag {
+    left: 0;
+    right: 0;
+    bottom: 5%;
+}
+.portrait--solto .portrait-tag > span {
+    background: rgba(8, 8, 12, 0.55);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--line-hot);
+    padding: 0.45rem 0.85rem;
+    border-radius: 999px;
+}

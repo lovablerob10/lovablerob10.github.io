@@ -422,12 +422,36 @@
             if (e.isIntersecting) { v.play().catch(() => {}); }
             else { v.pause(); }
         }, { threshold: 0.05 }).observe(hero);
+
+        /* Parallax: o fundo rola a ~30% da página, o conteúdo a 6%.
+           É a diferença entre as duas velocidades que o olho lê como
+           profundidade — nenhuma das duas sozinha faz o efeito.
+           O scale(1.14) do CSS é a folga que o deslize gasta sem
+           mostrar borda do vídeo. */
+        const conteudo = hero.querySelector('.wrap');
+        let pedido = false;
+        const parallax = () => {
+            pedido = false;
+            const y = Math.min(window.scrollY, hero.offsetHeight);
+            v.style.transform = `translate3d(0, ${(y * 0.3).toFixed(1)}px, 0) scale(1.14)`;
+            if (conteudo) conteudo.style.transform = `translate3d(0, ${(y * 0.06).toFixed(1)}px, 0)`;
+        };
+        window.addEventListener('scroll', () => {
+            if (!pedido) { pedido = true; requestAnimationFrame(parallax); }
+        }, { passive: true });
+        parallax();
     }
 
-    /* ---- retrato vivo ---- */
-    const port = document.querySelector('.portrait');
-    if (port) {
-        const v = fazVideo('assets/media/retrato.mp4');
+    /* ---- retrato vivo (recorte com canal alpha) ----
+       O webm VP9 carrega o alpha de verdade: ele respira SEM fundo, por
+       cima do recorte estatico, no mesmo enquadramento (mesmo crop do
+       trim do PNG — e por isso os dois se alinham pixel a pixel).
+       Safari fica so com a foto: ele decodifica VP9 mas ignora o alpha
+       e pintaria o fundo de preto. */
+    const safari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    const port = document.querySelector('.portrait--solto');
+    if (port && !safari) {
+        const v = fazVideo('assets/media/recorte-vivo.webm');
         v.addEventListener('canplay', () => v.classList.add('on'), { once: true });
         // entra DEPOIS da foto no DOM: foto carrega primeiro, vídeo assume
         // quando estiver pronto — a troca não tem flash.
