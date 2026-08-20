@@ -23,8 +23,8 @@
     --grad:       linear-gradient(100deg, var(--v1), var(--v2) 55%, var(--cy));
 
     /* --- fonts --- */
-    --font:       'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    --mono:       'JetBrains Mono', ui-monospace, monospace;
+    --font:       'Inter', 'Inter-fallback', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --mono:       'JetBrains Mono', 'JBMono-fallback', ui-monospace, monospace;
 
     /* --- motion --- */
     --ease:        cubic-bezier(0.22, 1, 0.36, 1);
@@ -111,6 +111,10 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
     opacity: 0.032;
     background-image: var(--noise);
     animation: grain 8s steps(6) infinite;
+    /* compositor obrigatorio: os saltos do steps() na main thread estavam
+       sendo CONTADOS como layout shift (CLS 0.38 vindo... do grao de filme).
+       Em camada propria, animacao de transform sai da conta. */
+    will-change: transform;
 }
 @keyframes grain {
     0%, 100% { transform: translate(0, 0); }
@@ -209,6 +213,7 @@ section { position: relative; z-index: 2; }
    no relogio do Lighthouse — o Chrome so conta o LCP quando o elemento
    aparece. Aqui a coreografia vira so deslizamento: o texto ja nasce
    pintado (LCP imediato) e ainda assim entra em movimento. */
+/* No hero a entrada nao paga opacity (LCP): so deslizamento. */
 .hero [data-reveal] {
     opacity: 1;
     transform: translate3d(0, 26px, 0);
@@ -607,6 +612,154 @@ section { position: relative; z-index: 2; }
     flex: none;
 }
 .marquee:hover .marquee-item { color: var(--muted); }
+
+/* Stub critico do chat: o bella.js injeta o widget antes do CSS async
+   chegar; sem estas 3 linhas ele nasceria como bloco solto no fim da
+   pagina. O visual completo vem no resto. */
+.bella { position: fixed; right: 1rem; bottom: 1rem; z-index: 200; }
+.bella-painel[hidden] { display: none; }
+
+/* Estas duas secoes sao INJETADAS PELO JS na dobra (video do hero e
+   recorte). Se ficassem no CSS async, o div do video nascia ESTATICO
+   empurrando o hero (CLS 0.30) ate o resto do CSS chegar. Dobra que o
+   JS cria e dobra do mesmo jeito: mora no critico. */
+/* =========================================================
+   CAMADAS CINEMATOGRÁFICAS (vídeo)
+   Entram por JS só quando o visitante aguenta: sem
+   prefers-reduced-motion, sem Save-Data. A imagem continua
+   por baixo — o vídeo é um upgrade, nunca uma dependência.
+   ========================================================= */
+.hero-cine {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 1.4s var(--ease);
+}
+.hero-cine.on { opacity: 1; }
+/* o palco leva o parallax; poster e vídeo andam colados nele */
+.cine-move {
+    position: absolute;
+    inset: 0;
+    transform: scale(1.14);
+    will-change: transform;
+}
+.hero-cine .cine-poster,
+.hero-cine video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.hero-cine video {
+    opacity: 0;
+    transition: opacity 0.9s var(--ease);
+}
+.hero-cine video.on { opacity: 1; }
+/* O vídeo nunca disputa com o texto: o gradiente devolve o preto
+   nas bordas e na coluna da esquerda, onde mora a tipografia. */
+.hero-cine::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(90deg, var(--ink) 4%, rgba(8, 8, 12, 0.72) 38%, rgba(8, 8, 12, 0.25) 70%, rgba(8, 8, 12, 0.55) 100%),
+        linear-gradient(180deg, rgba(8, 8, 12, 0.6), transparent 28%, transparent 62%, var(--ink) 96%);
+}
+.hero-grid { position: relative; z-index: 1; }
+
+/* retrato vivo: o vídeo cobre a foto com o MESMO tratamento dela,
+   então a troca é invisível — só o movimento denuncia. */
+.portrait video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 18%;
+    filter: grayscale(0.35) contrast(1.06);
+    transition: filter 0.7s var(--ease), opacity 1s var(--ease);
+    opacity: 0;
+}
+.portrait video.on { opacity: 1; }
+.portrait:hover video { filter: grayscale(0) contrast(1); }
+
+
+/* =========================================================
+   RETRATO SOLTO (recorte sem fundo)
+   O arco com borda era para uma FOTO com fundo. O recorte
+   dispensa moldura: ele flutua sobre o vídeo, com um brilho
+   na paleta amarrando os dois, e a borda de baixo dissolve
+   em vez de terminar num corte seco de meia-coxa.
+   ========================================================= */
+.portrait--solto {
+    aspect-ratio: auto;
+    border-radius: 0;
+    overflow: visible;
+    border: none;
+    background: none;
+}
+.portrait--solto::after { display: none; }
+
+/* o brilho que o liga ao cenário */
+/* HALO, NAO PLACA. A primeira versao cobria a caixa inteira com violeta
+   0.30 + blur 14 — sobre o fundo estrelado aquilo virava um retangulo
+   acinzentado atras do recorte (o "fundo fantasma" que o Robson viu).
+   Agora: elipse curta atras do torso, alpha baixo, blur alto — luz que
+   abraca a silhueta e some antes de virar caixa. */
+.portrait--solto::before {
+    content: '';
+    position: absolute;
+    inset: 22% 10% 14% 10%;
+    background:
+        radial-gradient(50% 42% at 50% 36%, rgba(124, 92, 255, 0.16), transparent 62%),
+        radial-gradient(38% 30% at 46% 64%, rgba(34, 211, 238, 0.08), transparent 60%);
+    filter: blur(30px);
+    pointer-events: none;
+}
+/* o video vivo cobre a foto exatamente (mesmo crop, mesma proporcao) */
+.portrait--solto video {
+    position: absolute !important;
+    inset: 0;
+    height: 100% !important;
+    opacity: 0;
+    transition: opacity 1s var(--ease);
+}
+.portrait--solto video.on { opacity: 1; }
+
+.portrait--solto img,
+.portrait--solto video {
+    position: relative;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 22px 34px rgba(0, 0, 0, 0.45));
+    -webkit-mask-image: linear-gradient(180deg, #000 84%, transparent 99%);
+    mask-image: linear-gradient(180deg, #000 84%, transparent 99%);
+}
+.portrait--solto:hover img,
+.portrait--solto:hover video { filter: drop-shadow(0 22px 34px rgba(0, 0, 0, 0.45)); }
+
+/* as etiquetas viram pílulas flutuantes */
+.portrait--solto .portrait-tag {
+    left: 0;
+    right: 0;
+    bottom: 5%;
+}
+.portrait--solto .portrait-tag > span {
+    background: rgba(8, 8, 12, 0.55);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--line-hot);
+    padding: 0.45rem 0.85rem;
+    border-radius: 999px;
+}
+
+
+/* ===CRITICO-FIM=== (o build corta aqui: acima inline, abaixo async) */
 
 /* =========================================================
    ABOUT
@@ -1444,131 +1597,3 @@ section { position: relative; z-index: 2; }
     .bella-msg { max-width: 88%; }
 }
 
-/* =========================================================
-   CAMADAS CINEMATOGRÁFICAS (vídeo)
-   Entram por JS só quando o visitante aguenta: sem
-   prefers-reduced-motion, sem Save-Data. A imagem continua
-   por baixo — o vídeo é um upgrade, nunca uma dependência.
-   ========================================================= */
-.hero-cine {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    overflow: hidden;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 1.4s var(--ease);
-}
-.hero-cine.on { opacity: 1; }
-/* o palco leva o parallax; poster e vídeo andam colados nele */
-.cine-move {
-    position: absolute;
-    inset: 0;
-    transform: scale(1.14);
-    will-change: transform;
-}
-.hero-cine .cine-poster,
-.hero-cine video {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-.hero-cine video {
-    opacity: 0;
-    transition: opacity 0.9s var(--ease);
-}
-.hero-cine video.on { opacity: 1; }
-/* O vídeo nunca disputa com o texto: o gradiente devolve o preto
-   nas bordas e na coluna da esquerda, onde mora a tipografia. */
-.hero-cine::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-        linear-gradient(90deg, var(--ink) 4%, rgba(8, 8, 12, 0.72) 38%, rgba(8, 8, 12, 0.25) 70%, rgba(8, 8, 12, 0.55) 100%),
-        linear-gradient(180deg, rgba(8, 8, 12, 0.6), transparent 28%, transparent 62%, var(--ink) 96%);
-}
-.hero-grid { position: relative; z-index: 1; }
-
-/* retrato vivo: o vídeo cobre a foto com o MESMO tratamento dela,
-   então a troca é invisível — só o movimento denuncia. */
-.portrait video {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center 18%;
-    filter: grayscale(0.35) contrast(1.06);
-    transition: filter 0.7s var(--ease), opacity 1s var(--ease);
-    opacity: 0;
-}
-.portrait video.on { opacity: 1; }
-.portrait:hover video { filter: grayscale(0) contrast(1); }
-
-/* =========================================================
-   RETRATO SOLTO (recorte sem fundo)
-   O arco com borda era para uma FOTO com fundo. O recorte
-   dispensa moldura: ele flutua sobre o vídeo, com um brilho
-   na paleta amarrando os dois, e a borda de baixo dissolve
-   em vez de terminar num corte seco de meia-coxa.
-   ========================================================= */
-.portrait--solto {
-    aspect-ratio: auto;
-    border-radius: 0;
-    overflow: visible;
-    border: none;
-    background: none;
-}
-.portrait--solto::after { display: none; }
-
-/* o brilho que o liga ao cenário */
-.portrait--solto::before {
-    content: '';
-    position: absolute;
-    inset: 6% -14% -4% -14%;
-    background:
-        radial-gradient(58% 52% at 55% 42%, rgba(124, 92, 255, 0.30), transparent 72%),
-        radial-gradient(46% 40% at 42% 72%, rgba(34, 211, 238, 0.16), transparent 70%);
-    filter: blur(14px);
-    pointer-events: none;
-}
-/* o video vivo cobre a foto exatamente (mesmo crop, mesma proporcao) */
-.portrait--solto video {
-    position: absolute !important;
-    inset: 0;
-    height: 100% !important;
-    opacity: 0;
-    transition: opacity 1s var(--ease);
-}
-.portrait--solto video.on { opacity: 1; }
-
-.portrait--solto img,
-.portrait--solto video {
-    position: relative;
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-    filter: drop-shadow(0 34px 60px rgba(0, 0, 0, 0.55));
-    -webkit-mask-image: linear-gradient(180deg, #000 84%, transparent 99%);
-    mask-image: linear-gradient(180deg, #000 84%, transparent 99%);
-}
-.portrait--solto:hover img,
-.portrait--solto:hover video { filter: drop-shadow(0 34px 60px rgba(0, 0, 0, 0.55)); }
-
-/* as etiquetas viram pílulas flutuantes */
-.portrait--solto .portrait-tag {
-    left: 0;
-    right: 0;
-    bottom: 5%;
-}
-.portrait--solto .portrait-tag > span {
-    background: rgba(8, 8, 12, 0.55);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid var(--line-hot);
-    padding: 0.45rem 0.85rem;
-    border-radius: 999px;
-}

@@ -130,9 +130,22 @@
         }
     }
 
+    // O scramble reescreve o texto a cada frame — e esse texto e o LCP da
+    // pagina. Cada reescrita conta como "novo maior paint" e o Lighthouse
+    // via o LCP la em 3.1s POR CAUSA da animacao. Ela agora espera a
+    // primeira interacao humana: ninguem le a pagina sem mexer o mouse ou
+    // tocar a tela, entao ninguem perde o efeito — mas o primeiro paint
+    // fica estavel para o robo do Google, que e a porta de entrada do SEO.
     $$('[data-scramble]').forEach((el) => {
         if (reduced) { el.textContent = (el.dataset.words || '').split('|')[0] || el.textContent; return; }
-        new Scramble(el).start();
+        let comecou = false;
+        const inicia = () => {
+            if (comecou) return;
+            comecou = true;
+            new Scramble(el).start();
+        };
+        ['pointermove', 'touchstart', 'keydown', 'wheel'].forEach((ev) =>
+            window.addEventListener(ev, inicia, { once: true, passive: true }));
     });
 
     /* ---------------------------------------------------------
@@ -462,7 +475,8 @@
         window.addEventListener('scroll', () => {
             if (!pedido) { pedido = true; requestAnimationFrame(parallax); }
         }, { passive: true });
-        parallax();
+        // sem chamada inicial: transform so aparece quando o usuario rola —
+        // nada re-rasteriza o texto da dobra durante o carregamento
     }
 
     /* ---- Lenis: scroll com inércia (segredo #2) ----
