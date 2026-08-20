@@ -46,13 +46,18 @@
            GTM : tagmanager.google.com  (opcional - deixe vazio)
          ========================================================= -->
     <script>
-      window.RN_GA4 = 'G-XXXXXXXXXX';
+      window.RN_GA4 = 'G-NG4F37XKTM';
       window.RN_GTM = '';
 
       (function () {
         var ga = window.RN_GA4, gtm = window.RN_GTM;
+        // A guarda compara com o PLACEHOLDER INTEIRO, nao procura "X" solto.
+        // O ID real do Robson e G-NG4F37XKTM — tem um X no meio, e a versao
+        // anterior o rejeitava como se fosse placeholder: o GA4 ficou
+        // instalado e mudo.
         var valido = function (v, pre) {
-          return typeof v === 'string' && v.indexOf(pre) === 0 && v.indexOf('X') === -1;
+          if (typeof v !== 'string' || v.indexOf(pre) !== 0) return false;
+          return !/^G-X+$|^GTM-X+$/.test(v) && v.length > pre.length + 3;
         };
 
         if (valido(gtm, 'GTM-')) {

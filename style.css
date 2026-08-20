@@ -1875,9 +1875,12 @@ section { position: relative; z-index: 2; }
    ========================================================= */
 .contato-cine {
     /* full-bleed como o hero: a secao e o proprio .wrap (1240px), e cinema
-       nao respeita margem — o 100vw ancorado no centro cobre a viewport. */
+       nao respeita margem — o 100vw ancorado no centro cobre a viewport.
+       O -14% no topo faz o palco COMECAR antes da secao: sem isso o video
+       terminava numa linha reta e a troca de secao virava uma emenda
+       visivel atravessando a tela. */
     position: absolute;
-    top: 0;
+    top: -14%;
     bottom: 0;
     left: 50%;
     width: 100vw;
@@ -1887,6 +1890,10 @@ section { position: relative; z-index: 2; }
     pointer-events: none;
     opacity: 0;
     transition: opacity 1.6s var(--ease);
+    /* a borda superior nao existe: ela se dissolve ao longo de 22% da
+       altura, e a secao anterior escorre pra dentro desta sem costura */
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 92%, transparent 100%);
+    mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 92%, transparent 100%);
 }
 .contato-cine.on { opacity: 1; }
 .contato-cine .cine-move { position: absolute; inset: -8% -4%; transform: scale(1.06); will-change: transform; }
@@ -1906,10 +1913,10 @@ section { position: relative; z-index: 2; }
        nada, enquanto a opacity so o apagava. Com o clipe certo (brilho
        medio 88 contra 13 do primeiro), o video nao precisa de truque:
        basta aparecer e deixar a cortina proteger a headline. */
-    opacity: 0.22;
+    opacity: 0.1;
 }
 .contato-cine video { opacity: 0; transition: opacity 1s var(--ease); }
-.contato-cine video.on { opacity: 0.22; }
+.contato-cine video.on { opacity: 0.1; }
 /* o preto volta nas bordas pra tipografia nunca disputar */
 /* O escurecimento precisa proteger a tipografia SEM apagar o video.
    A primeira versao (radial 0.72 + linear nas duas pontas) somava tanto
@@ -1926,8 +1933,9 @@ section { position: relative; z-index: 2; }
     position: absolute;
     inset: 0;
     background:
-        linear-gradient(180deg, var(--ink) 2%, transparent 26%,
-                        transparent 80%, var(--ink) 98%);
+        radial-gradient(64% 58% at 50% 46%, rgba(8, 8, 12, 0.72), transparent 82%),
+        linear-gradient(180deg, var(--ink) 4%, rgba(8, 8, 12, 0.35) 30%,
+                        rgba(8, 8, 12, 0.35) 74%, var(--ink) 97%);
 }
 #contact { position: relative; }
 /* O BUG QUE APAGOU O PALCO POR TRES DEPLOYS: este wildcard tinha ID na
