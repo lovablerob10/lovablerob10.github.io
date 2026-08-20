@@ -1614,15 +1614,24 @@ section { position: relative; z-index: 2; }
 /* o skew entra por CSS var — o JS só escreve um número */
 .marquee-track { will-change: transform; }
 
-/* ---- Sobre: as palavras dormem até o scroll acordá-las ---- */
-.about-lead .palavra,
-.about-body p .palavra {
-    opacity: 0.14;
-    transition: opacity 0.4s var(--ease);
+/* ---- Sobre: as palavras dormem até o scroll acordá-las ----
+   ESPECIFICIDADE, a armadilha que me pegou: `.about-body p .palavra`
+   soma um ELEMENTO (o p) e vale (0,2,1) — mais que `.palavra.lit`
+   (0,2,0). E como o .about-lead TAMBEM e um <p> dentro do .about-body,
+   nem ele escapava: a classe .lit entrava no elemento e o CSS a
+   ignorava. Sem seletor pai, a ordem natural volta a valer. */
+.palavra {
+    opacity: 0.16;
+    transition: opacity 0.45s var(--ease), color 0.45s var(--ease);
 }
 .palavra.lit { opacity: 1; }
-/* strong acesa ganha a cor de destaque junto */
-strong .palavra.lit, .palavra.lit strong { color: var(--paper); }
+
+/* Acesa nao e so "menos apagada": o corpo do texto sobe de muted para
+   quase-branco, entao a linha lida fica visivelmente mais viva que a
+   que ainda dorme. */
+.about-body p .palavra.lit { color: #d9d9e6; }
+.about-lead .palavra.lit { color: var(--paper); }
+.about-body strong .palavra.lit { color: #fff; }
 
 /* ---- constelação: o canvas mora atrás do conteúdo, full-bleed ---- */
 .constelacao {
@@ -1642,5 +1651,5 @@ strong .palavra.lit, .palavra.lit strong { color: var(--paper); }
 #about > .head, #about > .about-grid { position: relative; z-index: 1; }
 
 @media (prefers-reduced-motion: reduce) {
-    .about-lead .palavra, .about-body p .palavra { opacity: 1; transition: none; }
+    .palavra { opacity: 1; transition: none; }
 }
