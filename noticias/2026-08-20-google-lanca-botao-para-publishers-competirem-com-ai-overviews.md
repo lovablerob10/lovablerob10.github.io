@@ -11,13 +11,11 @@ capa: assets/media/capa-web.webp
 capa_alt: "Rede de paineis de vidro flutuando no escuro"
 ---
 
-## O FATO
-
 O Google lançou um botão que permite aos leitores marcar publishers como fontes preferenciais no Search, Discover e Google News. A ferramenta funciona como uma tentativa de compensar a queda de tráfego que sites de conteúdo vêm sofrendo desde que o Google passou a exibir respostas diretas geradas por IA (AI Overviews) no topo dos resultados de busca.
 
 Quando um usuário marca um site como preferido, o Google promete dar mais visibilidade a esse publisher nos três produtos. A empresa não divulgou métricas de quanto tráfego adicional isso pode gerar, nem quando a funcionalidade estará disponível para todos os usuários.
 
-## O QUE MUDA NA PRÁTICA
+## APIs e presença direta valem mais que disputar migalhas do Google
 
 Se você tem um produto que depende de tráfego orgânico do Google, isso é um band-aid, não uma solução. O problema real é estrutural: AI Overviews respondem perguntas sem que o usuário precise clicar. Um botão de preferência não muda essa dinâmica, só redistribui o tráfego residual entre publishers.
 

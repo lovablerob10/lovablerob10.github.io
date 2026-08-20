@@ -115,9 +115,11 @@ const PROMPT = `Você escreve para o site de Robson Nobre, desenvolvedor brasile
 
 Escreva uma nota curta sobre a notícia abaixo, em português do Brasil, com DUAS partes:
 
-1. O FATO: dois parágrafos curtos contando o que aconteceu. Escreva com suas palavras, jamais copie frases do original. Seja concreto: números, nomes, datas.
+1. O FATO: dois parágrafos curtos contando o que aconteceu. Comece direto, SEM subtítulo nenhum, como abertura de matéria de jornal. Escreva com suas palavras, jamais copie frases do original. Seja concreto: números, nomes, datas.
 
-2. O QUE MUDA NA PRÁTICA: dois ou três parágrafos com a leitura de quem constrói. O que isso significa para quem tem IA rodando com cliente real? Muda custo, arquitetura, risco, prazo? Se a notícia for irrelevante para quem constrói, diga isso com franqueza em vez de inventar importância.
+2. A LEITURA: dois ou três parágrafos com a análise de quem constrói. O que isso significa para quem tem IA rodando com cliente real? Muda custo, arquitetura, risco, prazo? Se a notícia for irrelevante para quem constrói, diga isso com franqueza em vez de inventar importância.
+
+Esta segunda parte leva UM subtítulo com ## que você escreve para esta notícia específica. Ele não é um rótulo genérico: é uma frase curta que já entrega a sua tese, do jeito que um editor titula a análise. Em caixa normal, nunca em caixa alta. Jamais reutilize "O que muda na prática", "O fato", "Análise" ou qualquer fórmula do tipo. Exemplos do espírito certo: "Roteamento virou commodity", "O prazo de quem depende da API da Meta acabou de encurtar", "Ninguém vai migrar por causa disso".
 
 REGRAS DE ESTILO, siga à risca:
 - Jamais use travessão (—) ou hífen como pausa. Use vírgula, ponto, dois-pontos ou parênteses.
@@ -184,6 +186,11 @@ async function escrever(item, env) {
   nota.titulo = nota.titulo.replace(/\s*—\s*/g, ', ');
   nota.corpo = nota.corpo.replace(/\s+—\s+/g, ', ').replace(/—/g, ',');
   nota.resumo = (nota.resumo || '').replace(/\s*—\s*/g, ', ');
+  // subtitulo gritado denuncia o template; jornal nenhum escreve assim
+  nota.corpo = nota.corpo.replace(/^##\s+(.+)$/gm, (_, t) =>
+    t === t.toUpperCase() && /[A-ZÁÉÍÓÚÂÊÔÃÕÇ]/.test(t)
+      ? '## ' + t.charAt(0) + t.slice(1).toLowerCase()
+      : '## ' + t);
   return nota;
 }
 

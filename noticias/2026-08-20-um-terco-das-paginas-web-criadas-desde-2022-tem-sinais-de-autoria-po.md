@@ -11,13 +11,11 @@ capa: assets/media/capa-pesquisa.webp
 capa_alt: "Estrutura cristalina microscopica se abrindo"
 ---
 
-## O FATO
-
 Um estudo identificou que aproximadamente um terço de todas as páginas web publicadas desde novembro de 2022, quando o ChatGPT foi lançado, apresenta características de autoria ou edição por inteligência artificial. A análise examinou padrões linguísticos e estruturais típicos de texto gerado por modelos de linguagem em milhões de páginas indexadas.
 
 A pesquisa não diferencia entre conteúdo totalmente gerado por IA e texto humano editado por ferramentas como ChatGPT, Claude ou outros LLMs. O percentual representa uma mudança significativa na composição da web em menos de quatro anos, considerando que antes de 2022 esse tipo de conteúdo era praticamente inexistente.
 
-## O QUE MUDA NA PRÁTICA
+## O modelo do ano que vem treina no texto do modelo de hoje
 
 Para quem treina modelos ou constrói sistemas de RAG, isso complica a curadoria de dados. Um terço da web recente potencialmente contém viés e padrões de LLMs anteriores, o que pode contaminar bases de treinamento e criar loops de degradação. Se você raspa conteúdo para alimentar agentes ou assistentes, precisa filtrar ou validar origem com mais rigor.
 

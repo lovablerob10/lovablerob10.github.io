@@ -11,13 +11,11 @@ capa: assets/media/capa-negocios.webp
 capa_alt: "Torres de vidro luminosas formando um grafico ascendente"
 ---
 
-## O FATO
-
 Dados recentes mostram que a OpenAI está reconquistando clientes corporativos que haviam migrado para a Anthropic. O movimento acontece após lançamentos de novos modelos, com empresas alternando entre os dois provedores conforme surgem versões mais potentes.
 
 A volatilidade preocupa investidores de ambas as companhias. O comportamento indica que gastos corporativos com IA têm baixa retenção, com empresas priorizando performance imediata em vez de manter fornecedor único.
 
-## O QUE MUDA NA PRÁTICA
+## Clientes corporativos trocam de modelo de IA como quem muda de servidor
 
 Se você opera IA em produção, esse dado confirma o que já se via: não existe moat de modelo. Clientes corporativos trocam de API como quem troca de fornecedor de nuvem, só que mais rápido. Qualquer arquitetura que amarre tudo num único provedor está pedindo refatoração urgente.
 
