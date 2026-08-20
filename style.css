@@ -1874,8 +1874,14 @@ section { position: relative; z-index: 2; }
    CONTATO — o palco final
    ========================================================= */
 .contato-cine {
+    /* full-bleed como o hero: a secao e o proprio .wrap (1240px), e cinema
+       nao respeita margem — o 100vw ancorado no centro cobre a viewport. */
     position: absolute;
-    inset: 0;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 100vw;
+    transform: translateX(-50%);
     z-index: 0;
     overflow: hidden;
     pointer-events: none;
@@ -1892,15 +1898,18 @@ section { position: relative; z-index: 2; }
     height: 100%;
     object-fit: cover;
     object-position: center center;
+    /* 0.22: o suficiente pra secao ter respiro e cor, longe do "papel de
+       parede com texto por cima" que a aurora a 100% virou. Elegancia
+       aqui e o fundo sugerir movimento sem competir com o CTA. */
     /* SEM mix-blend-mode. O `.cine-move` tem scale() e scale cria stacking
        context — o blend do video ficava preso ali dentro, misturando com
        nada, enquanto a opacity so o apagava. Com o clipe certo (brilho
        medio 88 contra 13 do primeiro), o video nao precisa de truque:
        basta aparecer e deixar a cortina proteger a headline. */
-    opacity: 1;
+    opacity: 0.22;
 }
 .contato-cine video { opacity: 0; transition: opacity 1s var(--ease); }
-.contato-cine video.on { opacity: 1; }
+.contato-cine video.on { opacity: 0.22; }
 /* o preto volta nas bordas pra tipografia nunca disputar */
 /* O escurecimento precisa proteger a tipografia SEM apagar o video.
    A primeira versao (radial 0.72 + linear nas duas pontas) somava tanto
@@ -1917,12 +1926,16 @@ section { position: relative; z-index: 2; }
     position: absolute;
     inset: 0;
     background:
-        radial-gradient(38% 22% at 50% 30%, rgba(8, 8, 12, 0.88), transparent 78%),
-        linear-gradient(180deg, var(--ink) 1%, transparent 14%,
-                        transparent 88%, var(--ink) 99%);
+        linear-gradient(180deg, var(--ink) 2%, transparent 26%,
+                        transparent 80%, var(--ink) 98%);
 }
 #contact { position: relative; }
-#contact > * { position: relative; z-index: 1; }
+/* O BUG QUE APAGOU O PALCO POR TRES DEPLOYS: este wildcard tinha ID na
+   especificidade — (1,0,0) — e esmagava o position:absolute da capa
+   (0,1,0). A capa virava um div estatico de ALTURA ZERO, e o "video
+   escuro" que cacei em tres calibragens nem estava na tela: era o fundo
+   da pagina. O :not() devolve a capa ao proprio destino. */
+#contact > *:not(.contato-cine) { position: relative; z-index: 1; }
 
 /* o botão do WhatsApp ganha respiração viva */
 @keyframes pulsoCta {
