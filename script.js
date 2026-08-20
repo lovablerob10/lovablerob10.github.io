@@ -231,18 +231,29 @@
     const paintStack = () => {
         if (!works.length) return;
         if (!stackable()) {
-            works.forEach((w) => { w.style.transform = ''; });
+            works.forEach((w) => {
+                w.style.setProperty('--stackScale', '1');
+                w.style.setProperty('--stackY', '0px');
+            });
             return;
         }
         works.forEach((card, i) => {
             const next = works[i + 1];
-            if (!next) { card.style.transform = ''; return; }
+            if (!next) {
+                card.style.setProperty('--stackScale', '1');
+                card.style.setProperty('--stackY', '0px');
+                return;
+            }
             const r = next.getBoundingClientRect();
             const cardTop = card.getBoundingClientRect().top;
             // how far the next card has travelled over this one (0 → 1)
             const span = window.innerHeight * 0.75;
             const p = Math.min(Math.max((span - (r.top - cardTop)) / span, 0), 1);
-            card.style.transform = `scale(${1 - p * 0.05}) translateY(${p * -14}px)`;
+            // Escreve em VARIAVEIS, nao no transform: o tilt do cursor
+            // tambem quer o transform deste elemento. Cada um escreve a
+            // sua parte e o CSS compoe — sem os dois se sobrescreverem.
+            card.style.setProperty('--stackScale', (1 - p * 0.05).toFixed(4));
+            card.style.setProperty('--stackY', (p * -14).toFixed(1) + 'px');
         });
     };
 
@@ -729,4 +740,79 @@
             rodando = false;
         }
     }, { threshold: 0.05 }).observe(secao);
+})();
+
+/* =========================================================
+   Projetos: tilt 3D, cascata das techs e o eco do número.
+   Bloco próprio — se falhar, a pilha sticky continua inteira.
+   ========================================================= */
+(() => {
+    'use strict';
+    const reduzido = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const cards = [...document.querySelectorAll('#workStack .work')];
+    if (!cards.length) return;
+
+    cards.forEach((card, i) => {
+        // o número vira marca d'água gigante atrás do rótulo
+        const idx = card.querySelector('.work-index');
+        if (idx) idx.dataset.eco = String(i + 1).padStart(2, '0');
+
+        // cascata das tags: cada uma entra um pouco depois da anterior
+        card.querySelectorAll('.work-tech span').forEach((sp, k) => {
+            sp.style.setProperty('--dt', (k * 55) + 'ms');
+        });
+    });
+
+    if (reduzido) {
+        cards.forEach((c) => c.classList.add('visto'));
+        return;
+    }
+
+    // a cascata dispara quando o card entra de verdade na tela
+    const io = new IntersectionObserver((ents) => {
+        ents.forEach((e) => {
+            if (e.isIntersecting) {
+                e.target.classList.add('visto');
+                io.unobserve(e.target);
+            }
+        });
+    }, { threshold: 0.25 });
+    cards.forEach((c) => io.observe(c));
+
+    /* ---- tilt 3D ----
+       Só no ponteiro fino: em toque, inclinação sem cursor é ruído.
+       O ângulo é pequeno de propósito (4°) — cartão que gira demais
+       vira brinquedo e tira a atenção do que importa, o projeto. */
+    if (!window.matchMedia('(pointer: fine)').matches) return;
+
+    cards.forEach((card) => {
+        let dentro = false;
+
+        card.addEventListener('pointerenter', () => {
+            dentro = true;
+            // sem transição durante o movimento: ela vira borracha e o card
+            // fica sempre atrás do cursor
+            card.style.transition = 'none';
+        });
+
+        card.addEventListener('pointermove', (e) => {
+            if (!dentro) return;
+            const r = card.getBoundingClientRect();
+            const px = (e.clientX - r.left) / r.width - 0.5;
+            const py = (e.clientY - r.top) / r.height - 0.5;
+            // o stack já escreve transform (scale/translate) na pilha;
+            // guardamos o tilt numa var e o paintStack respeita.
+            card.style.setProperty('--tiltX', (-py * 4).toFixed(2) + 'deg');
+            card.style.setProperty('--tiltY', (px * 4).toFixed(2) + 'deg');
+            card.classList.add('tiltando');
+        });
+
+        card.addEventListener('pointerleave', () => {
+            dentro = false;
+            card.style.transition = '';
+            card.style.setProperty('--tiltX', '0deg');
+            card.style.setProperty('--tiltY', '0deg');
+            card.classList.remove('tiltando');
+        });
+    });
 })();

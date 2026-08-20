@@ -1671,3 +1671,98 @@ section { position: relative; z-index: 2; }
 @media (prefers-reduced-motion: reduce) {
     .palavra { opacity: 1; transition: none; }
 }
+
+/* =========================================================
+   PROJETOS — vida na pilha sticky
+   ========================================================= */
+
+/* ---- tilt 3D: o card inclina seguindo o cursor ----
+   A perspectiva mora no pai; o card só recebe rotação. Sem isso o
+   navegador recalcula a projeção a cada frame e o efeito engasga. */
+.work-stack { perspective: 1600px; }
+.work {
+    transform-style: preserve-3d;
+    /* A COMPOSICAO. Duas coisas querem mover este card: a pilha (encolhe
+       quando o proximo cobre) e o tilt do cursor. Se os dois escrevessem
+       `transform`, o ultimo apagaria o outro. Cada um escreve sua
+       variavel e a composicao acontece aqui, uma vez so. */
+    --stackScale: 1;
+    --stackY: 0px;
+    --tiltX: 0deg;
+    --tiltY: 0deg;
+    transform:
+        translateY(var(--stackY))
+        scale(var(--stackScale))
+        rotateX(var(--tiltX))
+        rotateY(var(--tiltY));
+    /* a transição some durante o movimento (o JS tira) e volta na saída,
+       senão o card "persegue" o cursor com atraso de borracha */
+    transition: transform 0.5s var(--ease), border-color 0.5s var(--ease);
+}
+
+/* ---- a borda que percorre a moldura ----
+   Um gradiente cônico girando por trás de uma máscara que só deixa
+   a borda aparecer. É o "brilho que anda" sem SVG nem canvas. */
+.work-shot {
+    position: relative;
+    isolation: isolate;
+}
+.work-shot::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: conic-gradient(from var(--giro, 0deg),
+        transparent 0deg, transparent 250deg,
+        var(--v2) 300deg, var(--cy) 330deg, transparent 360deg);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.5s var(--ease);
+    pointer-events: none;
+    z-index: 2;
+}
+.work:hover .work-shot::before { opacity: 1; }
+.work.tiltando { transition: none; }
+@property --giro {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+}
+@keyframes girar { to { --giro: 360deg; } }
+.work:hover .work-shot::before { animation: girar 4s linear infinite; }
+
+/* ---- a tecnologia entra em cascata quando o card chega ---- */
+.work-tech span {
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+    transition-delay: var(--dt, 0ms);
+}
+.work.visto .work-tech span { opacity: 1; transform: none; }
+
+/* ---- número do projeto vira marca d'água gigante ---- */
+.work-index { position: relative; }
+.work-index::before {
+    content: attr(data-eco);
+    position: absolute;
+    left: -0.15em;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 5.5rem;
+    font-weight: 900;
+    letter-spacing: -0.06em;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.05);
+    pointer-events: none;
+    z-index: -1;
+    line-height: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .work-tech span { opacity: 1; transform: none; }
+    .work:hover .work-shot::before { animation: none; }
+}
