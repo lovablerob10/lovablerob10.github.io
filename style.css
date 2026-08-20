@@ -732,7 +732,8 @@ section { position: relative; z-index: 2; }
     filter: blur(30px);
     pointer-events: none;
 }
-/* o video vivo cobre a foto exatamente (mesmo crop, mesma proporcao) */
+/* O video ocupa a MESMA caixa da foto — o poster e o frame 0 dele, entao
+   os dois tem a mesma proporcao e o mesmo desenho. */
 .portrait--solto video {
     position: absolute !important;
     inset: 0;
@@ -741,6 +742,15 @@ section { position: relative; z-index: 2; }
     transition: opacity 1s var(--ease);
 }
 .portrait--solto video.on { opacity: 1; }
+
+/* A foto SOME quando o video assume. Sem isto, o deslocamento natural do
+   clipe faz aparecerem dois Robsons — foi o "fantasma" que derrubou a
+   primeira versao. A saida e mais lenta que a entrada do video, entao
+   nao existe um instante com a tela vazia. */
+.portrait--solto.vivo img {
+    opacity: 0;
+    transition: opacity 1.4s var(--ease);
+}
 
 .portrait--solto img,
 .portrait--solto video {

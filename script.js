@@ -600,19 +600,41 @@
        trim do PNG — e por isso os dois se alinham pixel a pixel).
        Safari fica so com a foto: ele decodifica VP9 mas ignora o alpha
        e pintaria o fundo de preto. */
-    // DESLIGADO (20/08): o clipe do Kling desloca o corpo alguns pixels ao
-    // longo dos 5s. Sobreposto a foto estatica, o desvio vira "duas cabecas" —
-    // e a mascara ainda vazou um rastro cinza na camiseta. So volta quando a
-    // composicao estiver verificada frame a frame, e escondendo a foto
-    // enquanto o video estiver visivel.
+    /* ---- retrato vivo (recorte com canal alpha) ----
+       O FANTASMA DAS DUAS CABECAS, resolvido por construcao.
+       A primeira tentativa punha o video POR CIMA da foto. Como o clipe
+       desloca o corpo alguns pixels ao longo dos 5s, os dois Robsons
+       apareciam juntos. A correcao nao e alinhar melhor: e (a) o poster
+       ser o FRAME 0 DO PROPRIO VIDEO — mesmo enquadramento, mesma
+       proporcao, alinhamento garantido — e (b) a foto SAIR quando o
+       video entra. Nunca os dois na tela.
+       Safari fica so com a foto: decodifica VP9 e ignora o alpha. */
+    // DESLIGADO DE NOVO (20/08, 2a tentativa). O fantasma das duas cabecas
+    // foi resolvido — poster = frame 0 do video, e a foto sai quando ele
+    // entra. Mas a verificacao frame a frame revelou defeito PIOR: a
+    // mascara do sam_3 comeu o terno escuro. Sobra a camiseta branca
+    // flutuando sobre o fundo, sem ombros. O recorte estatico (que veio do
+    // Image Background Remover, outro modelo) nao tem esse problema.
+    // Para voltar: a mascara precisa ser refeita com prompt que descreva a
+    // roupa escura, ou com rotoscopia manual dos ombros.
     const safari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
     const port = null && document.querySelector('.portrait--solto');
-    if (port && !safari) {
+    const foto = port && port.querySelector('img');
+    if (port && foto && !safari) {
+        // troca a foto pelo poster do video: a partir daqui os dois quadros
+        // sao o mesmo desenho, entao a transicao e invisivel
+        foto.src = 'assets/media/recorte-poster.webp';
+        foto.width = 660;
+        foto.height = 1148;
+
         const v = fazVideo('assets/media/recorte-vivo.webm');
-        v.addEventListener('canplay', () => v.classList.add('on'), { once: true });
-        // entra DEPOIS da foto no DOM: foto carrega primeiro, vídeo assume
-        // quando estiver pronto — a troca não tem flash.
+        v.addEventListener('canplay', () => {
+            v.classList.add('on');
+            port.classList.add('vivo');   // <- e isto que apaga a foto
+        }, { once: true });
+        v.addEventListener('error', () => { port.classList.remove('vivo'); v.remove(); }, { once: true });
         port.insertBefore(v, port.querySelector('figcaption'));
+
         new IntersectionObserver(([e]) => {
             if (e.isIntersecting) { v.play().catch(() => {}); }
             else { v.pause(); }
