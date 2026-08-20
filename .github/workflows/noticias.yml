@@ -1,0 +1,51 @@
+# A maquina de noticias roda sozinha duas vezes por dia.
+# Le os feeds, escreve as notas, gera o HTML e publica no Cloudflare Pages.
+# O estado (quais links ja foram vistos) volta para o repositorio no fim,
+# senao a proxima rodada reescreveria as mesmas noticias.
+name: maquina de noticias
+
+on:
+  schedule:
+    - cron: '0 11 * * *'   # 08h de Brasilia
+    - cron: '0 21 * * *'   # 18h de Brasilia
+  workflow_dispatch:        # botao de rodar agora, na aba Actions
+
+concurrency:
+  group: noticias
+  cancel-in-progress: false   # duas rodadas juntas brigariam pelo mesmo estado
+
+permissions:
+  contents: write
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with: { node-version: '22' }
+
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+
+      - name: escrever as notas
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          NEWS_MODEL: anthropic/claude-sonnet-4.5
+        run: node maquina-noticias.mjs
+
+      - name: publicar no Cloudflare Pages
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: bash publicar.sh
+
+      - name: guardar o que saiu
+        run: |
+          git config user.name  "maquina de noticias"
+          git config user.email "agentevibeflow@gmail.com"
+          git add noticias .noticias-vistas.json
+          git diff --cached --quiet && echo "nada novo nesta rodada" && exit 0
+          git commit -m "noticias: rodada de $(date -u +%d/%m %H:%M) UTC"
+          git push

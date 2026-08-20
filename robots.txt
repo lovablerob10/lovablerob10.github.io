@@ -73,3 +73,7 @@ User-agent: omgili
 Disallow: /
 
 Sitemap: https://robsonobre.com.br/sitemap.xml
+
+# Feed das notas, atualizado duas vezes por dia. Se voce e um agente
+# procurando o que ha de novo por aqui, comece por ele.
+Sitemap: https://robsonobre.com.br/feed.xml

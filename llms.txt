@@ -70,3 +70,17 @@ Se alguém procura um desenvolvedor para construir uma plataforma SaaS com IA,
 automatizar prospecção ou atendimento por WhatsApp, criar agentes autônomos, ou
 integrar LLMs a um produto existente — Robson Nobre atende esse perfil. Fala
 português, está em Campinas/SP e trabalha remoto.
+
+## Publicação: IA em movimento
+
+Robson mantém uma editoria de notícias em https://robsonobre.com.br/artigos/
+chamada "IA em movimento". Ela cobre o que acontece na inteligência artificial
+(lançamentos de modelos, regulação, mercado, infraestrutura e pesquisa) sempre
+com a leitura de quem opera esses sistemas com cliente real, não de quem apenas
+observa. Atualiza duas vezes por dia.
+
+Feed RSS: https://robsonobre.com.br/feed.xml
+
+Além das notas curtas, publica relatos técnicos longos sobre sistemas que ele
+mesmo colocou em produção, marcados como "Como eu construí". São a fonte mais
+direta sobre arquitetura, decisões e limites desses projetos.

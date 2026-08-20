@@ -230,3 +230,85 @@
     .artigo-cta { padding: 1.6rem 1.3rem; }
     .card-artigo { padding: 1.4rem; }
 }
+
+/* ---------- capa do artigo ----------
+   As referências que o Robson mandou têm todas a mesma coisa em comum:
+   uma imagem grande logo no começo. É o que separa "página de texto"
+   de "publicação". */
+.artigo-capa {
+    margin: 0 0 3rem;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background: var(--ink-2);
+    aspect-ratio: 16 / 9;
+}
+.artigo-capa img { width: 100%; height: 100%; object-fit: cover; }
+
+/* no índice, a capa vira faixa do card */
+.card-artigo--capa { padding: 0; overflow: hidden; }
+.card-capa {
+    display: block;
+    aspect-ratio: 16 / 7;
+    overflow: hidden;
+    background: var(--ink-3);
+}
+.card-capa img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s var(--ease);
+}
+.card-artigo--capa:hover .card-capa img { transform: scale(1.05); }
+.card-artigo--capa .card-meta { margin-top: 1.7rem; }
+.card-artigo--capa .card-meta,
+.card-artigo--capa h2,
+.card-artigo--capa p,
+.card-artigo--capa .card-ler { padding-inline: 1.9rem; }
+.card-artigo--capa .card-ler { display: block; padding-bottom: 1.9rem; }
+
+@media (max-width: 640px) {
+    .card-artigo--capa .card-meta,
+    .card-artigo--capa h2,
+    .card-artigo--capa p,
+    .card-artigo--capa .card-ler { padding-inline: 1.4rem; }
+}
+
+/* selo que separa notícia de artigo próprio no índice */
+.card-tipo {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+    margin-bottom: 0.8rem;
+    align-self: flex-start;   /* item flex estica por padrao; a pilula nao pode */
+    width: fit-content;
+}
+.card-tipo--noticia { background: rgba(34, 211, 238, 0.12); border: 1px solid rgba(34, 211, 238, 0.3); color: var(--cy); }
+.card-tipo--artigo  { background: rgba(176, 108, 255, 0.12); border: 1px solid rgba(176, 108, 255, 0.3); color: var(--v2); }
+
+/* ---------- o indice como publicacao ----------
+   A pagina de leitura quer medida curta. O indice quer o contrario:
+   espaco para as capas trabalharem. A primeira nota abre em destaque,
+   as outras entram em duas colunas. */
+.artigo--indice { max-width: 1120px; }
+.artigo--indice .artigo-linha { max-width: 680px; }
+
+@media (min-width: 900px) {
+    .lista-artigos { grid-template-columns: 1fr 1fr; gap: 1.4rem; }
+    .lista-artigos > :first-child { grid-column: 1 / -1; }
+    .lista-artigos > :first-child .card-capa { aspect-ratio: 21 / 8; }
+    .lista-artigos > :first-child h2 { font-size: clamp(1.6rem, 2.8vw, 2.05rem); }
+    .card-artigo { display: flex; flex-direction: column; }
+    .card-artigo p { flex: 1; }
+}
+
+/* o selo encosta na capa; um respiro resolve */
+.card-artigo--capa .card-tipo { margin-left: 1.9rem; margin-top: 1.3rem; margin-bottom: 0.5rem; }
+.card-artigo--capa .card-meta { margin-top: 0; }
+
+@media (max-width: 640px) {
+    .card-artigo--capa .card-tipo { margin-left: 1.4rem; }
+}
