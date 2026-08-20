@@ -41,7 +41,10 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: bash publicar.sh
 
+      # roda mesmo se o deploy falhar: nota escrita nao pode se perder,
+      # a proxima rodada publica o que ficou parado.
       - name: guardar o que saiu
+        if: always()
         run: |
           git config user.name  "maquina de noticias"
           git config user.email "agentevibeflow@gmail.com"
