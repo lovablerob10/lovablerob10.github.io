@@ -452,11 +452,23 @@ section { position: relative; z-index: 2; }
 }
 
 /* hero stats */
+/* TRES COLUNAS QUE ENCOLHEM JUNTAS.
+   Com flex-wrap, entre ~1100 e 1200px o terceiro numero caia sozinho
+   pra segunda linha e o bloco ficava torto (2 em cima, 1 embaixo). Grid
+   de 3 colunas iguais nunca quebra: os tres diminuem no mesmo passo e a
+   linha de base continua alinhada. A regua vertical entre eles marca a
+   separacao sem precisar de espaco largo. */
 .hero-stats {
-    display: flex;
-    flex-wrap: wrap;
-    gap: clamp(1.75rem, 5vw, 3.5rem);
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    justify-content: start;
+    gap: clamp(1.1rem, 2.6vw, 2.6rem);
 }
+.hero-stats > div + div {
+    padding-left: clamp(1.1rem, 2.6vw, 2.6rem);
+    border-left: 1px solid var(--line);
+}
+.stat-l { white-space: nowrap; }
 .stat-n {
     display: block;
     font-size: clamp(2rem, 4vw, 2.9rem);
@@ -1324,7 +1336,13 @@ section { position: relative; z-index: 2; }
     .hero { padding-block: 7.5rem 5rem; min-height: auto; }
     .hero-visual { max-width: 260px; margin-inline: auto; }
     .hero-actions { margin-bottom: 3rem; }
-    .hero-stats { gap: 1.75rem 2.25rem; }
+    /* No telefone os tres ficam lado a lado, mas com FOLGA: na primeira
+       tentativa o terceiro rotulo terminava a 1px da borda — cabia por
+       sorte, nao por medida. Fonte e espacamento menores devolvem ar. */
+    .hero-stats { gap: 0.7rem; }
+    .hero-stats > div + div { padding-left: 0.7rem; }
+    .stat-n { font-size: clamp(1.5rem, 7vw, 2rem); }
+    .stat-l { font-size: 0.52rem; letter-spacing: 0.06em; }
     .scroll-hint { display: none; }
 
     .path-item { padding-left: 2.25rem; }
