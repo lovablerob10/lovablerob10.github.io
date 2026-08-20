@@ -46,8 +46,11 @@
            GTM : tagmanager.google.com  (opcional - deixe vazio)
          ========================================================= -->
     <script>
-      window.RN_GA4 = 'G-NG4F37XKTM';
-      window.RN_GTM = '';
+      // GA4 vazio DE PROPOSITO: quem dispara o G-NG4F37XKTM agora e o GTM.
+      // Com os dois ligados, cada visita contaria DUAS vezes e todo numero
+      // do relatorio sairia inflado. Uma fonte de verdade, sempre.
+      window.RN_GA4 = '';
+      window.RN_GTM = 'GTM-5VR842HT';
 
       (function () {
         var ga = window.RN_GA4, gtm = window.RN_GTM;
@@ -67,10 +70,6 @@
           g.async = true;
           g.src = 'https://www.googletagmanager.com/gtm.js?id=' + gtm;
           document.head.appendChild(g);
-          document.addEventListener('DOMContentLoaded', function () {
-            var f = document.getElementById('gtm-ns');
-            if (f) f.src = 'https://www.googletagmanager.com/ns.html?id=' + gtm;
-          });
         }
 
         if (valido(ga, 'G-')) {
@@ -165,7 +164,11 @@
     </script>
 </head>
 <body>
-<noscript><iframe id="gtm-ns" title="Google Tag Manager" height="0" width="0"
+<!-- GTM (noscript). O src fica NO HTML, nao preenchido por JS: este bloco
+     so existe pra quem tem JavaScript desligado, e nesse cenario nenhum
+     script rodaria pra preencher o endereco. Era um no cego. -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5VR842HT"
+        title="Google Tag Manager" height="0" width="0"
         style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="ambient" aria-hidden="true"></div>
