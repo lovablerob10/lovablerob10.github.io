@@ -12,6 +12,14 @@ rm -rf _site
 mkdir -p _site/assets
 
 cp index.html style.css script.js bella.js _site/
+
+# CACHE-BUSTING: o index.html revalida sempre, mas css/js podem viver no
+# cache do navegador por horas — foi assim que o Robson viu um script de
+# tres deploys atras empilhando video antigo na tela. Com a versao na
+# query, index novo puxa asset novo, sempre.
+V=$(date +%s)
+sed -i "s|href=\"style.css\"|href=\"style.css?v=$V\"|; s|src=\"script.js\"|src=\"script.js?v=$V\"|; s|src=\"bella.js\"|src=\"bella.js?v=$V\"|" _site/index.html
+echo "versao dos assets: $V"
 cp robots.txt sitemap.xml llms.txt _site/
 cp -r assets/opt _site/assets/opt
 # os videos cinematograficos (hero e retrato) — só existem depois de gerados

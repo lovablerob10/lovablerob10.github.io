@@ -405,35 +405,51 @@
         return v;
     };
 
-    /* ---- fundo do hero ---- */
+    /* ---- fundo do hero: o truque do Frame 0 ----
+       (segredo #4 do nobre-site-craft)
+       O poster de 12KB — o primeiro frame exato do vídeo — pinta a tela
+       imediatamente. O vídeo só entra quando o navegador está OCIOSO, e
+       o fade acontece sobre um frame idêntico: o visitante nunca vê a
+       troca, e o PageSpeed nunca vê o vídeo no caminho crítico. */
     const hero = document.querySelector('.hero');
     if (hero) {
         const capa = document.createElement('div');
         capa.className = 'hero-cine';
         capa.setAttribute('aria-hidden', 'true');
-        const v = fazVideo('assets/media/hero-cine.mp4');
-        v.addEventListener('canplay', () => capa.classList.add('on'), { once: true });
-        capa.appendChild(v);
+        const palco = document.createElement('div');
+        palco.className = 'cine-move';
+        const poster = new Image();
+        poster.className = 'cine-poster';
+        poster.alt = '';
+        poster.src = 'assets/media/hero-frame0.webp';
+        poster.addEventListener('load', () => capa.classList.add('on'), { once: true });
+        palco.appendChild(poster);
+        capa.appendChild(palco);
         hero.prepend(capa);
 
-        // Fora da tela o vídeo pausa: rolou pros projetos, a bateria
-        // do visitante não paga pelo que ele não está vendo.
-        new IntersectionObserver(([e]) => {
-            if (e.isIntersecting) { v.play().catch(() => {}); }
-            else { v.pause(); }
-        }, { threshold: 0.05 }).observe(hero);
+        const ocioso = window.requestIdleCallback || ((f) => setTimeout(f, 1200));
+        ocioso(() => {
+            const v = fazVideo('assets/media/hero-cine.mp4');
+            v.addEventListener('canplay', () => v.classList.add('on'), { once: true });
+            palco.appendChild(v);
+            // Fora da tela o vídeo pausa: rolou pros projetos, a bateria
+            // do visitante não paga pelo que ele não está vendo.
+            new IntersectionObserver(([e]) => {
+                if (e.isIntersecting) { v.play().catch(() => {}); }
+                else { v.pause(); }
+            }, { threshold: 0.05 }).observe(hero);
+        });
 
         /* Parallax: o fundo rola a ~30% da página, o conteúdo a 6%.
-           É a diferença entre as duas velocidades que o olho lê como
-           profundidade — nenhuma das duas sozinha faz o efeito.
-           O scale(1.14) do CSS é a folga que o deslize gasta sem
-           mostrar borda do vídeo. */
+           É a diferença entre as velocidades que o olho lê como
+           profundidade. O transform vai no PALCO — poster e vídeo
+           andam juntos, e o scale(1.14) é a folga do deslize. */
         const conteudo = hero.querySelector('.wrap');
         let pedido = false;
         const parallax = () => {
             pedido = false;
             const y = Math.min(window.scrollY, hero.offsetHeight);
-            v.style.transform = `translate3d(0, ${(y * 0.3).toFixed(1)}px, 0) scale(1.14)`;
+            palco.style.transform = `translate3d(0, ${(y * 0.3).toFixed(1)}px, 0) scale(1.14)`;
             if (conteudo) conteudo.style.transform = `translate3d(0, ${(y * 0.06).toFixed(1)}px, 0)`;
         };
         window.addEventListener('scroll', () => {
@@ -442,14 +458,55 @@
         parallax();
     }
 
+    /* ---- Lenis: scroll com inércia (segredo #2) ----
+       Só desktop com ponteiro fino; no toque o nativo é melhor. Se o
+       CDN falhar, window.Lenis não existe e o site segue no scroll
+       nativo — dependência de conforto, nunca de funcionamento. */
+    const iniciarLenis = () => {
+        if (!window.Lenis || !matchMedia('(pointer: fine)').matches) return;
+        const lenis = new Lenis({
+            duration: 1.15,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            smoothWheel: true,
+        });
+        const raf = (t) => { lenis.raf(t); requestAnimationFrame(raf); };
+        requestAnimationFrame(raf);
+        // âncoras passam pelo Lenis pra manter a mesma inércia
+        document.addEventListener('click', (e) => {
+            const a = e.target.closest('a[href^="#"]');
+            if (!a) return;
+            const alvo = document.querySelector(a.getAttribute('href'));
+            if (!alvo) return;
+            e.preventDefault();
+            lenis.scrollTo(alvo, { offset: -90 });
+        });
+    };
+    // O CDN e `defer`, o script principal nao e, e em producao o evento de
+    // load se mostrou nao-confiavel pra essa danca. Polling curto resolve
+    // sem depender de ordem nenhuma: acha o Lenis, inicia, para.
+    let lenisPronto = false;
+    const espera = setInterval(() => {
+        if (window.Lenis && !lenisPronto) {
+            lenisPronto = true;
+            clearInterval(espera);
+            iniciarLenis();
+        }
+    }, 200);
+    setTimeout(() => clearInterval(espera), 10000);
+
     /* ---- retrato vivo (recorte com canal alpha) ----
        O webm VP9 carrega o alpha de verdade: ele respira SEM fundo, por
        cima do recorte estatico, no mesmo enquadramento (mesmo crop do
        trim do PNG — e por isso os dois se alinham pixel a pixel).
        Safari fica so com a foto: ele decodifica VP9 mas ignora o alpha
        e pintaria o fundo de preto. */
+    // DESLIGADO (20/08): o clipe do Kling desloca o corpo alguns pixels ao
+    // longo dos 5s. Sobreposto a foto estatica, o desvio vira "duas cabecas" —
+    // e a mascara ainda vazou um rastro cinza na camiseta. So volta quando a
+    // composicao estiver verificada frame a frame, e escondendo a foto
+    // enquanto o video estiver visivel.
     const safari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-    const port = document.querySelector('.portrait--solto');
+    const port = null && document.querySelector('.portrait--solto');
     if (port && !safari) {
         const v = fazVideo('assets/media/recorte-vivo.webm');
         v.addEventListener('canplay', () => v.classList.add('on'), { once: true });
