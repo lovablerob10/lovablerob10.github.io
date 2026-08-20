@@ -20,6 +20,7 @@ cp index.html style.css script.js bella.js _site/
 V=$(date +%s)
 sed -i "s|href=\"style.css\"|href=\"style.css?v=$V\"|; s|src=\"script.js\"|src=\"script.js?v=$V\"|; s|src=\"bella.js\"|src=\"bella.js?v=$V\"|" _site/index.html
 echo "versao dos assets: $V"
+
 cp robots.txt sitemap.xml llms.txt _site/
 cp -r assets/opt _site/assets/opt
 # os videos cinematograficos (hero e retrato) — só existem depois de gerados

@@ -429,8 +429,15 @@
 
         const ocioso = window.requestIdleCallback || ((f) => setTimeout(f, 1200));
         ocioso(() => {
-            const v = fazVideo('assets/media/hero-cine.mp4');
-            v.addEventListener('canplay', () => v.classList.add('on'), { once: true });
+            // hero-cine-LOOP: o clipe original + ele mesmo ao contrario,
+            // emendados (ping-pong). O corte seco do loop deixa de existir —
+            // a deriva vai e volta sem costura. A 0.5x, o ciclo dura 20s.
+            // Nome novo de arquivo = nunca briga com cache do antigo.
+            const v = fazVideo('assets/media/hero-cine-loop.mp4');
+            // Pedido do Robson: o fundo em camera MUITO lenta — metade da
+            // velocidade original. Deriva quase imperceptivel, como cenario.
+            v.playbackRate = 0.5;
+            v.addEventListener('canplay', () => { v.playbackRate = 0.5; v.classList.add('on'); }, { once: true });
             palco.appendChild(v);
             // Fora da tela o vídeo pausa: rolou pros projetos, a bateria
             // do visitante não paga pelo que ele não está vendo.

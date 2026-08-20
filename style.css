@@ -204,6 +204,17 @@ section { position: relative; z-index: 2; }
 }
 .line-mask.in > span { transform: none; }
 
+/* NO HERO, A ENTRADA NAO PODE CUSTAR O LCP.
+   O fade (opacity 0) segurava o maior texto da dobra invisivel por 3.2s
+   no relogio do Lighthouse — o Chrome so conta o LCP quando o elemento
+   aparece. Aqui a coreografia vira so deslizamento: o texto ja nasce
+   pintado (LCP imediato) e ainda assim entra em movimento. */
+.hero [data-reveal] {
+    opacity: 1;
+    transform: translate3d(0, 26px, 0);
+}
+.hero [data-reveal].in { transform: none; }
+
 @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     *, *::before, *::after {
