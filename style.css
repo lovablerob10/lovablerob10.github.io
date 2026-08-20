@@ -1250,6 +1250,15 @@ section { position: relative; z-index: 2; }
 }
 .bella--aberta .bella-painel { opacity: 1; transform: none; }
 
+/* FECHADO E FORA DO LAYOUT.
+   O atributo `hidden` do HTML vale `display: none`, mas ele vem da folha do
+   navegador — e o `display: flex` acima, sendo do autor, ganha. Resultado: o
+   painel continuava reservando a propria altura mesmo invisivel, o container
+   ficava com quase 600px, e o botao (ancorado embaixo) era empurrado para o
+   meio da tela, por cima do conteudo. No desktop passava despercebido; no
+   telefone o botao pousava em cima do titulo da secao. */
+.bella-painel[hidden] { display: none; }
+
 .bella-topo {
     display: flex;
     align-items: center;
@@ -1392,7 +1401,30 @@ section { position: relative; z-index: 2; }
 .bella-enviar:hover { transform: scale(1.06); }
 
 @media (max-width: 480px) {
-    .bella { left: 1rem; right: 1rem; align-items: stretch; }
-    .bella-fab { justify-content: center; }
-    .bella-painel { width: 100%; height: min(78vh, 540px); }
+    /* O botao NAO estica.
+       Com `left` e `right` fixos ele virava uma barra da largura inteira
+       parada no meio da tela, tapando o conteudo por tras — e o selo de online,
+       posicionado em relacao a foto, ficava boiando sozinho la na ponta
+       esquerda. Aqui ele volta a ser o que e: um botao pequeno, encostado no
+       canto, que nao disputa espaco com a pagina. */
+    .bella {
+        left: auto;
+        right: 1rem;
+        bottom: 1rem;
+        align-items: flex-end;
+    }
+    .bella-fab {
+        padding: 0.5rem 1.1rem 0.5rem 0.5rem;
+        font-size: 0.85rem;
+    }
+    .bella-fab-face { width: 30px; height: 30px; }
+    .bella-fab-on { left: 28px; bottom: 5px; width: 9px; height: 9px; }
+
+    /* O painel, esse sim, usa a tela toda: conversa em telefone precisa de
+       espaco. Ele se ancora no canto e cresce para a esquerda. */
+    .bella-painel {
+        width: calc(100vw - 2rem);
+        height: min(72svh, 520px);
+    }
+    .bella-msg { max-width: 88%; }
 }
