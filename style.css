@@ -1766,3 +1766,61 @@ section { position: relative; z-index: 2; }
     .work-tech span { opacity: 1; transform: none; }
     .work:hover .work-shot::before { animation: none; }
 }
+
+/* =========================================================
+   TRAJETÓRIA — a linha que se desenha ganha coreografia
+   ========================================================= */
+
+/* ---- entrada alternada: cada marco vem de um lado ----
+   Só translate/opacity (o CLS 0 é inegociável). O alternado
+   dá ritmo de linha do tempo em vez de lista empilhada. */
+.path-item {
+    opacity: 0;
+    transform: translate3d(-26px, 0, 0);
+    transition: opacity 0.75s var(--ease), transform 0.75s var(--ease);
+}
+.path-item:nth-child(even) { transform: translate3d(26px, 0, 0); }
+.path-item.in { opacity: 1; transform: none; }
+
+/* ---- o ponto pulsa quando o marco entra ---- */
+.path-item.in .path-dot::after { animation: marcoAcende 1.1s var(--ease); }
+@keyframes marcoAcende {
+    0%   { box-shadow: 0 0 0 0 rgba(176, 108, 255, 0.55); }
+    70%  { box-shadow: 0 0 0 12px rgba(176, 108, 255, 0); }
+    100% { box-shadow: 0 0 12px var(--v2); }
+}
+
+/* ---- o marco ATUAL fica aceso o tempo todo ---- */
+.path-item:first-child .path-dot {
+    border-color: #34d399;
+}
+.path-item:first-child .path-dot::after {
+    background: #34d399;
+    box-shadow: 0 0 12px #34d399;
+}
+
+/* ---- a origem: onde tudo começou, com peso próprio ----
+   Fundo levemente mais claro e borda esquerda em gradiente:
+   é o único marco que não é sobre código, e a diferença
+   visual conta essa história sem precisar de rótulo. */
+.path-item--origem {
+    background: linear-gradient(100deg, rgba(124, 92, 255, 0.05), transparent 62%);
+    border-radius: 0 16px 16px 0;
+    padding-top: 1.4rem;
+    padding-bottom: 1.4rem;
+    padding-right: 1.4rem;
+    margin-top: 0.6rem;
+}
+.path-item--origem .path-when { color: var(--v2); }
+.path-item--origem .path-role {
+    font-size: clamp(1.3rem, 2.4vw, 1.75rem);
+    background: var(--grad);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .path-item { opacity: 1; transform: none; }
+    .path-item.in .path-dot::after { animation: none; }
+}
