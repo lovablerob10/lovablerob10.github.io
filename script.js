@@ -816,3 +816,81 @@
         });
     });
 })();
+
+/* =========================================================
+   Formação: a luz acompanha o cursor dentro de cada carta.
+   ========================================================= */
+(() => {
+    'use strict';
+    if (window.matchMedia('(hover: none)').matches) return;
+    document.querySelectorAll('.school-card').forEach((c) => {
+        c.addEventListener('pointermove', (e) => {
+            const r = c.getBoundingClientRect();
+            c.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+            c.style.setProperty('--my', (e.clientY - r.top) + 'px');
+        }, { passive: true });
+    });
+})();
+
+/* =========================================================
+   Contato: o palco final. Mesmo truque do Frame 0 do hero —
+   poster leve primeiro, vídeo quando o navegador estiver
+   ocioso, e nada disso entra no caminho crítico.
+   ========================================================= */
+(() => {
+    'use strict';
+    const reduzido = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const con = navigator.connection || {};
+    if (reduzido || con.saveData || /(^|-)2g/.test(con.effectiveType || '')) return;
+
+    const sec = document.querySelector('#contact');
+    if (!sec) return;
+
+    const capa = document.createElement('div');
+    capa.className = 'contato-cine';
+    capa.setAttribute('aria-hidden', 'true');
+    const palco = document.createElement('div');
+    palco.className = 'cine-move';
+    const poster = new Image();
+    poster.src = 'assets/media/cta-frame0.webp';
+    poster.alt = '';
+    poster.addEventListener('load', () => capa.classList.add('on'), { once: true });
+    // se o poster não existir ainda, a seção segue como sempre foi
+    poster.addEventListener('error', () => capa.remove(), { once: true });
+    palco.appendChild(poster);
+    capa.appendChild(palco);
+    sec.prepend(capa);
+
+    let v = null;
+    const ocioso = window.requestIdleCallback || ((f) => setTimeout(f, 1400));
+    ocioso(() => {
+        v = document.createElement('video');
+        v.muted = true; v.loop = true; v.playsInline = true;
+        v.autoplay = true; v.preload = 'none';
+        v.setAttribute('aria-hidden', 'true');
+        v.src = 'assets/media/cta-cine.mp4';
+        v.playbackRate = 0.5;
+        v.addEventListener('canplay', () => { v.playbackRate = 0.5; v.classList.add('on'); }, { once: true });
+        v.addEventListener('error', () => v.remove(), { once: true });
+        palco.appendChild(v);
+    });
+
+    // parallax suave + pausa fora da tela, igual ao hero
+    let pedido = false;
+    const mexe = () => {
+        pedido = false;
+        const r = sec.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > window.innerHeight) return;
+        const p = (window.innerHeight - r.top) / (window.innerHeight + r.height);
+        palco.style.transform = `translate3d(0, ${((p - 0.5) * 48).toFixed(1)}px, 0) scale(1.12)`;
+    };
+    window.addEventListener('scroll', () => {
+        if (!pedido) { pedido = true; requestAnimationFrame(mexe); }
+    }, { passive: true });
+
+    new IntersectionObserver(([e]) => {
+        if (!v) return;
+        if (e.isIntersecting) v.play().catch(() => {});
+        else v.pause();
+    }, { threshold: 0.05 }).observe(sec);
+})();

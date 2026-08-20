@@ -1824,3 +1824,112 @@ section { position: relative; z-index: 2; }
     .path-item { opacity: 1; transform: none; }
     .path-item.in .path-dot::after { animation: none; }
 }
+
+/* =========================================================
+   FORMAÇÃO — três cartas que respondem ao cursor
+   ========================================================= */
+
+/* o número/período vira marca d'água, como nos projetos */
+.school-card {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+}
+
+/* luz que segue o cursor DENTRO da carta (não é borda: é o fundo
+   acendendo por baixo do texto, como se a carta tivesse volume) */
+.school-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 0%),
+        rgba(124, 92, 255, 0.16), transparent 62%);
+    opacity: 0;
+    transition: opacity 0.5s var(--ease);
+    pointer-events: none;
+    z-index: -1;
+}
+.school-card:hover::before { opacity: 1; }
+
+/* a linha superior que se estende no hover — o "acabamento" que diz
+   que a carta é interativa antes mesmo de você clicar */
+.school-card::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 2px;
+    width: 0;
+    background: var(--grad);
+    transition: width 0.55s var(--ease);
+}
+.school-card:hover::after { width: 100%; }
+
+.school-when {
+    position: relative;
+    display: inline-block;
+}
+
+/* =========================================================
+   CONTATO — o palco final
+   ========================================================= */
+.contato-cine {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 1.6s var(--ease);
+}
+.contato-cine.on { opacity: 1; }
+.contato-cine .cine-move { position: absolute; inset: -8% -4%; transform: scale(1.06); will-change: transform; }
+.contato-cine img,
+.contato-cine video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    /* SEM mix-blend-mode. O `.cine-move` tem scale() e scale cria stacking
+       context — o blend do video ficava preso ali dentro, misturando com
+       nada, enquanto a opacity so o apagava. Com o clipe certo (brilho
+       medio 88 contra 13 do primeiro), o video nao precisa de truque:
+       basta aparecer e deixar a cortina proteger a headline. */
+    opacity: 1;
+}
+.contato-cine video { opacity: 0; transition: opacity 1s var(--ease); }
+.contato-cine video.on { opacity: 1; }
+/* o preto volta nas bordas pra tipografia nunca disputar */
+/* O escurecimento precisa proteger a tipografia SEM apagar o video.
+   A primeira versao (radial 0.72 + linear nas duas pontas) somava tanto
+   preto que o palco sumia — sobrava um fundo liso com um tom roxo. Agora
+   o escuro fica so onde o texto mora (faixa central) e as pontas
+   costuram com a secao vizinha. */
+/* SEM CORTINA NO CENTRO. Duas tentativas escurecendo o meio deixaram a
+   secao lisa: o video ja e 85% preto por natureza, entao somar preto so
+   apagava as linhas. Agora o escuro fica so nas PONTAS (costura com as
+   secoes vizinhas) e uma faixa suave atras da headline — o resto do
+   palco aparece inteiro, e as linhas convergem atras dos botoes. */
+.contato-cine::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(38% 22% at 50% 30%, rgba(8, 8, 12, 0.88), transparent 78%),
+        linear-gradient(180deg, var(--ink) 1%, transparent 14%,
+                        transparent 88%, var(--ink) 99%);
+}
+#contact { position: relative; }
+#contact > * { position: relative; z-index: 1; }
+
+/* o botão do WhatsApp ganha respiração viva */
+@keyframes pulsoCta {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(124, 92, 255, 0); }
+    50%      { box-shadow: 0 0 44px 0 rgba(124, 92, 255, 0.28); }
+}
+.contact-cta .btn { animation: pulsoCta 3.4s var(--ease-in-out) infinite; }
+@media (prefers-reduced-motion: reduce) {
+    .contact-cta .btn { animation: none; }
+}
