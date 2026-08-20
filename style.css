@@ -1597,3 +1597,50 @@ section { position: relative; z-index: 2; }
     .bella-msg { max-width: 88%; }
 }
 
+
+/* =========================================================
+   SOBRENATURAL — marquee duplo, texto que acende, constelação
+   ========================================================= */
+
+/* ---- marquee: duas faixas, uma vazada, e o skew de velocidade ---- */
+.marquee { padding-block: 1.6rem; }
+.marquee-track--volta { margin-top: 0.35rem; }
+.marquee-track--volta .marquee-item {
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(151, 151, 174, 0.34);
+    font-size: clamp(0.95rem, 2vw, 1.6rem);
+}
+.marquee-track--volta .marquee-item::after { background: var(--cy); opacity: 0.5; }
+/* o skew entra por CSS var — o JS só escreve um número */
+.marquee-track { will-change: transform; }
+
+/* ---- Sobre: as palavras dormem até o scroll acordá-las ---- */
+.about-lead .palavra,
+.about-body p .palavra {
+    opacity: 0.14;
+    transition: opacity 0.4s var(--ease);
+}
+.palavra.lit { opacity: 1; }
+/* strong acesa ganha a cor de destaque junto */
+strong .palavra.lit, .palavra.lit strong { color: var(--paper); }
+
+/* ---- constelação: o canvas mora atrás do conteúdo, full-bleed ---- */
+.constelacao {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 100vw;
+    transform: translateX(-50%);
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 1.2s var(--ease);
+}
+.constelacao.on { opacity: 1; }
+#about { position: relative; }
+#about > .head, #about > .about-grid { position: relative; z-index: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+    .about-lead .palavra, .about-body p .palavra { opacity: 1; transition: none; }
+}

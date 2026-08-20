@@ -178,29 +178,48 @@
     /* ---------------------------------------------------------
        Kinetic marquee — base drift, boosted by scroll velocity
        --------------------------------------------------------- */
-    const track = $('#marquee');
+    // Duas faixas em sentidos OPOSTOS, e a velocidade do scroll entorta as
+    // duas (skew). O sinal do delta importa: rolar pra baixo inclina pra um
+    // lado, pra cima pro outro — o texto parece arrastado pelo proprio scroll.
     let marqueeTick = null;
+    {
+        const faixas = [
+            { el: $('#marquee'),      dir: -1, vel: 0.55 },
+            { el: $('#marqueeVolta'), dir:  1, vel: 0.38 },
+        ].filter((f) => f.el);
 
-    if (track && !reduced) {
-        const set = track.firstElementChild;
-        // duplicate until the track is at least twice the viewport, so the loop never gaps
-        while (track.scrollWidth < window.innerWidth * 2) {
-            track.appendChild(set.cloneNode(true));
-        }
-        const unit = set.getBoundingClientRect().width;
-        let offset = 0;
-        let boost = 0;
+        if (faixas.length && !reduced) {
+            for (const f of faixas) {
+                const set = f.el.firstElementChild;
+                while (f.el.scrollWidth < window.innerWidth * 2) {
+                    f.el.appendChild(set.cloneNode(true));
+                }
+                f.unit = set.getBoundingClientRect().width;
+                f.off = 0;
+            }
+            let boost = 0;
+            let skewAlvo = 0;
+            let skew = 0;
 
-        marqueeTick = (delta) => { boost = Math.min(Math.abs(delta) * 0.35, 14); };
+            marqueeTick = (delta) => {
+                boost = Math.min(Math.abs(delta) * 0.35, 14);
+                skewAlvo = Math.max(-7, Math.min(7, delta * 0.06));
+            };
 
-        const loop = () => {
-            offset -= 0.55 + boost;
-            boost *= 0.92;
-            if (offset <= -unit) offset += unit;
-            track.style.transform = `translate3d(${offset}px,0,0)`;
+            const loop = () => {
+                boost *= 0.92;
+                skewAlvo *= 0.9;
+                skew += (skewAlvo - skew) * 0.12;
+                for (const f of faixas) {
+                    f.off += f.dir * (f.vel + boost);
+                    if (f.off <= -f.unit) f.off += f.unit;
+                    if (f.off > 0) f.off -= f.unit;
+                    f.el.style.transform = `translate3d(${f.off.toFixed(1)}px,0,0) skewX(${skew.toFixed(2)}deg)`;
+                }
+                requestAnimationFrame(loop);
+            };
             requestAnimationFrame(loop);
-        };
-        requestAnimationFrame(loop);
+        }
     }
 
     /* ---------------------------------------------------------
@@ -225,6 +244,53 @@
             const p = Math.min(Math.max((span - (r.top - cardTop)) / span, 0), 1);
             card.style.transform = `scale(${1 - p * 0.05}) translateY(${p * -14}px)`;
         });
+    };
+
+    /* ---------------------------------------------------------
+       Sobre: o texto acende palavra por palavra com o scroll.
+       O paragrafo comeca quase apagado e a leitura vai sendo
+       "pintada" conforme desce — com a inercia do Lenis, parece
+       que o scroll e quem escreve. <strong> e preservado.
+       --------------------------------------------------------- */
+    const acendiveis = [];
+    if (!reduced) {
+        $$('.about-lead, .about-body p').forEach((par) => {
+            const quebra = (node) => {
+                [...node.childNodes].forEach((filho) => {
+                    if (filho.nodeType === 3) {
+                        const frag = document.createDocumentFragment();
+                        filho.textContent.split(/(\s+)/).forEach((peda) => {
+                            if (!peda) return;
+                            if (/^\s+$/.test(peda)) { frag.appendChild(document.createTextNode(peda)); return; }
+                            const sp = document.createElement('span');
+                            sp.className = 'palavra';
+                            sp.textContent = peda;
+                            frag.appendChild(sp);
+                        });
+                        node.replaceChild(frag, filho);
+                    } else if (filho.nodeType === 1) {
+                        quebra(filho);
+                    }
+                });
+            };
+            quebra(par);
+            acendiveis.push({ par, spans: $$('.palavra', par), acesas: 0 });
+        });
+    }
+
+    const paintPalavras = () => {
+        if (!acendiveis.length) return;
+        const vh = window.innerHeight;
+        for (const a of acendiveis) {
+            const r = a.par.getBoundingClientRect();
+            if (r.bottom < 0 || r.top > vh) continue;
+            const prog = Math.min(1, Math.max(0, (vh * 0.88 - r.top) / (vh * 0.5)));
+            const alvo = Math.round(prog * a.spans.length);
+            if (alvo === a.acesas) continue;
+            const [de, ate, liga] = alvo > a.acesas ? [a.acesas, alvo, true] : [alvo, a.acesas, false];
+            for (let i = de; i < ate; i++) a.spans[i].classList.toggle('lit', liga);
+            a.acesas = alvo;
+        }
     };
 
     /* ---------------------------------------------------------
@@ -254,6 +320,7 @@
         onNavScroll();
         paintStack();
         paintRail();
+        paintPalavras();
         queued = false;
     };
 
@@ -266,6 +333,7 @@
     window.addEventListener('resize', () => { paintStack(); paintRail(); }, { passive: true });
     paintStack();
     paintRail();
+    paintPalavras();
 
     /* ---------------------------------------------------------
        Spotlight border on project cards
@@ -539,4 +607,126 @@
             else { v.pause(); }
         }, { threshold: 0.1 }).observe(port);
     }
+})();
+
+/* =========================================================
+   Constelação neural — canvas vivo atrás da seção Sobre.
+   Nós derivam devagar; linhas nascem entre vizinhos e entre
+   cada nó e o cursor. É a assinatura visual de "IA" sem uma
+   biblioteca sequer. Só desktop com ponteiro fino, pausa
+   fora da tela, e respeita reduced-motion.
+   ========================================================= */
+(() => {
+    'use strict';
+    const reduzido = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const fino = window.matchMedia('(pointer: fine)').matches;
+    if (reduzido || !fino || window.innerWidth < 1024) return;
+
+    const secao = document.querySelector('#about');
+    if (!secao) return;
+
+    const cv = document.createElement('canvas');
+    cv.className = 'constelacao';
+    cv.setAttribute('aria-hidden', 'true');
+    secao.prepend(cv);
+    const ctx = cv.getContext('2d');
+
+    const DPR = Math.min(devicePixelRatio || 1, 1.5);
+    let W = 0, H = 0;
+    const dimensiona = () => {
+        const r = cv.getBoundingClientRect();
+        W = r.width; H = r.height;
+        cv.width = W * DPR; cv.height = H * DPR;
+        ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    };
+    dimensiona();
+    window.addEventListener('resize', dimensiona, { passive: true });
+
+    // densidade proporcional à área, com teto — tela grande não vira nevasca
+    const N = Math.min(90, Math.round((W * H) / 26000));
+    const nos = Array.from({ length: N }, () => ({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        vx: (Math.random() - 0.5) * 0.22,
+        vy: (Math.random() - 0.5) * 0.22,
+        r: 0.8 + Math.random() * 1.4,
+    }));
+
+    // cursor em coordenadas do canvas (-1 = fora)
+    const mouse = { x: -1, y: -1 };
+    window.addEventListener('pointermove', (e) => {
+        const r = cv.getBoundingClientRect();
+        mouse.x = e.clientX - r.left;
+        mouse.y = e.clientY - r.top;
+    }, { passive: true });
+
+    const LIGA = 130;      // distância máxima entre nós ligados
+    const LIGA_MOUSE = 190;
+
+    let rodando = false;
+    const desenha = () => {
+        if (!rodando) return;
+        ctx.clearRect(0, 0, W, H);
+
+        for (const n of nos) {
+            n.x += n.vx; n.y += n.vy;
+            if (n.x < -20) n.x = W + 20; if (n.x > W + 20) n.x = -20;
+            if (n.y < -20) n.y = H + 20; if (n.y > H + 20) n.y = -20;
+        }
+
+        // linhas nó-a-nó (violeta, quase sussurro)
+        for (let i = 0; i < N; i++) {
+            const a = nos[i];
+            for (let j = i + 1; j < N; j++) {
+                const b = nos[j];
+                const dx = a.x - b.x, dy = a.y - b.y;
+                const d2 = dx * dx + dy * dy;
+                if (d2 > LIGA * LIGA) continue;
+                const f = 1 - Math.sqrt(d2) / LIGA;
+                ctx.strokeStyle = `rgba(124, 92, 255, ${(f * 0.14).toFixed(3)})`;
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(a.x, a.y);
+                ctx.lineTo(b.x, b.y);
+                ctx.stroke();
+            }
+        }
+
+        // o cursor é um nó especial: as linhas até ele são ciano e mais vivas
+        if (mouse.x >= 0 && mouse.y >= 0 && mouse.y <= H) {
+            for (const n of nos) {
+                const dx = n.x - mouse.x, dy = n.y - mouse.y;
+                const d2 = dx * dx + dy * dy;
+                if (d2 > LIGA_MOUSE * LIGA_MOUSE) continue;
+                const f = 1 - Math.sqrt(d2) / LIGA_MOUSE;
+                ctx.strokeStyle = `rgba(34, 211, 238, ${(f * 0.28).toFixed(3)})`;
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(n.x, n.y);
+                ctx.lineTo(mouse.x, mouse.y);
+                ctx.stroke();
+            }
+        }
+
+        // os nós por último, acima das linhas
+        for (const n of nos) {
+            ctx.fillStyle = 'rgba(176, 108, 255, 0.5)';
+            ctx.beginPath();
+            ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        requestAnimationFrame(desenha);
+    };
+
+    // só gasta bateria quando a seção está na tela
+    new IntersectionObserver(([e]) => {
+        if (e.isIntersecting && !rodando) {
+            rodando = true;
+            cv.classList.add('on');
+            requestAnimationFrame(desenha);
+        } else if (!e.isIntersecting) {
+            rodando = false;
+        }
+    }, { threshold: 0.05 }).observe(secao);
 })();
