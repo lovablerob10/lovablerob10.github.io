@@ -2,7 +2,8 @@
 slug: google-discover-vai-aceitar-prompt-para-ajustar-o-feed
 titulo: "Google Discover vai aceitar prompt para ajustar o feed"
 descricao: "Usuário descreve em texto o que quer ver, e a IA ajusta automaticamente o feed. Chega nos próximos dias no app do Google."
-data: 2026-08-21
+data: 2026-08-20
+hora: 22:09
 leitura: 3 min de leitura
 fonte: "The Verge AI"
 fonte_url: "https://www.theverge.com/tech/983088/google-discover-ai-chatbot-feed"

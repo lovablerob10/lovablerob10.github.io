@@ -3,6 +3,7 @@ slug: um-terco-das-paginas-web-criadas-desde-2022-tem-sinais-de-autoria-po
 titulo: "Um terço das páginas web criadas desde 2022 tem sinais de autoria por IA"
 descricao: "Estudo mostra que 33% do conteúdo publicado na web desde o lançamento do ChatGPT foi escrito ou editado por modelos de linguagem"
 data: 2026-08-20
+hora: 20:46
 leitura: 3 min de leitura
 fonte: "TechCrunch AI"
 fonte_url: "https://techcrunch.com/2026/08/20/a-third-of-webpages-published-since-chatgpts-launch-show-signs-of-ai-authorship-study-finds/"

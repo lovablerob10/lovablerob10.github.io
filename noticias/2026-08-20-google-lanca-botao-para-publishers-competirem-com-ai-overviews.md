@@ -3,6 +3,7 @@ slug: google-lanca-botao-para-publishers-competirem-com-ai-overviews
 titulo: "Google lança botão para publishers competirem com AI Overviews"
 descricao: "Novo recurso permite que leitores marquem sites como preferidos, tentando compensar queda de tráfego causada por respostas diretas da IA no Search."
 data: 2026-08-20
+hora: 20:25
 leitura: 3 min de leitura
 fonte: "TechCrunch AI"
 fonte_url: "https://techcrunch.com/2026/08/20/google-gives-publishers-a-new-way-to-fight-ai-driven-traffic-losses/"

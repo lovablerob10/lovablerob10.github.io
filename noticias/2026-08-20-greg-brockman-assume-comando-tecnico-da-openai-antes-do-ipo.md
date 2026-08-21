@@ -2,7 +2,8 @@
 slug: greg-brockman-assume-comando-tecnico-da-openai-antes-do-ipo
 titulo: "Greg Brockman assume comando técnico da OpenAI antes do IPO"
 descricao: "Cofundador volta ao centro das decisões enquanto empresa se prepara para abrir capital após ano turbulento"
-data: 2026-08-21
+data: 2026-08-20
+hora: 22:30
 leitura: 3 min de leitura
 fonte: "The Verge AI"
 fonte_url: "https://www.theverge.com/ai-artificial-intelligence/982774/greg-brockman-openai-role-expansion"

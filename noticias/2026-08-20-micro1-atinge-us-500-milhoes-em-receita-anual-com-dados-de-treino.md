@@ -2,7 +2,8 @@
 slug: micro1-atinge-us-500-milhoes-em-receita-anual-com-dados-de-treino
 titulo: "Micro1 atinge US$ 500 milhões em receita anual com dados de treino"
 descricao: "Startup que fornece dados rotulados para treinar modelos de IA alcança meio bilhão em faturamento bruto anual, surfando na demanda por datasets."
-data: 2026-08-21
+data: 2026-08-20
+hora: 21:48
 leitura: 3 min de leitura
 fonte: "TechCrunch AI"
 fonte_url: "https://techcrunch.com/2026/08/20/ai-data-startup-micro1-reaches-500m-gross-run-rate-amid-ai-training-boom/"

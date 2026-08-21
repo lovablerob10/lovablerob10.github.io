@@ -338,7 +338,19 @@ def main():
             pagina(meta, md_para_html(corpo), css))
         artigos.append(meta)
 
-    artigos.sort(key=lambda a: a.get('data', ''), reverse=True)
+    # ORDEM DO INDICE. A publicacao se chama "IA em movimento": o topo tem
+    # que ser o que acabou de sair, senao o destaque congela e a promessa de
+    # "atualizado automaticamente" vira mentira. Como varias notas nascem no
+    # mesmo dia, a data sozinha nao desempata; entao no empate a noticia vem
+    # antes do relato tecnico, que e evergreen e pode esperar. `destaque: true`
+    # no front matter fura a fila quando eu quiser fixar alguma coisa. A hora
+    # vem da propria maquina, no fuso de Brasilia, e e o que desempata o dia.
+    artigos.sort(key=lambda a: (
+        str(a.get('destaque', '')).lower() == 'true',
+        a.get('data', ''),
+        a.get('hora', '00:00'),
+        a.get('tipo', '') == 'noticia',
+        a.get('slug', '')), reverse=True)
     io.open(os.path.join(destino, 'index.html'), 'w', encoding='utf-8').write(
         indice(artigos, css))
 
@@ -386,15 +398,17 @@ MES_EN = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
           'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
 
-def data_rss(iso):
+def data_rss(iso, hora='09:00'):
     """RSS exige RFC-822. Sem dependencia externa, so a stdlib."""
     m = re.match(r'(\d{4})-(\d{2})-(\d{2})', iso or '')
     if not m:
         return ''
     import datetime
     d = datetime.date(int(m.group(1)), int(m.group(2)), int(m.group(3)))
-    return '%s, %02d %s %d 09:00:00 -0300' % (
-        RFC822[d.weekday()], d.day, MES_EN[d.month - 1], d.year)
+    hh, mm = (hora.split(':') + ['00'])[:2]
+    return '%s, %02d %s %d %02d:%02d:00 -0300' % (
+        RFC822[d.weekday()], d.day, MES_EN[d.month - 1], d.year,
+        int(hh), int(mm))
 
 
 def feed(artigos, destino):
@@ -417,7 +431,7 @@ def feed(artigos, destino):
             '%s'
             '</item>' % (
                 html.escape(a['titulo']), SITE, a['slug'], SITE, a['slug'],
-                html.escape(a.get('descricao', '')), data_rss(a.get('data', '')),
+                html.escape(a.get('descricao', '')), data_rss(a.get('data', ''), a.get('hora', '09:00')),
                 'Noticia' if a.get('tipo') == 'noticia' else 'Bastidores', capa))
 
     linhas = [

@@ -3,6 +3,7 @@ slug: meta-lanca-app-de-ditado-por-voz-para-mac-com-ia-integrada
 titulo: "Meta lança app de ditado por voz para Mac com IA integrada"
 descricao: "Aplicativo funciona em qualquer programa do macOS, competindo direto com Whispr Flow e Superwhisper no mercado de transcrição local."
 data: 2026-08-20
+hora: 21:27
 leitura: 3 min de leitura
 fonte: "TechCrunch AI"
 fonte_url: "https://techcrunch.com/2026/08/20/meta-ais-new-mac-app-wants-you-to-talk-to-your-apps/"

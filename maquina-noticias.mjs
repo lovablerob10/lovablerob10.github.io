@@ -195,6 +195,26 @@ async function escrever(item, env) {
 }
 
 /* ------------------------------------------------------------------ */
+/** A data da nota e a do leitor, nao a do servidor.
+ *
+ * toISOString() devolve UTC, onde o dia vira as 21h de Brasilia. Como a
+ * rodada da tarde roda exatamente nesse horario, toda nota da tarde nascia
+ * datada de amanha: erro visivel num site de noticia, e ainda zerava o teto
+ * diario cedo demais. O locale sv-SE e o atalho para ISO (AAAA-MM-DD). */
+function hojeEmBrasilia() {
+  return new Intl.DateTimeFormat('sv-SE', { timeZone: 'America/Sao_Paulo' })
+    .format(new Date());
+}
+
+/** A hora tambem: varias notas nascem no mesmo dia, e sem ela o indice
+ *  desempata por ordem alfabetica, que nao diz nada ao leitor. */
+function agoraEmBrasilia() {
+  return new Intl.DateTimeFormat('pt-BR', {
+    timeZone: 'America/Sao_Paulo', hour: '2-digit', minute: '2-digit', hour12: false,
+  }).format(new Date());
+}
+
+/* ------------------------------------------------------------------ */
 function slugify(s) {
   return s.normalize('NFD').replace(/[̀-ͯ]/g, '')
     .toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 68);
@@ -214,7 +234,7 @@ async function main() {
   const jaVi = new Set(vistas.map((v) => v.link));
 
   // quantas já saíram hoje
-  const hoje = new Date().toISOString().slice(0, 10);
+  const hoje = hojeEmBrasilia();
   const publicadasHoje = vistas.filter((v) => v.publicadoEm === hoje).length;
   if (publicadasHoje >= MAX_POR_DIA) {
     console.log(`teto diario atingido (${publicadasHoje}/${MAX_POR_DIA})`);
@@ -250,6 +270,7 @@ slug: ${slug}
 titulo: "${nota.titulo.replace(/"/g, "'")}"
 descricao: "${(nota.resumo || '').replace(/"/g, "'")}"
 data: ${hoje}
+hora: ${agoraEmBrasilia()}
 leitura: 3 min de leitura
 fonte: "${item.fonte}"
 fonte_url: "${item.link}"

@@ -3,6 +3,7 @@ slug: ramp-lanca-roteador-de-modelos-de-ia-chamado-router
 titulo: "Ramp lança roteador de modelos de IA chamado Router"
 descricao: "Fintech de gestão de gastos corporativos entra no mercado de infraestrutura de IA com serviço que roteia chamadas entre LLMs via API"
 data: 2026-08-20
+hora: 21:07
 leitura: 3 min de leitura
 fonte: "TechCrunch AI"
 fonte_url: "https://techcrunch.com/2026/08/20/ramp-launches-its-own-ai-model-router-called-router/"

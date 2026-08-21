@@ -3,6 +3,7 @@ slug: openai-recupera-terreno-corporativo-perdido-para-anthropic
 titulo: "OpenAI recupera terreno corporativo perdido para Anthropic"
 descricao: "Empresas migram entre provedores a cada lançamento de modelo, sinalizando baixa fidelização no mercado corporativo de IA."
 data: 2026-08-20
+hora: 20:05
 leitura: 3 min de leitura
 fonte: "TechCrunch AI"
 fonte_url: "https://techcrunch.com/2026/08/20/openai-is-gaining-on-anthropic-with-business-users-new-data-indicates/"
