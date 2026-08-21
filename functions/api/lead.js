@@ -77,6 +77,11 @@ export async function onRequestPost({ request, env }) {
   // recebe erro tenta de novo, robô que recebe sucesso vai embora.
   if (limpar(corpo.site, 80)) return json({ ok: true });
 
+  /* Teste que chega igual a lead de verdade custa caro: em 21/08 o Robson
+     olhou o celular e nao soube dizer se "Marcos Ferreira" era cliente ou
+     coisa nossa. Marcado assim, a duvida nao existe. */
+  const eTeste = corpo.teste === true;
+
   const nome = limpar(corpo.nome, 80);
   const telefone = normalizarTelefone(corpo.whatsapp);
   const contexto = limpar(corpo.mensagem, 600);
@@ -107,8 +112,8 @@ export async function onRequestPost({ request, env }) {
   }
 
   const partes = [
-    agoraEmBrasilia(),
-    nome,
+    agoraEmBrasilia() + (eTeste ? ' [TESTE, pode ignorar]' : ''),
+    (eTeste ? '[TESTE] ' : '') + nome,
     `+${telefone}`,
     pagina,
     contexto || 'não escreveu contexto',
