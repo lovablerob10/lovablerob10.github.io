@@ -50,5 +50,5 @@ jobs:
           git config user.email "agentevibeflow@gmail.com"
           git add noticias .noticias-vistas.json
           git diff --cached --quiet && echo "nada novo nesta rodada" && exit 0
-          git commit -m "noticias: rodada de $(date -u +%d/%m %H:%M) UTC"
+          git commit -m "noticias: rodada de $(TZ=America/Sao_Paulo date '+%d/%m %H:%M')"
           git push
