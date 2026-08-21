@@ -13,6 +13,10 @@ cp -r assets/opt _site/assets/opt
 cp -r assets/fonts _site/assets/fonts
 [ -d assets/media ] && cp -r assets/media _site/assets/media
 
+# As Pages Functions viajam junto com o site: /api/lead recebe o formulario.
+# Sem isto o formulario responde 404 e o lead se perde em silencio.
+[ -d functions ] && cp -r functions _site/functions
+
 # CACHE-BUSTING: index novo puxa asset novo, sempre.
 V=$(date +%s)
 sed -i "s|href=\"style.css\"|href=\"style.css?v=$V\"|; s|src=\"script.js\"|src=\"script.js?v=$V\"|; s|src=\"bella.js\"|src=\"bella.js?v=$V\"|" _site/index.html

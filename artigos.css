@@ -312,3 +312,253 @@
 @media (max-width: 640px) {
     .card-artigo--capa .card-tipo { margin-left: 1.4rem; }
 }
+
+/* =========================================================
+   PÁGINA DE LEITURA PREMIUM
+   O texto já estava bom. O que faltava era tudo que cerca ele:
+   saber quanto falta, saber quem escreveu, ter o que fazer no
+   fim e ter como falar comigo sem trocar de aplicativo.
+   ========================================================= */
+
+/* ---------- quanto falta ----------
+   Lê o fim do TEXTO, não o da página: contar o formulário faria
+   a barra marcar 70% quando o artigo já tinha acabado. */
+.progresso {
+    position: fixed;
+    inset: 0 0 auto 0;
+    height: 2px;
+    z-index: 60;
+    pointer-events: none;
+}
+.progresso i {
+    display: block;
+    height: 100%;
+    background: linear-gradient(90deg, var(--v1), var(--cy));
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+    will-change: transform;
+}
+
+/* ---------- quem escreveu ----------
+   Numa nota de três minutos, o leitor decide em segundos se
+   confia. Rosto e uma linha de contexto respondem isso antes
+   do primeiro parágrafo. */
+.assinatura {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin: -1.4rem 0 2.6rem;
+}
+.assinatura-foto {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid var(--line-hot);
+    flex: none;
+}
+.assinatura div { display: grid; gap: 0.15rem; }
+.assinatura strong { font-size: 0.92rem; color: var(--paper); font-weight: 600; }
+.assinatura span { font-size: 0.82rem; color: var(--faint); line-height: 1.4; }
+
+/* a capa respira mais larga que a medida do texto */
+.artigo .artigo-capa {
+    width: min(100vw - 2.5rem, 1040px);
+    margin-inline: calc(50% - min(50vw - 1.25rem, 520px));
+}
+
+/* ---------- a captura ----------
+   O botão de WhatsApp exigia trocar de aplicativo e escrever a
+   primeira frase, que é exatamente onde a pessoa desiste. Três
+   campos e o contato chega pronto do outro lado. */
+.captura {
+    margin-top: 4.5rem;
+    display: grid;
+    gap: 2rem;
+    padding: 2.4rem;
+    border-radius: 22px;
+    border: 1px solid var(--line-hot);
+    background:
+        radial-gradient(120% 90% at 0% 0%, rgba(124, 92, 255, 0.14), transparent 60%),
+        radial-gradient(90% 80% at 100% 100%, rgba(34, 211, 238, 0.08), transparent 62%),
+        var(--ink-2);
+}
+@media (min-width: 860px) {
+    .captura { grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+}
+
+.captura-olho {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--v2);
+    margin-bottom: 0.9rem;
+}
+.captura-texto h2 {
+    font-size: clamp(1.4rem, 3vw, 1.85rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.18;
+    color: var(--paper);
+    margin-bottom: 0.9rem;
+}
+.captura-texto p { color: var(--muted); font-size: 0.98rem; line-height: 1.7; }
+
+.captura-provas {
+    list-style: none;
+    margin: 1.4rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 0.6rem;
+}
+.captura-provas li {
+    position: relative;
+    padding-left: 1.5rem;
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.5;
+}
+.captura-provas li::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0.45em;
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--cy);
+    box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.14);
+}
+
+.captura-form { display: grid; gap: 0.9rem; }
+.captura-form label { display: grid; gap: 0.4rem; }
+.captura-form label > span {
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+    color: var(--faint);
+}
+.captura-form label > span i { font-style: normal; opacity: 0.65; }
+
+.captura-form input,
+.captura-form textarea {
+    width: 100%;
+    font: inherit;
+    font-size: 0.95rem;
+    color: var(--paper);
+    background: rgba(8, 8, 12, 0.55);
+    border: 1px solid var(--line);
+    border-radius: 11px;
+    padding: 0.8rem 0.9rem;
+    transition: border-color 0.25s var(--ease), background 0.25s var(--ease);
+}
+.captura-form textarea { resize: vertical; min-height: 84px; line-height: 1.55; }
+.captura-form input::placeholder,
+.captura-form textarea::placeholder { color: #56566a; }
+.captura-form input:focus,
+.captura-form textarea:focus {
+    outline: none;
+    border-color: var(--v2);
+    background: rgba(8, 8, 12, 0.8);
+}
+
+.captura-form button {
+    font: inherit;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #08080c;
+    background: var(--paper);
+    border: none;
+    border-radius: 999px;
+    padding: 0.85rem 1.4rem;
+    cursor: pointer;
+    margin-top: 0.3rem;
+    transition: transform 0.25s var(--ease), opacity 0.25s var(--ease);
+}
+.captura-form button:hover { transform: translateY(-2px); }
+.captura-form button:disabled { opacity: 0.55; cursor: default; transform: none; }
+
+/* campo que só robô preenche: fora da tela, fora da navegação por teclado */
+.nada {
+    position: absolute !important;
+    width: 1px; height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+
+.captura-aviso { font-size: 0.85rem; line-height: 1.5; color: var(--muted); min-height: 1px; }
+.captura-aviso.e-ruim { color: #ff9b9b; }
+.captura-rodape { font-size: 0.76rem; color: var(--faint); line-height: 1.5; }
+
+.captura-ok { display: grid; gap: 0.5rem; align-content: center; min-height: 180px; }
+.captura-ok strong { font-size: 1.15rem; color: var(--paper); }
+.captura-ok span { color: var(--muted); font-size: 0.95rem; line-height: 1.65; }
+.captura-ok a { color: var(--v2); text-decoration: underline; text-underline-offset: 3px; }
+
+/* ---------- continue lendo ----------
+   A nota é a única página que recebe visita de busca. Sem
+   caminho para a próxima, a sessão morre ali. */
+.proximas { margin-top: 4rem; }
+.proximas-titulo {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--faint);
+    font-weight: 400;
+    margin-bottom: 1.2rem;
+}
+.proximas-lista { display: grid; gap: 1rem; }
+@media (min-width: 760px) { .proximas-lista { grid-template-columns: repeat(3, 1fr); } }
+
+.prox-item {
+    display: grid;
+    gap: 0.55rem;
+    align-content: start;
+    padding-bottom: 0.4rem;
+    border-radius: 14px;
+    overflow: hidden;
+    transition: transform 0.4s var(--ease);
+}
+.prox-item:hover { transform: translateY(-3px); }
+.prox-capa {
+    display: block;
+    aspect-ratio: 16 / 9;
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--ink-3);
+    border: 1px solid var(--line);
+}
+.prox-capa img { width: 100%; height: 100%; object-fit: cover; }
+.prox-tipo {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--v2);
+}
+.prox-titulo {
+    font-size: 0.98rem;
+    font-weight: 600;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+    color: var(--paper);
+}
+
+/* ---------- reveals ----------
+   Nascem visíveis. A classe .rev só é aplicada por JS quando há
+   IntersectionObserver e o sistema não pediu menos movimento:
+   animação nunca pode ser condição para o texto aparecer. */
+.rev { opacity: 0; transform: translateY(18px); }
+.rev.vis {
+    opacity: 1;
+    transform: none;
+    transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+}
+@media (prefers-reduced-motion: reduce) {
+    .rev, .rev.vis { opacity: 1; transform: none; transition: none; }
+    .progresso { display: none; }
+}
+
+@media (max-width: 640px) {
+    .captura { padding: 1.6rem 1.3rem; border-radius: 18px; }
+    .assinatura { margin-top: -0.8rem; }
+}

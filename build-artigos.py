@@ -147,7 +147,7 @@ def md_para_html(md):
 
 
 # --------------------------------------------------------------------------
-def pagina(meta, corpo_html, css_inline):
+def pagina(meta, corpo_html, css_inline, vizinhos=()):
     slug = meta['slug']
     url = '%s/artigos/%s/' % (SITE, slug)
     titulo = meta['titulo']
@@ -210,20 +210,62 @@ def pagina(meta, corpo_html, css_inline):
   </div>
 </header>
 
+<div class="progresso" id="progresso" aria-hidden="true"><i></i></div>
+
 <main class="artigo wrap">
-  <a class="voltar" href="/artigos/">&larr; todos os artigos</a>
+  <a class="voltar" href="/artigos/">&larr; todas as notas</a>
   <p class="artigo-meta">{data_br}{sep}{leitura}{fonte}</p>
   <h1 class="artigo-titulo">{titulo}</h1>
   <p class="artigo-linha">{desc}</p>
+
+  <div class="assinatura">
+    <img class="assinatura-foto" src="/assets/opt/avatar.webp" alt="" width="44" height="44" loading="lazy">
+    <div>
+      <strong>Robson Nobre</strong>
+      <span>Constrói sistemas de IA que rodam em produção</span>
+    </div>
+  </div>
   {capa}
   <article class="artigo-corpo">
 {corpo}
   </article>
 
-  <aside class="artigo-cta">
-    <p><strong>Construo sistemas assim para empresas.</strong> Se algo aqui parece com um problema seu, me chama.</p>
-    <a class="btn" href="https://wa.me/5519996597169" target="_blank" rel="noopener">Falar comigo no WhatsApp</a>
+  <aside class="captura" id="captura" data-rev>
+    <div class="captura-texto">
+      <p class="captura-olho">Trabalhe comigo</p>
+      <h2>Isso aqui parece com um problema seu?</h2>
+      <p>Construo esses sistemas para empresas: agentes que atendem, prospectam e
+      operam sozinhos. Deixa seu contato que eu chamo no WhatsApp, e a conversa
+      começa comigo, não com um robô.</p>
+      <ul class="captura-provas">
+        <li>Resposta no mesmo dia útil</li>
+        <li>Primeira conversa sem custo e sem script de vendas</li>
+        <li>Se não for pra você, eu digo na hora</li>
+      </ul>
+    </div>
+
+    <form class="captura-form" id="form-lead" novalidate>
+      <label>
+        <span>Seu nome</span>
+        <input name="nome" type="text" autocomplete="name" required maxlength="80" placeholder="Como te chamo">
+      </label>
+      <label>
+        <span>WhatsApp</span>
+        <input name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" required
+               maxlength="20" placeholder="(19) 99999-9999">
+      </label>
+      <label>
+        <span>O que você quer resolver <i>(opcional)</i></span>
+        <textarea name="mensagem" rows="3" maxlength="600"
+                  placeholder="Duas linhas já bastam"></textarea>
+      </label>
+      <input class="nada" type="text" name="site" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button type="submit">Quero conversar</button>
+      <p class="captura-aviso" id="aviso-lead" role="status" aria-live="polite"></p>
+      <p class="captura-rodape">Seu número serve só para eu te responder. Não entra em lista nenhuma.</p>
+    </form>
   </aside>
+{vizinhos}
 </main>
 
 <footer class="foot"><div class="foot-inner">
@@ -231,6 +273,98 @@ def pagina(meta, corpo_html, css_inline):
   <span>Escrito por Robson Nobre</span>
   <span>&copy; 2026</span>
 </div></footer>
+
+<script>
+(function () {{
+  var calmo = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Barra de progresso. Lê o fim do TEXTO, não o fim da página: contar o
+     formulário e o rodapé faria a barra mostrar 70% quando o artigo acabou. */
+  var barra = document.querySelector('#progresso i');
+  var corpo = document.querySelector('.artigo-corpo');
+  if (barra && corpo) {{
+    var pendente = false;
+    var pintar = function () {{
+      var r = corpo.getBoundingClientRect();
+      var total = r.height - innerHeight;
+      var lido = total > 0 ? (-r.top) / total : (r.top < 0 ? 1 : 0);
+      barra.style.transform = 'scaleX(' + Math.min(1, Math.max(0, lido)) + ')';
+      pendente = false;
+    }};
+    addEventListener('scroll', function () {{
+      if (!pendente) {{ pendente = true; requestAnimationFrame(pintar); }}
+    }}, {{ passive: true }});
+    pintar();
+  }}
+
+  /* Reveals. Sem IntersectionObserver ou com movimento reduzido, tudo já
+     nasce visível: animação nunca pode ser condição para ler. */
+  if (!calmo && 'IntersectionObserver' in window) {{
+    var obs = new IntersectionObserver(function (ent) {{
+      ent.forEach(function (e) {{
+        if (e.isIntersecting) {{ e.target.classList.add('vis'); obs.unobserve(e.target); }}
+      }});
+    }}, {{ rootMargin: '0px 0px -12% 0px' }});
+    document.querySelectorAll('[data-rev]').forEach(function (el) {{
+      el.classList.add('rev'); obs.observe(el);
+    }});
+  }}
+
+  /* Formulário. O estado de erro sempre oferece saída pelo WhatsApp: dizer
+     "deu erro" e parar aí é perder alguém que já quis falar. */
+  var form = document.getElementById('form-lead');
+  if (!form) return;
+  var aviso = document.getElementById('aviso-lead');
+  var botao = form.querySelector('button');
+  var rotulo = botao.textContent;
+
+  var dizer = function (txt, tipo) {{
+    aviso.textContent = txt;
+    aviso.className = 'captura-aviso' + (tipo ? ' e-' + tipo : '');
+  }};
+
+  form.addEventListener('submit', function (ev) {{
+    ev.preventDefault();
+    var d = new FormData(form);
+    var dados = {{
+      nome: d.get('nome'), whatsapp: d.get('whatsapp'), mensagem: d.get('mensagem'),
+      site: d.get('site'), pagina: {titulo_js}
+    }};
+    if (!String(dados.nome || '').trim()) return dizer('Escreve seu nome, por favor.', 'ruim');
+    if (String(dados.whatsapp || '').replace(/[^0-9]/g, '').length < 10) {{
+      return dizer('Falta o DDD ou algum dígito no WhatsApp.', 'ruim');
+    }}
+
+    botao.disabled = true; botao.textContent = 'Enviando...'; dizer('');
+
+    fetch('/api/lead', {{
+      method: 'POST',
+      headers: {{ 'content-type': 'application/json' }},
+      body: JSON.stringify(dados)
+    }}).then(function (r) {{ return r.json().then(function (j) {{ return {{ r: r, j: j }}; }}); }})
+      .then(function (res) {{
+        if (res.j && res.j.ok) {{
+          form.innerHTML = '<div class="captura-ok"><strong>Recebido.</strong>' +
+            '<span>Te chamo no WhatsApp em breve. Se preferir adiantar, ' +
+            '<a href="' + (res.j.whatsapp || 'https://wa.me/5519996597169') +
+            '" target="_blank" rel="noopener">me manda mensagem agora</a>.</span></div>';
+          return;
+        }}
+        botao.disabled = false; botao.textContent = rotulo;
+        if (res.j && res.j.whatsapp) {{
+          dizer('Não consegui registrar aqui. Abrindo o WhatsApp para você.', 'ruim');
+          setTimeout(function () {{ open(res.j.whatsapp, '_blank', 'noopener'); }}, 900);
+          return;
+        }}
+        dizer((res.j && res.j.erro) || 'Não deu certo. Tenta de novo?', 'ruim');
+      }})
+      .catch(function () {{
+        botao.disabled = false; botao.textContent = rotulo;
+        dizer('Sem conexão com o servidor. Me chama no WhatsApp: (19) 99659-7169', 'ruim');
+      }});
+  }});
+}})();
+</script>
 </body>
 </html>""".format(
         titulo=html.escape(titulo), desc=html.escape(desc), url=url, autor=AUTOR,
@@ -241,7 +375,31 @@ def pagina(meta, corpo_html, css_inline):
         fonte=(' · fonte: <a href="%s" target="_blank" rel="noopener nofollow">%s</a>'
                % (meta['fonte_url'], html.escape(meta.get('fonte', 'origem')))) if meta.get('fonte_url') else '',
         capa=('<figure class="artigo-capa"><img src="/%s" alt="%s" width="1280" height="720" fetchpriority="high"></figure>'
-              % (meta['capa'], html.escape(meta.get('capa_alt', ''))) if meta.get('capa') else ''))
+              % (meta['capa'], html.escape(meta.get('capa_alt', ''))) if meta.get('capa') else ''),
+        titulo_js=json.dumps(titulo, ensure_ascii=False),
+        vizinhos=bloco_vizinhos(vizinhos))
+
+
+def bloco_vizinhos(vizinhos):
+    """A nota e a unica pagina que recebe visita de busca. Sem um caminho para
+    a proxima, a sessao morre ali e o visitante nunca ve o resto do trabalho."""
+    if not vizinhos:
+        return ''
+    cartoes = []
+    for v in vizinhos:
+        capa = ('<span class="prox-capa"><img src="/%s" alt="" loading="lazy" '
+                'width="640" height="360"></span>' % v['capa']) if v.get('capa') else ''
+        cartoes.append(
+            '      <a class="prox-item" href="/artigos/%s/">%s'
+            '<span class="prox-tipo">%s</span>'
+            '<span class="prox-titulo">%s</span></a>'
+            % (v['slug'], capa,
+               'Notícia' if v.get('tipo') == 'noticia' else 'Como eu construí',
+               html.escape(v['titulo'])))
+    return ('\n  <nav class="proximas" aria-label="Continue lendo" data-rev>\n'
+            '    <h2 class="proximas-titulo">Continue lendo</h2>\n'
+            '    <div class="proximas-lista">\n%s\n    </div>\n  </nav>'
+            % '\n'.join(cartoes))
 
 
 def indice(artigos, css_inline):
@@ -334,9 +492,7 @@ def main():
         meta['data_br'] = formata_data(meta.get('data', ''))
         pasta = os.path.join(destino, meta['slug'])
         os.makedirs(pasta, exist_ok=True)
-        io.open(os.path.join(pasta, 'index.html'), 'w', encoding='utf-8').write(
-            pagina(meta, md_para_html(corpo), css))
-        artigos.append(meta)
+        artigos.append((meta, corpo))
 
     # ORDEM DO INDICE. A publicacao se chama "IA em movimento": o topo tem
     # que ser o que acabou de sair, senao o destaque congela e a promessa de
@@ -345,12 +501,30 @@ def main():
     # antes do relato tecnico, que e evergreen e pode esperar. `destaque: true`
     # no front matter fura a fila quando eu quiser fixar alguma coisa. A hora
     # vem da propria maquina, no fuso de Brasilia, e e o que desempata o dia.
-    artigos.sort(key=lambda a: (
-        str(a.get('destaque', '')).lower() == 'true',
-        a.get('data', ''),
-        a.get('hora', '00:00'),
-        a.get('tipo', '') == 'noticia',
-        a.get('slug', '')), reverse=True)
+    artigos.sort(key=lambda par: (
+        str(par[0].get('destaque', '')).lower() == 'true',
+        par[0].get('data', ''),
+        par[0].get('hora', '00:00'),
+        par[0].get('tipo', '') == 'noticia',
+        par[0].get('slug', '')), reverse=True)
+
+    # As paginas so podem ser escritas DEPOIS da ordenacao: o "continue lendo"
+    # de cada nota mostra as vizinhas mais recentes, e antes de ordenar nao
+    # existe "mais recente".
+    metas = [m for m, _ in artigos]
+    for i, (meta, corpo) in enumerate(artigos):
+        # Capa repetida confunde: a arte e por tema, entao duas notas do mesmo
+        # assunto dividem a imagem. Ver a capa da nota que voce esta lendo
+        # anunciando uma "outra" logo abaixo parece erro. Quem tem capa
+        # diferente entra primeiro; a ordem por recencia sobrevive dentro de
+        # cada grupo porque sorted() e estavel.
+        candidatas = [v for v in metas if v['slug'] != meta['slug']]
+        candidatas.sort(key=lambda v: v.get('capa') == meta.get('capa'))
+        vizinhas = candidatas[:3]
+        io.open(os.path.join(destino, meta['slug'], 'index.html'), 'w',
+                encoding='utf-8').write(pagina(meta, md_para_html(corpo), css, vizinhas))
+
+    artigos = metas
     io.open(os.path.join(destino, 'index.html'), 'w', encoding='utf-8').write(
         indice(artigos, css))
 
