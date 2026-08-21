@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Robson Nobre — o portfólio mudou de endereço</title>
+
+<!-- POR QUE ESTA PAGINA EXISTE
+     O portfolio vive em robsonobre.com.br desde agosto de 2026. Este endereco
+     continuava servindo a versao de marco, sem canonical, competindo com o
+     dominio novo pelas mesmas buscas: dois sites do mesmo autor disputando o
+     mesmo nome dividem a forca em vez de somar.
+     O canonical junta os dois num so aos olhos do Google. O refresh e o script
+     levam quem chegar aqui pro lugar certo. Nada de robots.txt bloqueando:
+     pagina bloqueada nao e lida, e canonical que ninguem le nao serve pra nada. -->
+<link rel="canonical" href="https://robsonobre.com.br/">
+<meta http-equiv="refresh" content="0; url=https://robsonobre.com.br/">
+<meta name="description" content="O portfólio de Robson Nobre, Full Stack Developer for AI, agora fica em robsonobre.com.br.">
+<meta name="theme-color" content="#08080c">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%2308080c'/%3E%3Ctext x='50' y='50' dy='.35em' text-anchor='middle' font-family='monospace' font-size='46' font-weight='700' fill='%237c5cff'%3ERN%3C/text%3E%3C/svg%3E">
+
+<style>
+  :root { color-scheme: dark; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-content: center;
+    gap: 1.4rem;
+    padding: 2rem;
+    text-align: center;
+    background: #08080c;
+    color: #e8e8f0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .marca {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: #b06cff;
+  }
+  .marca i { color: #4a4a5e; font-style: normal; }
+  p { color: #9a9aab; font-size: 1rem; line-height: 1.6; max-width: 34ch; }
+  a.ir {
+    justify-self: center;
+    display: inline-block;
+    margin-top: 0.4rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 999px;
+    background: #f2f2f7;
+    color: #08080c;
+    font-size: 0.92rem;
+    font-weight: 600;
+    text-decoration: none;
+  }
+</style>
+</head>
+<body>
+  <p class="marca"><i>&lt;</i>RN<i>/&gt;</i></p>
+  <p>O portfólio do Robson mudou de endereço. Levando você para lá.</p>
+  <a class="ir" href="https://robsonobre.com.br/">robsonobre.com.br</a>
+
+<script>
+  // O refresh acima ja resolve. Isto so torna a troca instantanea e sem
+  // deixar rastro no historico do navegador: replace, nao href.
+  location.replace('https://robsonobre.com.br/');
+</script>
+</body>
+</html>
