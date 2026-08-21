@@ -238,6 +238,8 @@ async function main() {
   const publicadasHoje = vistas.filter((v) => v.publicadoEm === hoje).length;
   if (publicadasHoje >= MAX_POR_DIA) {
     console.log(`teto diario atingido (${publicadasHoje}/${MAX_POR_DIA})`);
+    // sem isto o aviso repetiria as manchetes da rodada anterior
+    await fs.rm('.ultima-rodada.json', { force: true });
     return;
   }
 
@@ -252,6 +254,7 @@ async function main() {
 
   const teto = Math.min(MAX_POR_RODADA, MAX_POR_DIA - publicadasHoje);
   let escritas = 0;
+  const publicadas = [];
 
   for (const item of candidatos) {
     if (escritas >= teto) break;
@@ -287,6 +290,7 @@ ${nota.corpo}
 `;
       await fs.writeFile(arquivo, md, 'utf8');
       vistas.push({ link: item.link, visto: hoje, publicadoEm: hoje, slug });
+      publicadas.push({ titulo: nota.titulo, slug });
       escritas++;
       console.log(`  ✓ ${nota.titulo}`);
     } catch (e) {
@@ -299,6 +303,11 @@ ${nota.corpo}
 
   // a memoria guarda 400 links: o suficiente para nao repetir, sem crescer para sempre
   await fs.writeFile(HIST, JSON.stringify(vistas.slice(-400), null, 1), 'utf8');
+
+  // o resumo da rodada alimenta o aviso no WhatsApp, que roda depois do deploy.
+  // fica de fora do git: e efemero, vale so ate a proxima rodada.
+  await fs.writeFile('.ultima-rodada.json',
+    JSON.stringify({ quando: `${hoje} ${agoraEmBrasilia()}`, notas: publicadas }, null, 1), 'utf8');
   console.log(`\n${escritas} nota(s) escrita(s) em noticias/`);
 }
 

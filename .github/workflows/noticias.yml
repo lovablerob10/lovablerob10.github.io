@@ -41,6 +41,14 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: bash publicar.sh
 
+      # depois do deploy, nao antes: o link precisa estar no ar quando a
+      # mensagem chega no celular dele.
+      - name: avisar no WhatsApp
+        env:
+          META_ACCESS_TOKEN: ${{ secrets.META_ACCESS_TOKEN }}
+          META_PHONE_NUMBER_ID: ${{ secrets.META_PHONE_NUMBER_ID }}
+        run: node avisar-zap.mjs
+
       # roda mesmo se o deploy falhar: nota escrita nao pode se perder,
       # a proxima rodada publica o que ficou parado.
       - name: guardar o que saiu
