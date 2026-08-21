@@ -1,7 +1,7 @@
 ---
 slug: gestora-de-trafego-por-ia-mercado-imobiliario
 titulo: "Como construí uma gestora de tráfego que roda campanhas sozinha"
-descricao: "Uma IA que cria, publica e otimiza campanhas de Meta Ads para o mercado imobiliário, sem gestor humano no meio. A arquitetura, os limites que precisei impor e o que aprendi ao deixar uma inteligência artificial gastar dinheiro de verdade."
+descricao: "Uma IA que cria, publica e otimiza campanhas de Meta Ads para o mercado imobiliário. A arquitetura por dentro, onde eu deixei ela decidir sozinha, onde exigi aprovação humana, e por que essa linha foi a decisão mais difícil do projeto."
 data: 2026-08-20
 leitura: 9 min de leitura
 capa: assets/media/artigo-trafego.webp
@@ -10,7 +10,7 @@ capa_alt: "Painel de métricas de campanha em tons de violeta e ciano sobre fund
 
 Existe uma diferença enorme entre uma IA que **sugere** uma campanha e uma que **roda** a campanha. A primeira é um assistente de texto com nome bonito. A segunda gasta dinheiro de verdade, todo dia, sem pedir licença.
 
-Eu construí a segunda. Ela se chama Bella, opera dentro do Corretor 2.0 e é, até onde consegui verificar, a única gestora de tráfego autônoma voltada ao mercado imobiliário brasileiro. Este texto explica como ela funciona por dentro. Principalmente, explica os freios que precisei inventar depois de descobrir o que acontece quando eles não existem.
+Eu construí a segunda. Ela se chama Bella, opera dentro do Corretor 2.0 e é, até onde consegui verificar, a única gestora de tráfego autônoma voltada ao mercado imobiliário brasileiro. Este texto explica como ela funciona por dentro. Principalmente, explica onde eu decidi que ela age sozinha, onde exigi que um humano aprovasse, e por que essa fronteira deu mais trabalho do que todo o resto.
 
 ## O problema que ninguém resolve para o corretor
 
@@ -59,9 +59,15 @@ Tudo isso vira chamadas à Meta Marketing API. A campanha nasce publicada.
 
 Aqui ela deixa de ser geradora e vira gestora.
 
-A cada 24 horas, a Bella lê as métricas e decide. Se um conjunto de anúncios tem custo por lead muito acima dos outros, ela pausa. Se um criativo performa, ela realoca orçamento para ele. Se o custo por resultado sobe de forma consistente por três dias, ela reconhece fadiga de criativo e escreve variações novas.
+A cada 24 horas, a Bella lê as métricas e decide. As regras são explícitas, e o que separa uma da outra não é dificuldade técnica: é o tamanho do estrago se ela errar.
 
-Nenhuma dessas decisões passa por um humano.
+**Orçamento ela mexe sozinha.** Custo por lead 30% acima da meta, corta 20% daquele conjunto. Custo por lead dentro da meta e com cliques saudáveis, escala 20%. São passos pequenos e reversíveis, e errar neles custa algumas dezenas de reais.
+
+**Criativo cansado ela troca sozinha.** O gatilho é a frequência: quando o mesmo público já viu aquela peça mais de três vezes, ela parou de trabalhar. A Bella pausa e escreve variações novas.
+
+**Pausar um conjunto inteiro, não.** Isso ela sugere e o corretor aprova. Quando um conjunto passou de R$ 50 gastos sem chegar a cinco cliques, ela levanta a mão em vez de puxar o gatilho.
+
+Essa divisão foi a decisão de produto mais difícil do sistema. Cortar 20% do orçamento é um ajuste. Desligar um conjunto no meio da fase de aprendizado é uma decisão que o algoritmo da Meta cobra caro para desfazer, e uma IA não deveria tomar sozinha uma decisão cujo custo de reverter ela não sente.
 
 ### 4. O fechamento do ciclo
 
@@ -73,29 +79,29 @@ Isso fecha um circuito que normalmente permanece aberto. A informação sobre a 
 
 Aqui está a parte que ninguém mostra nas demonstrações.
 
-Dar autonomia de gasto a uma IA revela problemas que não aparecem quando ela apenas sugere. Foram três, e cada um custou dinheiro real antes de virar código.
+Dar autonomia de gasto a uma IA revela problemas que simplesmente não existem enquanto ela apenas sugere. São três, e nenhum deles é sobre o modelo. Todos são sobre o que fica em volta dele.
 
 ### Teto que a IA não pode ultrapassar
 
-Óbvio em retrospecto. Mas a primeira versão trazia esse teto dentro do prompt, como instrução em linguagem natural pedindo que ela não passasse de determinado valor por dia.
+Óbvio em retrospecto, e ainda assim é o erro mais fácil de cometer: escrever o limite dentro do prompt, em linguagem natural, pedindo educadamente que ela não passe de determinado valor por dia.
 
-Instrução em prompt é sugestão. O modelo respeitou por semanas, até que um dia interpretou "posso realocar orçamento entre conjuntos" de um jeito que somava mais do que o limite.
+Instrução em prompt é sugestão. O modelo obedece na maioria das vezes, e "na maioria das vezes" não é um contrato quando o dinheiro é de outra pessoa.
 
-O teto virou código, verificado antes de cada chamada à API. **Regra que envolve dinheiro não mora em prompt.**
+Hoje o teto é um trecho de código que roda **depois** que a IA decide e **antes** de qualquer coisa sair para a API da Meta. Ela recomenda o valor que quiser. O que passa pelo cano é esse valor apertado entre o piso e o teto que o corretor configurou, com o motivo carregando a marca de que foi limitado. **Regra que envolve dinheiro não mora em prompt.**
 
 ### Toda mudança precisa de motivo registrado
 
-Quando a IA pausa um anúncio, ela grava a razão: qual métrica, qual valor, qual limiar foi cruzado.
+Toda vez que a IA encosta em alguma coisa, ela grava a razão: qual métrica, qual valor, qual limiar foi cruzado.
 
-Isso nasceu de uma necessidade prática. O corretor perguntava por que a campanha dele tinha sido pausada, e a resposta honesta era que ninguém sabia. Hoje ele abre o painel e lê: *"pausado porque o custo por lead ficou 2,4 vezes acima da média dos outros conjuntos por dois dias seguidos"*.
+Isso nasceu de uma necessidade prática. O corretor perguntava por que o orçamento dele tinha caído, e a resposta honesta era que ninguém sabia. Hoje ele abre o painel e lê a frase que a própria regra escreveu: *"orçamento reduzido em 20%: custo por lead em R$ 91, meta de R$ 70"*.
 
 Autonomia sem rastro não é autonomia. É caixa-preta. E ninguém confia o próprio dinheiro a uma caixa-preta.
 
 ### O freio de mão humano
 
-Existe um botão que para tudo. Não é detalhe de interface. É a condição para que o corretor durma tranquilo.
+A autonomia é uma chave, e ela nasce desligada. Enquanto o corretor não liga, a Bella analisa, recomenda e não encosta em nada. Ligada, ela passa a executar o que descrevi acima.
 
-O paradoxo é que quase ninguém usa esse botão. Mas a existência dele é justamente o que faz a pessoa aceitar ligar o sistema.
+O paradoxo é que quase ninguém desliga depois de ligar. Mas a existência da chave é justamente o que faz a pessoa aceitar ligar na primeira vez.
 
 ## O que aprendi
 
