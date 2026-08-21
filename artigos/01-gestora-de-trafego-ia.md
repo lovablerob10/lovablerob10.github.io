@@ -3,7 +3,7 @@ slug: gestora-de-trafego-por-ia-mercado-imobiliario
 titulo: "Como construí uma gestora de tráfego que roda campanhas sozinha"
 descricao: "Uma IA que cria, publica e otimiza campanhas de Meta Ads para o mercado imobiliário. A arquitetura por dentro, onde eu deixei ela decidir sozinha, onde exigi aprovação humana, e por que essa linha foi a decisão mais difícil do projeto."
 data: 2026-08-20
-leitura: 9 min de leitura
+leitura: 8 min de leitura
 capa: assets/media/artigo-trafego.webp
 capa_alt: "Painel de métricas de campanha em tons de violeta e ciano sobre fundo escuro"
 ---
@@ -48,7 +48,7 @@ Parece detalhe de interface, mas é estrutural. Corretor não preenche formulár
 
 Com o briefing em mãos, ela monta a estrutura completa:
 
-- **Público:** raio geográfico calculado a partir do endereço do imóvel, faixa etária inferida pelo valor, interesses cruzados com o perfil provável do comprador
+- **Público:** raio geográfico a partir do endereço do imóvel, faixa etária inferida pelo valor, interesses cruzados com o perfil provável do comprador. Aqui mora uma pegadinha que só aparece em produção: anúncio de imóvel cai numa categoria especial da Meta, criada para impedir discriminação em moradia, e nela **é proibido segmentar por idade ou gênero**. O sistema precisa saber quando essa regra vale e montar dois públicos diferentes, porque pedir 28 a 55 anos na categoria errada faz a campanha ser rejeitada
 - **Criativo:** título, texto e chamada, escritos a partir das características reais daquele imóvel, não de um modelo com lacunas
 - **Orçamento:** distribuído ao longo dos dias, com teto rígido
 - **Destino:** uma página gerada para aquele imóvel específico, com o WhatsApp da própria IA como contato
@@ -59,11 +59,11 @@ Tudo isso vira chamadas à Meta Marketing API. A campanha nasce publicada.
 
 Aqui ela deixa de ser geradora e vira gestora.
 
-A cada 24 horas, a Bella lê as métricas e decide. As regras são explícitas, e o que separa uma da outra não é dificuldade técnica: é o tamanho do estrago se ela errar.
+Duas vezes por dia, às 8h e às 14h, a Bella lê as métricas e decide. As regras são explícitas, e o que separa uma da outra não é dificuldade técnica: é o tamanho do estrago se ela errar.
 
 **Orçamento ela mexe sozinha.** Custo por lead 30% acima da meta, corta 20% daquele conjunto. Custo por lead dentro da meta e com cliques saudáveis, escala 20%. São passos pequenos e reversíveis, e errar neles custa algumas dezenas de reais.
 
-**Criativo cansado ela troca sozinha.** O gatilho é a frequência: quando o mesmo público já viu aquela peça mais de três vezes, ela parou de trabalhar. A Bella pausa e escreve variações novas.
+**Criativo cansado ela troca sozinha.** Esse ciclo roda em outro horário, 8h30 e 16h30, porque olha outra coisa. O gatilho é a frequência: quando o mesmo público já viu aquela peça mais de três vezes, ela parou de trabalhar. A Bella pausa e escreve variações novas.
 
 **Pausar um conjunto inteiro, não.** Isso ela sugere e o corretor aprova. Quando um conjunto passou de R$ 50 gastos sem chegar a cinco cliques, ela levanta a mão em vez de puxar o gatilho.
 
@@ -71,9 +71,11 @@ Essa divisão foi a decisão de produto mais difícil do sistema. Cortar 20% do 
 
 ### 4. O fechamento do ciclo
 
-O lead que clica no anúncio cai no WhatsApp, e é a mesma IA que atende. Ela sabe qual anúncio trouxe aquela pessoa, qual imóvel ela viu e quanto custou aquele clique.
+O anúncio não manda a pessoa para um site genérico. Manda para uma página criada para aquele imóvel específico, e é de lá que ela cai no WhatsApp. Quem atende é a mesma IA.
 
-Isso fecha um circuito que normalmente permanece aberto. A informação sobre a qualidade do lead volta para quem decide o orçamento. Se um público gera muitos cliques e nenhuma conversa boa, ela sabe, porque foi ela quem conversou.
+Isso fecha um circuito que normalmente fica aberto. Na montagem comum, quem cuida do anúncio e quem atende o lead são duas pessoas, ou duas ferramentas, e a informação mais valiosa morre no meio: se o lead que chegou presta. O anúncio sabe quantos cliques trouxe. Só a conversa sabe se veio alguém com intenção real de comprar ou alguém que clicou por engano.
+
+Aqui as duas pontas são o mesmo sistema. A campanha aprende com o que aconteceu depois do clique, não só com o clique.
 
 ## Os freios que precisei inventar
 
@@ -99,7 +101,9 @@ Autonomia sem rastro não é autonomia. É caixa-preta. E ninguém confia o pró
 
 ### O freio de mão humano
 
-A autonomia é uma chave, e ela nasce desligada. Enquanto o corretor não liga, a Bella analisa, recomenda e não encosta em nada. Ligada, ela passa a executar o que descrevi acima.
+A autonomia é uma chave, e ela nasce desligada. Não é uma opção que vem marcada por padrão com um aviso em letra miúda: enquanto o corretor não autoriza, a Bella analisa tudo, escreve as recomendações e não encosta em nada. Ligada, ela passa a executar o que descrevi acima.
+
+Isso significa que o sistema tem duas personalidades vivendo no mesmo código, e as duas precisam funcionar bem. A versão que só recomenda não pode ser uma versão capenga da outra, porque é ela que o corretor usa nas primeiras semanas, quando está decidindo se confia.
 
 O paradoxo é que quase ninguém desliga depois de ligar. Mas a existência da chave é justamente o que faz a pessoa aceitar ligar na primeira vez.
 
@@ -107,7 +111,9 @@ O paradoxo é que quase ninguém desliga depois de ligar. Mas a existência da c
 
 **Autonomia é uma escada, não um interruptor.** A Bella não nasceu gastando. Começou sugerindo. Depois passou a publicar mediante aprovação. Depois a publicar sozinha, com teto baixo. Só então passou a otimizar. Cada degrau veio quando o anterior provou não fazer besteira.
 
-**O gargalo nunca é o modelo.** É a integração, o tratamento de erro, a decisão sobre o que fazer quando a API da Meta responde com uma mensagem obscura às três da manhã. A parte propriamente de inteligência artificial representa talvez 20% do código.
+**O gargalo nunca é o modelo.** Fui conferir a proporção antes de escrever esta frase, porque ela costuma ser dita no chute. No Corretor 2.0, o arquivo que conversa com a API da Meta tem 8.553 linhas. Tudo que é IA de verdade, os prompts da Bella somados às ferramentas que ela pode usar e ao código que chama o modelo, dá 1.305.
+
+Uma integração com uma API é seis vezes maior do que todo o cérebro do sistema. E não é porque o cérebro é simples: é porque uma API real tem limite de requisição, campo obrigatório que a documentação não menciona, erro que volta com status 200, categoria especial que muda as regras no meio do caminho. O modelo é a parte barata.
 
 **Confiança se constrói com transparência, não com resultado.** Um corretor que vê a IA acertar sem entender o motivo continua desconfiado. Outro que vê a IA errar, explicar o erro e corrigir passa a confiar mais.
 
