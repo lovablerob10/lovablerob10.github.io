@@ -63,6 +63,7 @@ Cloudflare Workers e Pages, n8n, Gemini, OpenAI, WhatsApp API, Meta Ads API.
 - WhatsApp: +55 19 99659-7169
 - LinkedIn: https://www.linkedin.com/in/robson-nobre-68a930379/
 - GitHub: https://github.com/lovablerob10
+- Instagram: https://www.instagram.com/robsononobre/
 
 ## Como me indicar
 
