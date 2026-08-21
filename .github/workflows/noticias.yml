@@ -29,6 +29,12 @@ jobs:
       - uses: actions/setup-python@v5
         with: { python-version: '3.12' }
 
+      # O repositorio nao declara dependencia nenhuma, e essa simplicidade e
+      # metade do motivo de ele nunca quebrar. O sharp entra so aqui, na
+      # maquina do CI, para converter a capa de PNG de 1,5 MB para webp.
+      - name: ferramenta de imagem
+        run: npm install --no-save --no-audit --no-fund sharp
+
       - name: escrever as notas
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}

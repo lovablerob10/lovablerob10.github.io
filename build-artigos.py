@@ -147,13 +147,75 @@ def md_para_html(md):
 
 
 # --------------------------------------------------------------------------
+# --------------------------------------------------------------------------
+# TEMA DA NOTA
+# A cor do selo e o que da ritmo a uma lista longa: o leitor aprende a
+# varrer a pagina sem ler tudo. Notas novas trazem `tema` no front matter;
+# as antigas nasceram so com a capa, entao o tema sai do nome do arquivo.
+# --------------------------------------------------------------------------
+TEMAS_ROTULO = {
+    'modelos': 'Modelos', 'regulacao': 'Regulação', 'negocios': 'Mercado',
+    'infra': 'Infraestrutura', 'pesquisa': 'Pesquisa', 'web': 'Web',
+}
+
+
+def tema_de(meta):
+    if meta.get('tipo') != 'noticia':
+        return 'artigo', 'Como eu construí'
+    t = meta.get('tema') or ''
+    if not t:
+        capa = meta.get('capa', '')
+        m = re.search(r'capa-([a-z]+)\.webp', capa)
+        t = m.group(1) if m else 'modelos'
+    return t, TEMAS_ROTULO.get(t, 'Notícia')
+
+
+CABECA = """<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{titulo_tag}</title>
+<meta name="description" content="{desc}">
+<meta name="author" content="{autor}">
+<meta name="theme-color" content="#faf8f4">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<link rel="canonical" href="{url}">
+<link rel="alternate" type="application/rss+xml" title="IA em movimento" href="{site}/feed.xml">
+<meta property="og:type" content="{og_type}">
+<meta property="og:title" content="{titulo}">
+<meta property="og:description" content="{desc}">
+<meta property="og:url" content="{url}">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="IA em movimento">
+<meta name="twitter:card" content="summary_large_image">{og_img}
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%2317151c'/%3E%3Ctext x='50' y='52' dy='.35em' text-anchor='middle' font-family='Georgia,serif' font-size='54' fill='%23faf8f4'%3EM%3C/text%3E%3C/svg%3E">
+<style>{css}</style>"""
+
+TOPO = """<header class="topo">
+  <div class="topo-inner faixa">
+    <a class="marca" href="/artigos/">IA <em>em movimento</em></a>
+    <nav><ul class="topo-links">
+      <li><a href="/#work">Projetos</a></li>
+      <li><a href="/" class="topo-cta">Ver o portfólio</a></li>
+    </ul></nav>
+  </div>
+</header>"""
+
+PE = """<footer class="pe"><div class="pe-inner faixa">
+  <span>Escrito e mantido por <a href="/">Robson Nobre</a></span>
+  <span><a href="/feed.xml">RSS</a> &middot; Campinas, SP</span>
+  <span>&copy; 2026</span>
+</div></footer>"""
+
+
 def pagina(meta, corpo_html, css_inline, vizinhos=()):
     slug = meta['slug']
     url = '%s/artigos/%s/' % (SITE, slug)
     titulo = meta['titulo']
     desc = meta.get('descricao', '')
     data = meta.get('data', '')
-    leitura = meta.get('leitura', '')
+    tema, rotulo = tema_de(meta)
 
     ld = {
         "@context": "https://schema.org",
@@ -177,59 +239,36 @@ def pagina(meta, corpo_html, css_inline, vizinhos=()):
             ld["citation"] = {"@type": "CreativeWork", "url": meta['fonte_url'],
                               "publisher": {"@type": "Organization", "name": meta.get('fonte', '')}}
 
-    return """<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{titulo} — Robson Nobre</title>
-<meta name="description" content="{desc}">
-<meta name="author" content="{autor}">
-<meta name="theme-color" content="#08080c">
-<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
-<link rel="canonical" href="{url}">
-<meta property="og:type" content="article">
-<meta property="og:title" content="{titulo}">
-<meta property="og:description" content="{desc}">
-<meta property="og:url" content="{url}">
-<meta property="og:locale" content="pt_BR">
-<meta name="twitter:card" content="summary_large_image">{og_img}
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%2308080c'/%3E%3Ctext x='50' y='50' dy='.35em' text-anchor='middle' font-family='monospace' font-size='46' font-weight='700' fill='%237c5cff'%3ERN%3C/text%3E%3C/svg%3E">
-<style>{css}</style>
+    corpo_final = CABECA + """
 <script type="application/ld+json">{ld}</script>
 </head>
-<body class="artigo-body">
-<header class="nav stuck" id="nav">
-  <div class="nav-inner">
-    <a href="/" class="brand"><i>&lt;</i>RN<i>/&gt;</i></a>
-    <nav><ul class="nav-links">
-      <li><a href="/artigos/">Artigos</a></li>
-      <li><a href="/#work">Projetos</a></li>
-      <li><a href="/#contact" class="nav-cta">Fale comigo</a></li>
-    </ul></nav>
-  </div>
-</header>
-
+<body class="pub">
 <div class="progresso" id="progresso" aria-hidden="true"><i></i></div>
+""" + TOPO + """
 
-<main class="artigo wrap">
-  <a class="voltar" href="/artigos/">&larr; todas as notas</a>
-  <p class="artigo-meta">{data_br}{sep}{leitura}{fonte}</p>
-  <h1 class="artigo-titulo">{titulo}</h1>
-  <p class="artigo-linha">{desc}</p>
+<main class="leitura faixa">
+  <a class="volta" href="/artigos/">&larr; todas as notas</a>
 
-  <div class="assinatura">
-    <img class="assinatura-foto" src="/assets/opt/avatar.webp" alt="" width="44" height="44" loading="lazy">
+  <p class="chapeu">
+    <span class="selo selo--{tema}">{rotulo}</span>
+    <span class="datinha">{data_br}{sep}{leitura}</span>
+  </p>
+
+  <h1>{titulo}</h1>
+  <p class="abertura">{desc}</p>
+
+  <div class="autoria">
+    <img src="/assets/opt/avatar.webp" alt="" width="40" height="40" loading="lazy">
     <div>
       <strong>Robson Nobre</strong>
       <span>Constrói sistemas de IA que rodam em produção</span>
     </div>
   </div>
   {capa}
-  <article class="artigo-corpo">
+  <article class="texto">
 {corpo}
   </article>
-
+{credito}
   <aside class="captura" id="captura" data-rev>
     <div class="captura-texto">
       <p class="captura-olho">Trabalhe comigo</p>
@@ -256,8 +295,7 @@ def pagina(meta, corpo_html, css_inline, vizinhos=()):
       </label>
       <label>
         <span>O que você quer resolver <i>(opcional)</i></span>
-        <textarea name="mensagem" rows="3" maxlength="600"
-                  placeholder="Duas linhas já bastam"></textarea>
+        <textarea name="mensagem" rows="3" maxlength="600" placeholder="Duas linhas já bastam"></textarea>
       </label>
       <input class="nada" type="text" name="site" tabindex="-1" autocomplete="off" aria-hidden="true">
       <button type="submit">Quero conversar</button>
@@ -268,20 +306,16 @@ def pagina(meta, corpo_html, css_inline, vizinhos=()):
 {vizinhos}
 </main>
 
-<footer class="foot"><div class="foot-inner">
-  <a href="/" class="brand"><i>&lt;</i>RN<i>/&gt;</i></a>
-  <span>Escrito por Robson Nobre</span>
-  <span>&copy; 2026</span>
-</div></footer>
+""" + PE + """
 
 <script>
 (function () {{
   var calmo = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* Barra de progresso. Lê o fim do TEXTO, não o fim da página: contar o
-     formulário e o rodapé faria a barra mostrar 70% quando o artigo acabou. */
+  /* Progresso: le o fim do TEXTO, nao o da pagina. Contar o formulario
+     faria a barra marcar 70% com o artigo ja terminado. */
   var barra = document.querySelector('#progresso i');
-  var corpo = document.querySelector('.artigo-corpo');
+  var corpo = document.querySelector('.texto');
   if (barra && corpo) {{
     var pendente = false;
     var pintar = function () {{
@@ -297,8 +331,6 @@ def pagina(meta, corpo_html, css_inline, vizinhos=()):
     pintar();
   }}
 
-  /* Reveals. Sem IntersectionObserver ou com movimento reduzido, tudo já
-     nasce visível: animação nunca pode ser condição para ler. */
   if (!calmo && 'IntersectionObserver' in window) {{
     var obs = new IntersectionObserver(function (ent) {{
       ent.forEach(function (e) {{
@@ -310,14 +342,11 @@ def pagina(meta, corpo_html, css_inline, vizinhos=()):
     }});
   }}
 
-  /* Formulário. O estado de erro sempre oferece saída pelo WhatsApp: dizer
-     "deu erro" e parar aí é perder alguém que já quis falar. */
   var form = document.getElementById('form-lead');
   if (!form) return;
   var aviso = document.getElementById('aviso-lead');
   var botao = form.querySelector('button');
   var rotulo = botao.textContent;
-
   var dizer = function (txt, tipo) {{
     aviso.textContent = txt;
     aviso.className = 'captura-aviso' + (tipo ? ' e-' + tipo : '');
@@ -334,12 +363,10 @@ def pagina(meta, corpo_html, css_inline, vizinhos=()):
     if (String(dados.whatsapp || '').replace(/[^0-9]/g, '').length < 10) {{
       return dizer('Falta o DDD ou algum dígito no WhatsApp.', 'ruim');
     }}
-
     botao.disabled = true; botao.textContent = 'Enviando...'; dizer('');
 
     fetch('/api/lead', {{
-      method: 'POST',
-      headers: {{ 'content-type': 'application/json' }},
+      method: 'POST', headers: {{ 'content-type': 'application/json' }},
       body: JSON.stringify(dados)
     }}).then(function (r) {{ return r.json().then(function (j) {{ return {{ r: r, j: j }}; }}); }})
       .then(function (res) {{
@@ -366,18 +393,25 @@ def pagina(meta, corpo_html, css_inline, vizinhos=()):
 }})();
 </script>
 </body>
-</html>""".format(
-        titulo=html.escape(titulo), desc=html.escape(desc), url=url, autor=AUTOR,
-        css=css_inline, ld=json.dumps(ld, ensure_ascii=False),
+</html>"""
+
+    return corpo_final.format(
+        titulo=html.escape(titulo),
+        titulo_tag=html.escape(titulo) + ' — IA em movimento',
+        desc=html.escape(desc), url=url, autor=AUTOR, site=SITE,
+        og_type='article', css=css_inline, ld=json.dumps(ld, ensure_ascii=False),
         og_img=('\n<meta property="og:image" content="%s/%s">' % (SITE, meta['capa'])) if meta.get('capa') else '',
         corpo=corpo_html, data_br=meta.get('data_br', ''),
-        sep=' · ' if data and leitura else '', leitura=leitura,
-        fonte=(' · fonte: <a href="%s" target="_blank" rel="noopener nofollow">%s</a>'
-               % (meta['fonte_url'], html.escape(meta.get('fonte', 'origem')))) if meta.get('fonte_url') else '',
-        capa=('<figure class="artigo-capa"><img src="/%s" alt="%s" width="1280" height="720" fetchpriority="high"></figure>'
+        sep=' · ' if data and meta.get('leitura') else '', leitura=meta.get('leitura', ''),
+        tema=tema, rotulo=rotulo,
+        credito=('\n  <p class="credito">Apurado originalmente por '
+                 '<a href="%s" target="_blank" rel="noopener nofollow">%s</a>.</p>\n'
+                 % (meta['fonte_url'], html.escape(meta.get('fonte', 'origem')))) if meta.get('fonte_url') else '',
+        capa=('<figure class="arte"><img src="/%s" alt="%s" width="1280" height="720" fetchpriority="high"></figure>'
               % (meta['capa'], html.escape(meta.get('capa_alt', ''))) if meta.get('capa') else ''),
         titulo_js=json.dumps(titulo, ensure_ascii=False),
         vizinhos=bloco_vizinhos(vizinhos))
+
 
 
 def bloco_vizinhos(vizinhos):
@@ -403,79 +437,102 @@ def bloco_vizinhos(vizinhos):
 
 
 def indice(artigos, css_inline):
-    cards = []
-    for a in artigos:
-        cards.append("""      <a class="card-artigo{comCapa}" href="/artigos/{slug}/">
-        {capa}
-        <span class="card-tipo card-tipo--{tipo}">{rotulo}</span>
-        <span class="card-meta">{data_br}{sep}{leitura}</span>
-        <h2>{titulo}</h2>
-        <p>{desc}</p>
-        <span class="card-ler">{ler} &rarr;</span>
-      </a>""".format(slug=a['slug'], titulo=html.escape(a['titulo']),
-                     desc=html.escape(a.get('descricao', '')),
-                     data_br=a.get('data_br', ''), leitura=a.get('leitura', ''),
-                     sep=' · ' if a.get('data_br') and a.get('leitura') else '',
-                     tipo=a.get('tipo', 'artigo'),
-                     rotulo='Notícia' if a.get('tipo') == 'noticia' else 'Como eu construí',
-                     ler='Ler a nota' if a.get('tipo') == 'noticia' else 'Ler o artigo',
-                     comCapa=' card-artigo--capa' if a.get('capa') else '',
-                     capa=('<span class="card-capa"><img src="/%s" alt="%s" loading="lazy" width="1280" height="560"></span>'
-                           % (a['capa'], html.escape(a.get('capa_alt', ''))) if a.get('capa') else '')))
+    """A manchete manda, as outras acompanham.
 
-    return """<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IA em movimento — notícias e bastidores por Robson Nobre</title>
-<meta name="description" content="O que aconteceu na inteligência artificial hoje, com a leitura de quem opera esses sistemas em produção. Notícias, regulação, mercado e relatos técnicos por Robson Nobre.">
-<link rel="canonical" href="{site}/artigos/">
-<link rel="alternate" type="application/rss+xml" title="IA em movimento" href="{site}/feed.xml">
-<meta name="theme-color" content="#08080c">
-<meta property="og:type" content="website">
-<meta property="og:title" content="IA em movimento — notícias e bastidores por Robson Nobre">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%2308080c'/%3E%3Ctext x='50' y='50' dy='.35em' text-anchor='middle' font-family='monospace' font-size='46' font-weight='700' fill='%237c5cff'%3ERN%3C/text%3E%3C/svg%3E">
-<style>{css}</style>
+    Sem essa diferenca de peso a pagina vira lista, e lista nao tem editoria:
+    o leitor bate o olho e nao sabe por onde comecar.
+    """
+    destaque, resto = (artigos[0], artigos[1:]) if artigos else (None, [])
+
+    def linha_meta(a):
+        tema, rotulo = tema_de(a)
+        return ('<span class="selo selo--%s">%s</span>'
+                '<span class="datinha">%s</span>' % (tema, rotulo, a.get('data_br', '')))
+
+    manchete = ''
+    if destaque:
+        arte = ('<span class="manchete-arte"><img src="/%s" alt="%s" width="1280" height="800" '
+                'fetchpriority="high"></span>' % (destaque['capa'],
+                                                  html.escape(destaque.get('capa_alt', '')))
+                ) if destaque.get('capa') else ''
+        manchete = ("""  <a class="manchete" href="/artigos/{slug}/">
+    {arte}
+    <span class="manchete-texto">
+      <span class="manchete-linha">{meta}</span>
+      <h2>{titulo}</h2>
+      <p>{desc}</p>
+    </span>
+  </a>""").format(slug=destaque['slug'], arte=arte, meta=linha_meta(destaque),
+                  titulo=html.escape(destaque['titulo']),
+                  desc=html.escape(destaque.get('descricao', '')))
+
+    cartoes = []
+    for a in resto:
+        arte = ('<span class="nota-arte"><img src="/%s" alt="%s" width="640" height="427" '
+                'loading="lazy"></span>' % (a['capa'], html.escape(a.get('capa_alt', '')))
+                ) if a.get('capa') else ''
+        cartoes.append(("""    <a class="nota" href="/artigos/{slug}/">
+      {arte}
+      <span class="nota-linha">{meta}</span>
+      <h3>{titulo}</h3>
+      <p>{desc}</p>
+    </a>""").format(slug=a['slug'], arte=arte, meta=linha_meta(a),
+                    titulo=html.escape(a['titulo']),
+                    desc=html.escape(a.get('descricao', ''))))
+
+    return (CABECA + """
 </head>
-<body class="artigo-body">
-<header class="nav stuck">
-  <div class="nav-inner">
-    <a href="/" class="brand"><i>&lt;</i>RN<i>/&gt;</i></a>
-    <nav><ul class="nav-links">
-      <li><a href="/#work">Projetos</a></li>
-      <li><a href="/#contact" class="nav-cta">Fale comigo</a></li>
-    </ul></nav>
-  </div>
-</header>
-<main class="artigo artigo--indice wrap">
-  <p class="artigo-meta">Atualizado automaticamente</p>
-  <h1 class="artigo-titulo">IA em movimento</h1>
-  <p class="artigo-linha">O que aconteceu no mundo da inteligência artificial, com a leitura de quem constrói esses sistemas em produção. Mais os relatos técnicos dos que eu mesmo coloquei de pé.</p>
-  <div class="lista-artigos">
-{cards}
+<body class="pub">
+""" + TOPO + """
+
+<main class="faixa">
+  <header class="cabecalho-pub">
+    <h1>IA <em>em movimento</em></h1>
+    <p>O que aconteceu na inteligência artificial, com a leitura de quem opera
+    esses sistemas com cliente real. Mais os relatos técnicos dos que eu mesmo
+    coloquei de pé. Atualiza duas vezes por dia.</p>
+    <div class="regua"></div>
+  </header>
+
+{manchete}
+
+  <div class="grade">
+{cartoes}
   </div>
 </main>
-<footer class="foot"><div class="foot-inner">
-  <a href="/" class="brand"><i>&lt;</i>RN<i>/&gt;</i></a>
-  <span>Escrito por Robson Nobre</span><span>&copy; 2026</span>
-</div></footer>
+
+""" + PE + """
 </body>
-</html>""".format(site=SITE, css=css_inline, cards='\n'.join(cards))
+</html>""").format(
+        titulo='IA em movimento',
+        titulo_tag='IA em movimento — notícias e bastidores por Robson Nobre',
+        desc=('O que aconteceu na inteligência artificial hoje, com a leitura de quem opera '
+              'esses sistemas em produção. Notícias, regulação, mercado e relatos técnicos '
+              'por Robson Nobre.'),
+        url=SITE + '/artigos/', autor=AUTOR, site=SITE, og_type='website',
+        css=css_inline, ld=json.dumps({
+            "@context": "https://schema.org", "@type": "Blog",
+            "name": "IA em movimento", "url": SITE + '/artigos/',
+            "inLanguage": "pt-BR",
+            "author": {"@type": "Person", "name": AUTOR, "url": SITE + '/'},
+        }, ensure_ascii=False),
+        og_img='\n<meta property="og:image" content="%s/%s">' % (
+            SITE, destaque['capa']) if destaque and destaque.get('capa') else '',
+        manchete=manchete, cartoes='\n'.join(cartoes))
 
 
-# --------------------------------------------------------------------------
+
 def main():
     destino = os.path.join(RAIZ, '_site', 'artigos')
     if not os.path.isdir(DIR_MD):
         print('sem pasta artigos/ — nada a gerar')
         return []
 
-    css_base = io.open(os.path.join(RAIZ, 'style.css'), encoding='utf-8').read()
-    css_art = io.open(os.path.join(RAIZ, 'artigos.css'), encoding='utf-8').read()
+    # A PUBLICACAO TEM FOLHA PROPRIA. Antes ela inlinava o style.css inteiro
+    # do portfolio: 57 KB de hero, pilha de projetos e canvas que nenhuma nota
+    # usa, numa paleta escura pensada para impressionar e nao para ler.
     fontes = io.open(os.path.join(RAIZ, 'assets', 'fonts', 'fonts.css'), encoding='utf-8').read()
-    # o artigo usa o mesmo desenho do site: tokens, nav e rodape vem de la
-    css = fontes + '\n' + css_base + '\n' + css_art
+    css = fontes + '\n' + io.open(os.path.join(RAIZ, 'publicacao.css'), encoding='utf-8').read()
 
     os.makedirs(destino, exist_ok=True)
     artigos = []

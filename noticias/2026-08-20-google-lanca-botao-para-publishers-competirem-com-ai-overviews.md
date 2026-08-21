@@ -8,8 +8,9 @@ leitura: 3 min de leitura
 fonte: "TechCrunch AI"
 fonte_url: "https://techcrunch.com/2026/08/20/google-gives-publishers-a-new-way-to-fight-ai-driven-traffic-losses/"
 tipo: noticia
-capa: assets/media/capa-web.webp
-capa_alt: "Rede de paineis de vidro flutuando no escuro"
+tema: web
+capa: assets/media/nota-google-lanca-botao-para-publishers-competirem-com-ai-overviews.webp
+capa_alt: "a search results page split down the middle, one half dissolving into vapor while a single website card on the other half grows a bright anchor chain into the ground"
 ---
 
 O Google lançou um botão que permite aos leitores marcar publishers como fontes preferenciais no Search, Discover e Google News. A ferramenta funciona como uma tentativa de compensar a queda de tráfego que sites de conteúdo vêm sofrendo desde que o Google passou a exibir respostas diretas geradas por IA (AI Overviews) no topo dos resultados de busca.
@@ -23,7 +24,3 @@ Se você tem um produto que depende de tráfego orgânico do Google, isso é um 
 Para quem constrói agentes ou sistemas que consomem conteúdo da web, a notícia reforça o óbvio: o Google está tentando acalmar publishers enquanto transforma Search em uma interface de respostas diretas. Isso acelera a tendência de APIs e acordos diretos com fontes de dados se tornarem mais valiosos que SEO tradicional.
 
 Na prática, se seu negócio depende de ser encontrado via busca, o movimento é claro: construir presença direta (newsletter, WhatsApp, API) ou aceitar que o Google vai intermediar cada vez mais a relação com o usuário final. O botão de preferência não inverte essa curva.
-
----
-
-*Apurado originalmente por [TechCrunch AI](https://techcrunch.com/2026/08/20/google-gives-publishers-a-new-way-to-fight-ai-driven-traffic-losses/).*

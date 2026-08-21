@@ -8,8 +8,9 @@ leitura: 3 min de leitura
 fonte: "TechCrunch AI"
 fonte_url: "https://techcrunch.com/2026/08/20/ramp-launches-its-own-ai-model-router-called-router/"
 tipo: noticia
-capa: assets/media/capa-infra.webp
-capa_alt: "Corredor de servidores iluminado em violeta e ciano"
+tema: infra
+capa: assets/media/nota-ramp-lanca-roteador-de-modelos-de-ia-chamado-router.webp
+capa_alt: "a corporate expense card splitting mid-air into multiple streams, each flowing toward a different glowing AI node suspended in space"
 ---
 
 A Ramp, fintech americana de gestão de despesas corporativas, lançou o Router, um serviço que roteia requisições entre diferentes modelos de linguagem via API. A empresa conhecida por cartões corporativos e controle de gastos agora oferece infraestrutura para que outras companhias usem e alternem entre LLMs de diferentes fornecedores.
@@ -23,7 +24,3 @@ Mais um player entrando num mercado que já tem soluções maduras. Se você já
 O interessante é ver uma fintech construindo infraestrutura de IA como produto. Pode sinalizar que eles têm volume interno suficiente para justificar construir em vez de comprar, e agora querem amortizar o custo vendendo para fora. Ou pode ser aposta estratégica em virar plataforma.
 
 Para quem constrói, a notícia importa menos pelo produto e mais pelo padrão: roteamento de modelos deixou de ser diferencial técnico e virou commodity. Se até uma fintech lança o próprio roteador, é porque a tecnologia está acessível. O valor migrou para camadas acima, como orquestração de agentes, cache inteligente, ou entender qual modelo usar em cada contexto de negócio.
-
----
-
-*Apurado originalmente por [TechCrunch AI](https://techcrunch.com/2026/08/20/ramp-launches-its-own-ai-model-router-called-router/).*

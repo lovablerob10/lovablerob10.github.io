@@ -8,8 +8,9 @@ leitura: 3 min de leitura
 fonte: "TechCrunch AI"
 fonte_url: "https://techcrunch.com/2026/08/20/openai-is-gaining-on-anthropic-with-business-users-new-data-indicates/"
 tipo: noticia
-capa: assets/media/capa-negocios.webp
-capa_alt: "Torres de vidro luminosas formando um grafico ascendente"
+tema: negocios
+capa: assets/media/nota-openai-recupera-terreno-corporativo-perdido-para-anthropic.webp
+capa_alt: "A corporate building being tugged back and forth between two giant hands, its foundation mounted on wheels"
 ---
 
 Dados recentes mostram que a OpenAI está reconquistando clientes corporativos que haviam migrado para a Anthropic. O movimento acontece após lançamentos de novos modelos, com empresas alternando entre os dois provedores conforme surgem versões mais potentes.
@@ -23,7 +24,3 @@ Se você opera IA em produção, esse dado confirma o que já se via: não exist
 Para quem constrói, isso reforça a necessidade de abstrair o modelo da aplicação. Usar LangChain, LiteLLM ou camada própria que permita trocar GPT por Claude em horas, não semanas. O valor não está no modelo, está na orquestração, nos dados proprietários e na camada de negócio.
 
 O lado bom: preço tende a cair com essa competição. O lado ruim: sua stack precisa suportar múltiplos provedores ou você fica refém de quem subir preço ou degradar serviço. Empresas que construíram pensando em vendor lock-in estão redesenhando agora.
-
----
-
-*Apurado originalmente por [TechCrunch AI](https://techcrunch.com/2026/08/20/openai-is-gaining-on-anthropic-with-business-users-new-data-indicates/).*

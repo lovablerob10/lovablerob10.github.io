@@ -1,0 +1,612 @@
+/* =========================================================
+   IA EM MOVIMENTO — a publicação
+   =========================================================
+   POR QUE ESTA FOLHA EXISTE, SEPARADA DO SITE
+   As páginas de leitura herdavam o style.css inteiro do
+   portfólio: 57 KB de regras de hero, pilha de projetos e
+   canvas que nenhuma nota usa, e uma paleta escura pensada
+   para impressionar, não para ler.
+   Aqui a publicação tem folha própria. O claro não é troca
+   de gosto: é sinal. Fundo escuro diz vitrine, papel diz
+   texto para ler. E as ilustrações nascem em creme, então
+   a página é a continuação da imagem, não a moldura dela.
+   ========================================================= */
+
+/* ---------- fallback com métrica casada ----------
+   Medido no navegador: a Instrument Serif ocupa 83,9% da
+   largura da Times. Sem isto, a troca de fonte recalcula um
+   título gigante e devolve o CLS-loteria que já nos custou
+   caro uma vez. */
+@font-face {
+  font-family: 'Serif-fallback';
+  src: local('Times New Roman'), local('Times');
+  size-adjust: 83.90%;
+  ascent-override: 117.99%;
+  descent-override: 36.95%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Instrument Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-display: optional;
+  src: url('assets/fonts/InstrumentSerif-regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Instrument Serif';
+  font-style: italic;
+  font-weight: 400;
+  font-display: optional;
+  src: url('assets/fonts/InstrumentSerif-italic.woff2') format('woff2');
+}
+
+:root {
+  /* Creme, não branco puro: o branco de tela cansa em texto
+     longo e brigaria com o creme das ilustrações. */
+  --papel:    #faf8f4;
+  --papel-2:  #f3f0ea;
+  --papel-3:  #ebe7de;
+  --tinta:    #17151c;
+  --tinta-2:  #46424f;
+  --tinta-3:  #7b7587;
+  --linha:    #e3ded4;
+  --linha-2:  #cfc8bb;
+
+  /* Os roxos do portfólio são feitos para brilhar no escuro.
+     Sobre creme eles somem: estes são escurecidos até passar
+     em contraste de texto. */
+  --roxo:     #5a34d6;
+  --roxo-2:   #4526a8;
+  --verde:    #0c7a72;
+  --telha:    #b4462a;
+
+  --serif: 'Instrument Serif', 'Serif-fallback', Georgia, serif;
+  --sans:  'Inter', 'Inter-fallback', system-ui, -apple-system, sans-serif;
+  --mono:  'JetBrains Mono', 'JBMono-fallback', ui-monospace, monospace;
+  --ease:  cubic-bezier(0.22, 1, 0.36, 1);
+  --medida: 40rem;          /* ~68 caracteres */
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+
+body.pub {
+  background: var(--papel);
+  color: var(--tinta);
+  font-family: var(--sans);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+
+.faixa { width: min(100% - 2.5rem, 1180px); margin-inline: auto; }
+
+/* ---------- cabeçalho ----------
+   Não é a nav do portfólio. É o cabeçalho de uma
+   publicação: nome à esquerda, volta ao portfólio à direita,
+   e uma régua que separa marca de conteúdo. */
+.topo {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(250, 248, 244, 0.86);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--linha);
+}
+.topo-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-block: 0.85rem;
+}
+.marca {
+  font-family: var(--serif);
+  font-size: 1.35rem;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  color: var(--tinta);
+}
+.marca em { font-style: italic; }
+.topo-links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  list-style: none;
+  font-size: 0.86rem;
+  color: var(--tinta-2);
+}
+.topo-links a { transition: color 0.25s var(--ease); }
+.topo-links a:hover { color: var(--roxo); }
+.topo-cta {
+  border: 1px solid var(--tinta);
+  border-radius: 999px;
+  padding: 0.42rem 1rem;
+  font-weight: 500;
+  transition: background 0.25s var(--ease), color 0.25s var(--ease);
+}
+.topo-cta:hover { background: var(--tinta); color: var(--papel); }
+
+/* ---------- etiqueta de assunto ----------
+   Cor por tema é o que dá ritmo a uma lista longa e ensina o
+   leitor a varrer a página sem ler tudo. */
+.selo {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.63rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--roxo);
+}
+.selo--pesquisa { color: var(--verde); }
+.selo--regulacao,
+.selo--negocios { color: var(--telha); }
+.selo--artigo   { color: var(--tinta); }
+
+.datinha {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--tinta-3);
+}
+
+/* =========================================================
+   ÍNDICE
+   ========================================================= */
+.cabecalho-pub { padding-block: clamp(3.5rem, 9vw, 6rem) clamp(2rem, 5vw, 3rem); }
+.cabecalho-pub h1 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(3.2rem, 11vw, 7.5rem);
+  line-height: 0.92;
+  letter-spacing: -0.025em;
+  margin-bottom: 1.4rem;
+}
+.cabecalho-pub h1 em { font-style: italic; color: var(--roxo); }
+.cabecalho-pub p {
+  max-width: 34rem;
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  line-height: 1.6;
+  color: var(--tinta-2);
+}
+.regua {
+  height: 1px;
+  background: var(--tinta);
+  margin-top: clamp(2rem, 5vw, 3rem);
+}
+
+/* ---------- a manchete ----------
+   Uma matéria manda, as outras acompanham. Sem essa
+   diferença de peso a página vira lista, e lista não tem
+   editoria. */
+.manchete {
+  display: grid;
+  gap: 2rem;
+  padding-block: clamp(2.5rem, 6vw, 4rem);
+  border-bottom: 1px solid var(--linha);
+}
+@media (min-width: 900px) {
+  .manchete { grid-template-columns: 1.15fr 1fr; gap: 3.5rem; align-items: center; }
+}
+.manchete-arte {
+  display: block;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: 4px;
+  background: var(--papel-3);
+}
+.manchete-arte img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.9s var(--ease);
+}
+.manchete:hover .manchete-arte img { transform: scale(1.03); }
+.manchete-texto { display: grid; gap: 0.9rem; align-content: center; }
+.manchete-texto h2 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(2rem, 4.6vw, 3.15rem);
+  line-height: 1.03;
+  letter-spacing: -0.02em;
+}
+.manchete-texto p { color: var(--tinta-2); font-size: 1.03rem; line-height: 1.62; }
+.manchete-linha { display: flex; align-items: center; gap: 0.9rem; flex-wrap: wrap; }
+
+/* ---------- as outras ---------- */
+.grade {
+  display: grid;
+  gap: 2.6rem 2rem;
+  padding-block: clamp(2.5rem, 6vw, 3.5rem);
+}
+@media (min-width: 680px) { .grade { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1000px) { .grade { grid-template-columns: repeat(3, 1fr); } }
+
+.nota { display: grid; gap: 0.75rem; align-content: start; }
+.nota-arte {
+  display: block;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  border-radius: 3px;
+  background: var(--papel-3);
+}
+.nota-arte img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s var(--ease);
+}
+.nota:hover .nota-arte img { transform: scale(1.04); }
+.nota h3 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 1.5rem;
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  transition: color 0.25s var(--ease);
+}
+.nota:hover h3 { color: var(--roxo); }
+.nota p { font-size: 0.92rem; line-height: 1.58; color: var(--tinta-2); }
+.nota-linha { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
+
+/* =========================================================
+   PÁGINA DE LEITURA
+   ========================================================= */
+.leitura { padding-block: clamp(2.5rem, 6vw, 4rem) clamp(3rem, 8vw, 5rem); }
+.leitura > * { width: min(100%, var(--medida)); margin-inline: auto; }
+
+.volta {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--tinta-3);
+  margin-bottom: 2.2rem;
+  display: inline-block;
+  transition: color 0.25s var(--ease);
+}
+.volta:hover { color: var(--roxo); }
+
+.chapeu { display: flex; gap: 0.9rem; align-items: center; flex-wrap: wrap; margin-bottom: 1.1rem; }
+
+.leitura h1 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(2.3rem, 6vw, 4rem);
+  line-height: 1.0;
+  letter-spacing: -0.025em;
+  margin-bottom: 1.2rem;
+}
+.abertura {
+  font-size: clamp(1.1rem, 2.2vw, 1.3rem);
+  line-height: 1.52;
+  color: var(--tinta-2);
+  margin-bottom: 2rem;
+}
+
+.autoria {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding-block: 1.1rem;
+  border-block: 1px solid var(--linha);
+  margin-bottom: 2.5rem;
+}
+.autoria img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; flex: none; }
+.autoria strong { display: block; font-size: 0.9rem; font-weight: 600; }
+.autoria span { font-size: 0.8rem; color: var(--tinta-3); }
+
+/* a arte quebra a medida do texto: é a respiração da página */
+.leitura .arte {
+  width: min(100vw - 2.5rem, 1000px);
+  margin-inline: calc(50% - min(50vw - 1.25rem, 500px));
+  margin-bottom: 2.8rem;
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--papel-3);
+  aspect-ratio: 16 / 9;
+}
+.leitura .arte img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ---------- o texto ---------- */
+.texto { font-size: 1.09rem; line-height: 1.72; color: var(--tinta); }
+.texto p { margin-bottom: 1.5rem; }
+.texto strong { font-weight: 600; }
+.texto em { font-style: italic; }
+
+.texto h2 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(1.75rem, 3.6vw, 2.35rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 3rem 0 1.1rem;
+  scroll-margin-top: 5rem;
+}
+.texto h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 2.2rem 0 0.7rem;
+  scroll-margin-top: 5rem;
+}
+
+.texto a {
+  color: var(--roxo);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  text-decoration-color: rgba(90, 52, 214, 0.32);
+  transition: text-decoration-color 0.25s var(--ease);
+}
+.texto a:hover { text-decoration-color: var(--roxo); }
+
+.texto ul, .texto ol { margin: 0 0 1.5rem 1.2rem; }
+.texto li { margin-bottom: 0.5rem; }
+.texto li::marker { color: var(--roxo); }
+
+/* a citação é o trecho que o leitor leva embora */
+.texto blockquote {
+  margin: 2.4rem 0;
+  padding-left: 1.4rem;
+  border-left: 2px solid var(--roxo);
+}
+.texto blockquote p {
+  font-family: var(--serif);
+  font-size: clamp(1.35rem, 2.8vw, 1.7rem);
+  line-height: 1.28;
+  letter-spacing: -0.015em;
+  color: var(--tinta);
+  margin: 0;
+}
+
+.texto code {
+  font-family: var(--mono);
+  font-size: 0.85em;
+  background: var(--papel-3);
+  border-radius: 4px;
+  padding: 0.12em 0.38em;
+}
+.texto pre {
+  background: var(--tinta);
+  color: #ece9f2;
+  border-radius: 6px;
+  padding: 1.15rem 1.3rem;
+  margin: 0 0 1.7rem;
+  overflow-x: auto;
+  font-size: 0.86rem;
+  line-height: 1.6;
+}
+.texto pre code { background: none; padding: 0; color: inherit; }
+
+.tabela { overflow-x: auto; margin: 0 0 1.7rem; }
+.texto table { width: 100%; border-collapse: collapse; font-size: 0.94rem; }
+.texto th {
+  text-align: left;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--tinta-3);
+  padding: 0.6rem 0.8rem;
+  border-bottom: 1px solid var(--linha-2);
+  white-space: nowrap;
+}
+.texto td { padding: 0.7rem 0.8rem; border-bottom: 1px solid var(--linha); vertical-align: top; }
+
+.texto hr { border: none; border-top: 1px solid var(--linha); margin: 2.6rem 0; }
+.texto img { width: 100%; border-radius: 4px; margin: 0.5rem 0 1.7rem; }
+
+/* ---------- progresso ---------- */
+.progresso { position: fixed; inset: 0 0 auto 0; height: 2px; z-index: 60; pointer-events: none; }
+.progresso i {
+  display: block; height: 100%;
+  background: var(--roxo);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  will-change: transform;
+}
+
+/* =========================================================
+   CAPTURA
+   Sobre papel ela não pode ser um cartão brilhante: vira
+   anúncio. É um bloco de tinta, o único da página, e é isso
+   que faz o olho parar nele.
+   ========================================================= */
+.captura {
+  width: min(100vw - 2.5rem, 1000px) !important;
+  margin-inline: calc(50% - min(50vw - 1.25rem, 500px)) !important;
+  margin-top: 4rem;
+  display: grid;
+  gap: 2rem;
+  padding: clamp(1.8rem, 4vw, 3rem);
+  border-radius: 6px;
+  background: var(--tinta);
+  color: var(--papel);
+}
+@media (min-width: 820px) {
+  .captura { grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: center; }
+}
+.captura-olho {
+  font-family: var(--mono);
+  font-size: 0.63rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #b49bff;
+  margin-bottom: 1rem;
+}
+.captura-texto h2 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(1.7rem, 3.6vw, 2.4rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.9rem;
+}
+.captura-texto p { color: #b9b3c4; font-size: 0.97rem; line-height: 1.62; }
+.captura-provas { list-style: none; margin: 1.3rem 0 0; padding: 0; display: grid; gap: 0.55rem; }
+.captura-provas li {
+  position: relative;
+  padding-left: 1.35rem;
+  font-size: 0.88rem;
+  color: #b9b3c4;
+  line-height: 1.5;
+}
+.captura-provas li::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 0.5em;
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: #b49bff;
+}
+
+.captura-form { display: grid; gap: 0.8rem; }
+.captura-form label { display: grid; gap: 0.35rem; }
+.captura-form label > span { font-size: 0.76rem; color: #8f8a9c; }
+.captura-form label > span i { font-style: normal; opacity: 0.7; }
+.captura-form input,
+.captura-form textarea {
+  width: 100%;
+  font: inherit;
+  font-size: 0.94rem;
+  color: var(--papel);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 6px;
+  padding: 0.72rem 0.85rem;
+  transition: border-color 0.25s var(--ease), background 0.25s var(--ease);
+}
+.captura-form textarea { resize: vertical; min-height: 78px; line-height: 1.5; }
+.captura-form input::placeholder,
+.captura-form textarea::placeholder { color: #6d6879; }
+.captura-form input:focus,
+.captura-form textarea:focus {
+  outline: none;
+  border-color: #b49bff;
+  background: rgba(255, 255, 255, 0.1);
+}
+.captura-form button {
+  font: inherit;
+  font-size: 0.94rem;
+  font-weight: 600;
+  color: var(--tinta);
+  background: var(--papel);
+  border: none;
+  border-radius: 999px;
+  padding: 0.8rem 1.4rem;
+  cursor: pointer;
+  margin-top: 0.25rem;
+  transition: transform 0.25s var(--ease), opacity 0.25s var(--ease);
+}
+.captura-form button:hover { transform: translateY(-2px); }
+.captura-form button:disabled { opacity: 0.5; cursor: default; transform: none; }
+
+.nada {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+.captura-aviso { font-size: 0.83rem; line-height: 1.5; color: #b9b3c4; min-height: 1px; }
+.captura-aviso.e-ruim { color: #ffa8a8; }
+.captura-rodape { font-size: 0.74rem; color: #8f8a9c; line-height: 1.5; }
+.captura-ok { display: grid; gap: 0.5rem; align-content: center; min-height: 170px; }
+.captura-ok strong { font-family: var(--serif); font-weight: 400; font-size: 1.7rem; }
+.captura-ok span { color: #b9b3c4; font-size: 0.94rem; line-height: 1.6; }
+.captura-ok a { color: #b49bff; text-decoration: underline; text-underline-offset: 3px; }
+
+/* ---------- continue lendo ---------- */
+.proximas {
+  width: min(100vw - 2.5rem, 1000px) !important;
+  margin-inline: calc(50% - min(50vw - 1.25rem, 500px)) !important;
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--linha);
+}
+.proximas-titulo {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--tinta-3);
+  margin-bottom: 1.5rem;
+}
+.proximas-lista { display: grid; gap: 2rem 1.6rem; }
+@media (min-width: 720px) { .proximas-lista { grid-template-columns: repeat(3, 1fr); } }
+.prox-item { display: grid; gap: 0.6rem; align-content: start; }
+.prox-capa {
+  display: block;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  border-radius: 3px;
+  background: var(--papel-3);
+}
+.prox-capa img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s var(--ease); }
+.prox-item:hover .prox-capa img { transform: scale(1.04); }
+.prox-titulo {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 1.22rem;
+  line-height: 1.14;
+  letter-spacing: -0.012em;
+  transition: color 0.25s var(--ease);
+}
+.prox-item:hover .prox-titulo { color: var(--roxo); }
+
+/* ---------- fonte da nota ---------- */
+.credito {
+  font-size: 0.88rem;
+  color: var(--tinta-3);
+  font-style: italic;
+  padding-top: 1.6rem;
+  margin-top: 2rem;
+  border-top: 1px solid var(--linha);
+}
+.credito a { color: var(--roxo); text-decoration: underline; text-underline-offset: 2px; }
+
+/* ---------- rodapé ---------- */
+.pe {
+  border-top: 1px solid var(--linha);
+  padding-block: 2.2rem;
+  margin-top: 4rem;
+}
+.pe-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+  font-size: 0.82rem;
+  color: var(--tinta-3);
+}
+.pe-inner a { transition: color 0.25s var(--ease); }
+.pe-inner a:hover { color: var(--roxo); }
+
+/* ---------- reveals ----------
+   Nascem visíveis: a classe só entra por JS quando há
+   IntersectionObserver e o sistema não pediu menos
+   movimento. Animação nunca é condição para ler. */
+.rev { opacity: 0; transform: translateY(14px); }
+.rev.vis {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.65s var(--ease), transform 0.65s var(--ease);
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .rev, .rev.vis { opacity: 1; transform: none; transition: none; }
+  .progresso { display: none; }
+}
+
+@media (max-width: 640px) {
+  body.pub { font-size: 16px; }
+  .texto { font-size: 1.04rem; line-height: 1.68; }
+  .autoria { margin-bottom: 2rem; }
+}

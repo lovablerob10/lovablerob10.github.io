@@ -40,6 +40,9 @@ cat > _site/_headers <<EOF
   Link: </assets/fonts/Inter-900.woff2>; rel=preload; as=font; crossorigin
   Link: </assets/fonts/Inter-400.woff2>; rel=preload; as=font; crossorigin
   Link: </assets/fonts/JetBrainsMono-500.woff2>; rel=preload; as=font; crossorigin
+/artigos/*
+  Link: </assets/fonts/InstrumentSerif-regular.woff2>; rel=preload; as=font; crossorigin
+  Link: </assets/fonts/Inter-400.woff2>; rel=preload; as=font; crossorigin
 /assets/fonts/*
   Cache-Control: public, max-age=31536000, immutable
 EOF

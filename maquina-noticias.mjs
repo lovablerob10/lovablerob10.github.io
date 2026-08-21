@@ -29,6 +29,7 @@
  */
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { gerarCapa } from './capa.mjs';
 import { fileURLToPath } from 'node:url';
 
 const RAIZ = path.dirname(fileURLToPath(import.meta.url));
@@ -135,6 +136,7 @@ Responda APENAS com JSON válido, sem cercas de código:
   "titulo": "título em português, direto, no máximo 70 caracteres",
   "resumo": "uma frase de até 150 caracteres resumindo por que importa",
   "tema": "um destes, exatamente: modelos | regulacao | negocios | infra | pesquisa | web",
+  "arte": "uma frase em INGLÊS descrevendo a imagem de capa desta nota",
   "corpo": "o texto completo em markdown, usando ## para as duas seções"
 }
 
@@ -145,6 +147,15 @@ O campo tema classifica o assunto e define a arte de capa:
 - infra: chip, data center, energia, custo de computação
 - pesquisa: estudo, paper, descoberta científica
 - web: busca, conteúdo, publishers, o que a IA faz com a internet
+
+O campo arte é o conceito visual da capa, e uma ilustração editorial não desenha o assunto, desenha a IDEIA dele. Pense no que um diretor de arte da The Economist faria: uma metáfora concreta e simples, com um único elemento forte.
+
+Escreva em inglês, uma frase, só o QUE aparece na cena. Nada de estilo, cor ou técnica (isso já está definido). Nada de texto, letra ou logotipo na cena, e nada de rosto humano reconhecível.
+
+Bons exemplos:
+- "a vast machine mid-motion suddenly held still, one glowing gear frozen while everything else keeps flowing"
+- "two identical doors side by side, one wide open with light pouring out, the other sealed"
+- "a single thread being pulled from a dense woven fabric, the whole pattern starting to unravel"
 
 Se a notícia não tiver relevância real para quem constrói IA, responda {"publicar": false}.`;
 
@@ -268,6 +279,15 @@ async function main() {
       }
       const slug = slugify(nota.titulo);
       const arquivo = path.join(DIR, `${hoje}-${slug}.md`);
+
+      // A capa e desenhada para ESTA nota. Se falhar, a nota sai sem imagem:
+      // publicar sem capa e um problema pequeno, nao publicar e um grande.
+      const relCapa = `assets/media/nota-${slug}.webp`;
+      const temCapa = await gerarCapa({
+        conceito: nota.arte,
+        destino: path.join('assets', 'media', `nota-${slug}.webp`),
+        chave: process.env.OPENROUTER_API_KEY,
+      });
       const md = `---
 slug: ${slug}
 titulo: "${nota.titulo.replace(/"/g, "'")}"
@@ -278,15 +298,12 @@ leitura: 3 min de leitura
 fonte: "${item.fonte}"
 fonte_url: "${item.link}"
 tipo: noticia
-capa: assets/media/capa-${nota.tema}.webp
-capa_alt: "${CAPA_ALT[nota.tema]}"
+tema: ${nota.tema}${temCapa ? `
+capa: ${relCapa}
+capa_alt: "${(nota.arte || '').replace(/"/g, "'").slice(0, 180)}"` : ''}
 ---
 
 ${nota.corpo}
-
----
-
-*Apurado originalmente por [${item.fonte}](${item.link}).*
 `;
       await fs.writeFile(arquivo, md, 'utf8');
       vistas.push({ link: item.link, visto: hoje, publicadoEm: hoje, slug });

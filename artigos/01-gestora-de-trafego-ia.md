@@ -4,8 +4,8 @@ titulo: "Como construí uma gestora de tráfego que roda campanhas sozinha"
 descricao: "Uma IA que cria, publica e otimiza campanhas de Meta Ads para o mercado imobiliário. A arquitetura por dentro, onde eu deixei ela decidir sozinha, onde exigi aprovação humana, e por que essa linha foi a decisão mais difícil do projeto."
 data: 2026-08-20
 leitura: 8 min de leitura
-capa: assets/media/artigo-trafego.webp
-capa_alt: "Painel de métricas de campanha em tons de violeta e ciano sobre fundo escuro"
+capa: assets/media/nota-gestora-de-trafego-por-ia-mercado-imobiliario.webp
+capa_alt: "a control panel with one slider moving itself while a human hand hovers above a single red button, frozen mid-reach"
 ---
 
 Existe uma diferença enorme entre uma IA que **sugere** uma campanha e uma que **roda** a campanha. A primeira é um assistente de texto com nome bonito. A segunda gasta dinheiro de verdade, todo dia, sem pedir licença.
