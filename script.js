@@ -519,7 +519,15 @@
         capa.appendChild(palco);
         hero.prepend(capa);
 
-        const ocioso = window.requestIdleCallback || ((f) => setTimeout(f, 1200));
+        // SO DEPOIS DO LOAD + FOLGA. requestIdleCallback dispara milissegundos
+        // apos o primeiro paint, e este video de 1,1 MB entrava brigando com
+        // CSS e fonte pelo 4G: o texto do hero pintava em 8s no Lighthouse.
+        // Fundo decorativo nao paga a conta da primeira dobra.
+        const ocioso = (f) => {
+            const vai = () => setTimeout(f, 2500);
+            if (document.readyState === 'complete') vai();
+            else addEventListener('load', vai, { once: true });
+        };
         ocioso(() => {
             // hero-cine-LOOP: o clipe original + ele mesmo ao contrario,
             // emendados (ping-pong). O corte seco do loop deixa de existir —
@@ -884,7 +892,12 @@
     sec.prepend(capa);
 
     let v = null;
-    const ocioso = window.requestIdleCallback || ((f) => setTimeout(f, 1400));
+    // mesma regra do hero: o video do CTA (800 KB) espera o load + folga
+    const ocioso = (f) => {
+        const vai = () => setTimeout(f, 3200);
+        if (document.readyState === 'complete') vai();
+        else addEventListener('load', vai, { once: true });
+    };
     ocioso(() => {
         v = document.createElement('video');
         v.muted = true; v.loop = true; v.playsInline = true;

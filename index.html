@@ -63,25 +63,42 @@
           return !/^G-X+$|^GTM-X+$/.test(v) && v.length > pre.length + 3;
         };
 
-        if (valido(gtm, 'GTM-')) {
-          window.dataLayer = window.dataLayer || [];
-          window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-          var g = document.createElement('script');
-          g.async = true;
-          g.src = 'https://www.googletagmanager.com/gtm.js?id=' + gtm;
-          document.head.appendChild(g);
-        }
+        // 320 KB de analytics nao podem competir com a primeira dobra no 4G.
+        // Carrega no primeiro gesto do visitante (que e quando passa a haver
+        // algo util para medir) ou 4s depois do load, o que vier antes. O
+        // verificador de tag do Google espera mais que isso: segue detectando.
+        var ligado = false;
+        var liga = function () {
+          if (ligado) return;
+          ligado = true;
 
-        if (valido(ga, 'G-')) {
-          var s = document.createElement('script');
-          s.async = true;
-          s.src = 'https://www.googletagmanager.com/gtag/js?id=' + ga;
-          document.head.appendChild(s);
-          window.dataLayer = window.dataLayer || [];
-          window.gtag = function () { window.dataLayer.push(arguments); };
-          window.gtag('js', new Date());
-          window.gtag('config', ga, { anonymize_ip: true });
-        }
+          if (valido(gtm, 'GTM-')) {
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+            var g = document.createElement('script');
+            g.async = true;
+            g.src = 'https://www.googletagmanager.com/gtm.js?id=' + gtm;
+            document.head.appendChild(g);
+          }
+
+          if (valido(ga, 'G-')) {
+            var s = document.createElement('script');
+            s.async = true;
+            s.src = 'https://www.googletagmanager.com/gtag/js?id=' + ga;
+            document.head.appendChild(s);
+            window.dataLayer = window.dataLayer || [];
+            window.gtag = function () { window.dataLayer.push(arguments); };
+            window.gtag('js', new Date());
+            window.gtag('config', ga, { anonymize_ip: true });
+          }
+        };
+
+        ['pointerdown', 'scroll', 'keydown', 'touchstart'].forEach(function (ev) {
+          addEventListener(ev, liga, { once: true, passive: true });
+        });
+        var agenda = function () { setTimeout(liga, 4000); };
+        if (document.readyState === 'complete') agenda();
+        else addEventListener('load', agenda, { once: true });
       })();
     </script>
 
