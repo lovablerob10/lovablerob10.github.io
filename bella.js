@@ -98,10 +98,28 @@
     /* ---------------------------------------------------------
        Render
        --------------------------------------------------------- */
+    /* A Bella escreve em Markdown porque o WhatsApp renderiza. Aqui o
+       textContent mostrava os asteriscos crus: a pessoa lia **"Testar
+       gratis"** e achava que o sistema tinha bugado.
+       So negrito e italico sao convertidos, e o texto e escapado ANTES:
+       resposta de modelo e conteudo, nunca HTML pra confiar. */
+    function marcado(t) {
+        const esc = String(t)
+            .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        return esc
+            .replace(/\*\*([^*\n]+)\*\*/g, '<strong>$1</strong>')
+            // o conteudo do italico nao pode comecar nem terminar com espaco,
+            // senao "5 * 3 = 15 e 2 * 4" vira italico de ponta a ponta
+            .replace(/(^|[\s(])\*(\S|\S[^*\n]*?\S)\*(?=[\s.,!?)]|$)/g, '$1<em>$2</em>')
+            .replace(/(^|[\s(])_(\S|\S[^_\n]*?\S)_(?=[\s.,!?)]|$)/g, '$1<em>$2</em>')
+            .replace(/\n/g, '<br>');
+    }
+
     function bolha(quem, texto) {
         const b = document.createElement('div');
         b.className = 'bella-msg bella-msg--' + quem;
-        b.textContent = texto;
+        if (quem === 'bella') b.innerHTML = marcado(texto);
+        else b.textContent = texto;
         log.appendChild(b);
         log.scrollTop = log.scrollHeight;
         return b;
