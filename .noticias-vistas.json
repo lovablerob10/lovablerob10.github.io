@@ -139,5 +139,27 @@
   "visto": "2026-08-23",
   "publicadoEm": "2026-08-23",
   "slug": "1-milhao-de-pessoas-ja-marcaram-conteudo-como-spam-de-ia-no-linkedin"
+ },
+ {
+  "link": "https://techcrunch.com/2026/08/23/whos-behind-the-new-stealth-model-ox-alpha/",
+  "visto": "2026-08-23",
+  "publicado": false
+ },
+ {
+  "link": "https://techcrunch.com/2026/08/23/linkdazes-smart-calendar-is-built-to-run-a-household-not-just-track-a-schedule/",
+  "visto": "2026-08-23",
+  "publicado": false
+ },
+ {
+  "link": "https://techcrunch.com/2026/08/23/is-it-legal-to-train-ai-models-on-copyrighted-books-its-complicated/",
+  "visto": "2026-08-23",
+  "publicadoEm": "2026-08-23",
+  "slug": "treinar-modelo-com-livro-protegido-ainda-nao-tem-resposta-clara"
+ },
+ {
+  "link": "https://arstechnica.com/security/2026/08/grok-exfiltrates-user-data-when-malicious-instructions-are-encrypted/",
+  "visto": "2026-08-23",
+  "publicadoEm": "2026-08-23",
+  "slug": "grok-vaza-dados-de-usuario-quando-prompt-vem-criptografado"
  }
 ]
