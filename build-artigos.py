@@ -160,14 +160,18 @@ TEMAS_ROTULO = {
 
 
 def tema_de(meta):
+    # `rotulo` no front matter fura a regra: nem toda nota longa e "Como eu
+    # construi", e nem toda noticia e so noticia. Analise, entrevista e perfil
+    # sao o mesmo objeto com outro nome na capa.
+    forcado = meta.get('rotulo')
     if meta.get('tipo') != 'noticia':
-        return 'artigo', 'Como eu construí'
+        return 'artigo', forcado or 'Como eu construí'
     t = meta.get('tema') or ''
     if not t:
         capa = meta.get('capa', '')
         m = re.search(r'capa-([a-z]+)\.webp', capa)
         t = m.group(1) if m else 'modelos'
-    return t, TEMAS_ROTULO.get(t, 'Notícia')
+    return t, forcado or TEMAS_ROTULO.get(t, 'Notícia')
 
 
 CABECA = """<!DOCTYPE html>
