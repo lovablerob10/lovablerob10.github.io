@@ -1964,3 +1964,12 @@ section { position: relative; z-index: 2; }
 @media (prefers-reduced-motion: reduce) {
     .contact-cta .btn { animation: none; }
 }
+
+/* O "IA" dentro de "Semana CheIA" — o mesmo trocadilho que a marca usa no
+   painel do produto. Escrito como <i> mas sem itálico: aqui ele é cor, não
+   ênfase tipográfica. O aria-label no h3 devolve "Semana Cheia" inteiro pro
+   leitor de tela, senão ele soletra a quebra. */
+.work-title .marca-ia {
+    font-style: normal;
+    color: var(--v2);
+}

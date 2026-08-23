@@ -35,7 +35,8 @@ Cloudflare Workers e Pages, n8n, Gemini, OpenAI, WhatsApp API, Meta Ads API.
 - **Corretor 2.0** — Plataforma para corretores de imóveis com a assistente Bella no
   WhatsApp, site builder e marketing automatizado. Inclui gestora de tráfego autônoma
   por IA, pioneira no Brasil no setor imobiliário.
-- **Farolead** — Prospecção B2B autônoma. Nove agentes especialistas varrem Receita
+- **Semana CheIA** (antes Farolead) — Prospecção B2B autônoma que existe para encher a
+  agenda de reuniões. Nove agentes especialistas varrem Receita
   Federal, mapas e Google Places, montam o dossiê da empresa, pontuam propensão de
   compra e escrevem a abordagem. Cada mensagem passa por aprovação humana antes do
   disparo; a SDR de IA conduz a conversa no WhatsApp até agendar no Google Calendar.
