@@ -161,5 +161,23 @@
   "visto": "2026-08-23",
   "publicadoEm": "2026-08-23",
   "slug": "grok-vaza-dados-de-usuario-quando-prompt-vem-criptografado"
+ },
+ {
+  "link": "https://arstechnica.com/security/2026/08/microsoft-copilot-reveals-secret-input-that-allowed-it-to-be-hacked/",
+  "visto": "2026-08-24",
+  "publicadoEm": "2026-08-24",
+  "slug": "copilot-vazou-parametro-secreto-que-abriu-brecha-de-roubo-de-senha"
+ },
+ {
+  "link": "https://arstechnica.com/ai/2026/08/openai-and-anthropic-in-price-war-as-chinese-ai-rivals-gain-ground/",
+  "visto": "2026-08-24",
+  "publicadoEm": "2026-08-24",
+  "slug": "openai-e-anthropic-baixam-precos-sob-pressao-chinesa"
+ },
+ {
+  "link": "https://arstechnica.com/security/2026/08/terabytes-of-credentials-leaked-in-massive-supply-chain-attack/",
+  "visto": "2026-08-24",
+  "publicadoEm": "2026-08-24",
+  "slug": "pacote-de-ia-comprometido-vazou-credenciais-de-2-500-usuarios"
  }
 ]
