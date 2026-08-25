@@ -23,6 +23,7 @@ RAIZ = os.path.dirname(os.path.abspath(__file__))
 DIR_MD = os.path.join(RAIZ, 'artigos')
 DIR_NEWS = os.path.join(RAIZ, 'noticias')
 SITE = 'https://robsonobre.com.br'
+TODAS = []   # preenchido no main; a busca precisa do catalogo inteiro
 AUTOR = 'Robson Nobre'
 
 
@@ -248,7 +249,7 @@ def pagina(meta, corpo_html, css_inline, vizinhos=()):
 </head>
 <body class="pub">
 <div class="progresso" id="progresso" aria-hidden="true"><i></i></div>
-""" + TOPO + """
+""" + TOPO + r"""
 
 <main class="leitura faixa">
   <a class="volta" href="/artigos/">&larr; todas as notas</a>
@@ -310,7 +311,7 @@ def pagina(meta, corpo_html, css_inline, vizinhos=()):
 {vizinhos}
 </main>
 
-""" + PE + """
+""" + PE + r"""
 
 <script>
 (function () {{
@@ -440,80 +441,252 @@ def bloco_vizinhos(vizinhos):
             % '\n'.join(cartoes))
 
 
-def indice(artigos, css_inline):
-    """A manchete manda, as outras acompanham.
+POR_PAGINA = 20
 
-    Sem essa diferenca de peso a pagina vira lista, e lista nao tem editoria:
-    o leitor bate o olho e nao sabe por onde comecar.
-    """
-    destaque, resto = (artigos[0], artigos[1:]) if artigos else (None, [])
 
-    def linha_meta(a):
-        tema, rotulo = tema_de(a)
-        return ('<span class="selo selo--%s">%s</span>'
-                '<span class="datinha">%s</span>' % (tema, rotulo, a.get('data_br', '')))
+def url_pagina(tema, n):
+    """/artigos/ na primeira; /artigos/2/ nas outras; /artigos/tema/infra/ nos filtros."""
+    base = '/artigos/' if not tema else '/artigos/tema/%s/' % tema
+    return base if n <= 1 else '%s%d/' % (base, n)
 
-    manchete = ''
+
+def cartao(a, destaque=False):
+    tema, rotulo = tema_de(a)
+    meta = ('<span class="selo selo--%s">%s</span><span class="datinha">%s</span>'
+            % (tema, rotulo, a.get('data_br', '')))
     if destaque:
         arte = ('<span class="manchete-arte"><img src="/%s" alt="%s" width="1280" height="800" '
-                'fetchpriority="high"></span>' % (destaque['capa'],
-                                                  html.escape(destaque.get('capa_alt', '')))
-                ) if destaque.get('capa') else ''
-        manchete = ("""  <a class="manchete" href="/artigos/{slug}/">
+                'fetchpriority="high"></span>' % (a['capa'], html.escape(a.get('capa_alt', '')))
+                ) if a.get('capa') else ''
+        return ("""  <a class="manchete" href="/artigos/{slug}/">
     {arte}
     <span class="manchete-texto">
       <span class="manchete-linha">{meta}</span>
       <h2>{titulo}</h2>
       <p>{desc}</p>
     </span>
-  </a>""").format(slug=destaque['slug'], arte=arte, meta=linha_meta(destaque),
-                  titulo=html.escape(destaque['titulo']),
-                  desc=html.escape(destaque.get('descricao', '')))
+  </a>""").format(slug=a['slug'], arte=arte, meta=meta,
+                  titulo=html.escape(a['titulo']),
+                  desc=html.escape(a.get('descricao', '')))
 
-    cartoes = []
-    for a in resto:
-        arte = ('<span class="nota-arte"><img src="/%s" alt="%s" width="640" height="427" '
-                'loading="lazy"></span>' % (a['capa'], html.escape(a.get('capa_alt', '')))
-                ) if a.get('capa') else ''
-        cartoes.append(("""    <a class="nota" href="/artigos/{slug}/">
+    arte = ('<span class="nota-arte"><img src="/%s" alt="%s" width="640" height="427" '
+            'loading="lazy"></span>' % (a['capa'], html.escape(a.get('capa_alt', '')))
+            ) if a.get('capa') else ''
+    return ("""    <a class="nota" href="/artigos/{slug}/">
       {arte}
       <span class="nota-linha">{meta}</span>
       <h3>{titulo}</h3>
       <p>{desc}</p>
-    </a>""").format(slug=a['slug'], arte=arte, meta=linha_meta(a),
+    </a>""").format(slug=a['slug'], arte=arte, meta=meta,
                     titulo=html.escape(a['titulo']),
-                    desc=html.escape(a.get('descricao', ''))))
+                    desc=html.escape(a.get('descricao', '')))
 
-    return (CABECA + """
+
+def barra_filtros(tema_atual, contagem):
+    """Os temas viram link de verdade, nao botao de JS: cada um e uma pagina
+    que o Google indexa como um assunto proprio."""
+    chips = ['<a class="chip%s" href="/artigos/">Tudo <b>%d</b></a>'
+             % ('' if tema_atual else ' on', sum(contagem.values()))]
+    for t, rot in TEMAS_ROTULO.items():
+        n = contagem.get(t, 0)
+        if not n:
+            continue
+        chips.append('<a class="chip%s" href="/artigos/tema/%s/">%s <b>%d</b></a>'
+                     % (' on' if tema_atual == t else '', t, rot, n))
+    return """  <div class="filtros">
+    <div class="busca">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <input type="search" id="q" placeholder="Buscar por assunto, empresa, tecnologia..."
+             autocomplete="off" aria-label="Buscar nas notas">
+      <button type="button" id="qLimpar" aria-label="Limpar busca" hidden>&times;</button>
+    </div>
+    <nav class="chips" aria-label="Filtrar por assunto">
+%s
+    </nav>
+  </div>""" % '\n'.join('      ' + c for c in chips)
+
+
+def barra_paginas(tema, pagina, total):
+    if total <= 1:
+        return ''
+    partes = []
+    if pagina > 1:
+        partes.append('<a class="pg-seta" href="%s" rel="prev">&larr; anterior</a>'
+                      % url_pagina(tema, pagina - 1))
+    for n in range(1, total + 1):
+        partes.append('<a class="pg-num%s" href="%s"%s>%d</a>'
+                      % (' on' if n == pagina else '', url_pagina(tema, n),
+                         ' aria-current="page"' if n == pagina else '', n))
+    if pagina < total:
+        partes.append('<a class="pg-seta" href="%s" rel="next">próxima &rarr;</a>'
+                      % url_pagina(tema, pagina + 1))
+    return ('\n  <nav class="paginacao" aria-label="Páginas">\n    %s\n  </nav>'
+            % '\n    '.join(partes))
+
+
+def indice(artigos, css_inline, tema=None, pagina=1, total=1, contagem=None):
+    """A manchete manda, as outras acompanham.
+
+    Sem essa diferenca de peso a pagina vira lista, e lista nao tem editoria:
+    o leitor bate o olho e nao sabe por onde comecar. So a primeira pagina do
+    indice geral tem manchete; nas seguintes todas as notas tem o mesmo peso,
+    porque ali o leitor ja esta procurando, nao sendo apresentado.
+    """
+    contagem = contagem or {}
+    tem_manchete = artigos and not tema and pagina == 1
+    destaque, resto = (artigos[0], artigos[1:]) if tem_manchete else (None, artigos)
+
+    manchete = cartao(destaque, destaque=True) if destaque else ''
+    cartoes = [cartao(a) for a in resto]
+
+    # O indice de busca carrega TODAS as notas, nao so as desta pagina: quem
+    # digita espera achar o que existe no site, nao o que sobrou na tela.
+    catalogo = json.dumps([
+        {'t': a['titulo'], 'd': a.get('descricao', ''), 'u': '/artigos/%s/' % a['slug'],
+         'c': '/' + a['capa'] if a.get('capa') else '', 'r': tema_de(a)[1],
+         'm': tema_de(a)[0], 'q': a.get('data_br', '')}
+        for a in TODAS[:300]
+    ], ensure_ascii=False, separators=(',', ':'))
+
+    canonical = SITE + url_pagina(tema, pagina)
+    rel = ''
+    if pagina > 1:
+        rel += '\n<link rel="prev" href="%s">' % (SITE + url_pagina(tema, pagina - 1))
+    if pagina < total:
+        rel += '\n<link rel="next" href="%s">' % (SITE + url_pagina(tema, pagina + 1))
+
+    rotulo_tema = TEMAS_ROTULO.get(tema, '')
+    if tema:
+        h1 = '%s <em>em movimento</em>' % rotulo_tema
+        chamada = ('Tudo que saiu sobre %s, com a leitura de quem opera esses sistemas '
+                   'com cliente real.' % rotulo_tema.lower())
+        titulo_tag = '%s — IA em movimento' % rotulo_tema
+    else:
+        h1 = 'IA <em>em movimento</em>'
+        chamada = ('O que aconteceu na inteligência artificial, com a leitura de quem opera '
+                   'esses sistemas com cliente real. Mais os relatos técnicos dos que eu mesmo '
+                   'coloquei de pé. Atualiza duas vezes por dia.')
+        titulo_tag = 'IA em movimento — notícias e bastidores por Robson Nobre'
+    if pagina > 1:
+        titulo_tag += ' — página %d' % pagina
+
+    return (CABECA + rel + r"""
 </head>
 <body class="pub">
-""" + TOPO + """
+""" + TOPO + r"""
 
 <main class="faixa">
   <header class="cabecalho-pub">
-    <h1>IA <em>em movimento</em></h1>
-    <p>O que aconteceu na inteligência artificial, com a leitura de quem opera
-    esses sistemas com cliente real. Mais os relatos técnicos dos que eu mesmo
-    coloquei de pé. Atualiza duas vezes por dia.</p>
+    <h1>{h1}</h1>
+    <p>{chamada}</p>
+{filtros}
     <div class="regua"></div>
   </header>
 
+  <p class="sem-nada" id="semNada" hidden>Nada encontrado por aqui. Tenta outra palavra?</p>
+
+  <div id="resultados" hidden>
+    <p class="quantos" id="quantos"></p>
+    <div class="grade" id="gradeBusca"></div>
+  </div>
+
+  <div id="listagem">
 {manchete}
 
   <div class="grade">
 {cartoes}
   </div>
+{paginas}
+  </div>
 </main>
 
-""" + PE + """
+""" + PE + r"""
+
+<script id="catalogo" type="application/json">{catalogo}</script>
+<script>
+(function () {{
+  /* BUSCA NO CLIENTE. A paginacao e o filtro por tema sao paginas de verdade
+     (o Google segue os links); a busca nao precisa ser indexavel e precisa
+     responder enquanto a pessoa digita, entao vive aqui. Ela procura em TODAS
+     as notas, nao so nas desta pagina. */
+  var dados;
+  try {{ dados = JSON.parse(document.getElementById('catalogo').textContent); }}
+  catch (e) {{ return; }}
+
+  var campo = document.getElementById('q'),
+      limpar = document.getElementById('qLimpar'),
+      listagem = document.getElementById('listagem'),
+      caixa = document.getElementById('resultados'),
+      grade = document.getElementById('gradeBusca'),
+      quantos = document.getElementById('quantos'),
+      semNada = document.getElementById('semNada');
+  if (!campo) return;
+
+  // sem acento e sem caixa: quem procura "regulacao" tem que achar "Regulação"
+  var pele = function (t) {{
+    return String(t).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  }};
+  var indice = dados.map(function (n) {{
+    return {{ n: n, chave: pele(n.t + ' ' + n.d + ' ' + n.r) }};
+  }});
+
+  var esc = function (t) {{
+    return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }};
+
+  var desenhar = function (achados) {{
+    grade.innerHTML = achados.map(function (n) {{
+      return '<a class="nota" href="' + n.u + '">' +
+        (n.c ? '<span class="nota-arte"><img src="' + esc(n.c) + '" alt="" loading="lazy" width="640" height="427"></span>' : '') +
+        '<span class="nota-linha"><span class="selo selo--' + esc(n.m) + '">' + esc(n.r) + '</span>' +
+        '<span class="datinha">' + esc(n.q) + '</span></span>' +
+        '<h3>' + esc(n.t) + '</h3><p>' + esc(n.d) + '</p></a>';
+    }}).join('');
+  }};
+
+  var procurar = function () {{
+    var termo = pele(campo.value.trim());
+    limpar.hidden = !termo;
+
+    if (termo.length < 2) {{
+      caixa.hidden = true; semNada.hidden = true; listagem.hidden = false;
+      return;
+    }}
+    // todas as palavras precisam aparecer, em qualquer ordem
+    var palavras = termo.split(/\s+/);
+    var achados = indice.filter(function (x) {{
+      return palavras.every(function (p) {{ return x.chave.indexOf(p) !== -1; }});
+    }}).map(function (x) {{ return x.n; }});
+
+    listagem.hidden = true;
+    if (!achados.length) {{
+      caixa.hidden = true; semNada.hidden = false; return;
+    }}
+    semNada.hidden = true; caixa.hidden = false;
+    quantos.textContent = achados.length === 1
+      ? '1 nota encontrada' : achados.length + ' notas encontradas';
+    desenhar(achados);
+  }};
+
+  var espera;
+  campo.addEventListener('input', function () {{
+    clearTimeout(espera); espera = setTimeout(procurar, 120);
+  }});
+  campo.addEventListener('search', procurar);
+  limpar.addEventListener('click', function () {{
+    campo.value = ''; campo.focus(); procurar();
+  }});
+  // Enter num campo solto recarrega a pagina em alguns navegadores
+  campo.addEventListener('keydown', function (e) {{ if (e.key === 'Enter') e.preventDefault(); }});
+}})();
+</script>
 </body>
 </html>""").format(
-        titulo='IA em movimento',
-        titulo_tag='IA em movimento — notícias e bastidores por Robson Nobre',
-        desc=('O que aconteceu na inteligência artificial hoje, com a leitura de quem opera '
-              'esses sistemas em produção. Notícias, regulação, mercado e relatos técnicos '
-              'por Robson Nobre.'),
-        url=SITE + '/artigos/', autor=AUTOR, site=SITE, og_type='website',
+        titulo=html.escape(rotulo_tema or 'IA em movimento'),
+        titulo_tag=html.escape(titulo_tag),
+        desc=html.escape(chamada),
+        url=canonical, autor=AUTOR, site=SITE, og_type='website',
         css=css_inline, ld=json.dumps({
             "@context": "https://schema.org", "@type": "Blog",
             "name": "IA em movimento", "url": SITE + '/artigos/',
@@ -521,8 +694,13 @@ def indice(artigos, css_inline):
             "author": {"@type": "Person", "name": AUTOR, "url": SITE + '/'},
         }, ensure_ascii=False),
         og_img='\n<meta property="og:image" content="%s/%s">' % (
-            SITE, destaque['capa']) if destaque and destaque.get('capa') else '',
-        manchete=manchete, cartoes='\n'.join(cartoes))
+            SITE, (destaque or (artigos[0] if artigos else {})).get('capa', '')
+        ) if (destaque or artigos) and (destaque or artigos[0]).get('capa') else '',
+        h1=h1, chamada=html.escape(chamada),
+        filtros=barra_filtros(tema, contagem),
+        manchete=manchete, cartoes='\n'.join(cartoes),
+        paginas=barra_paginas(tema, pagina, total),
+        catalogo=catalogo)
 
 
 
@@ -586,17 +764,43 @@ def main():
                 encoding='utf-8').write(pagina(meta, md_para_html(corpo), css, vizinhas))
 
     artigos = metas
-    io.open(os.path.join(destino, 'index.html'), 'w', encoding='utf-8').write(
-        indice(artigos, css))
+    globals()['TODAS'] = artigos          # o catalogo da busca precisa de tudo
 
-    sitemap(artigos, destino)
+    contagem = {}
+    for a in artigos:
+        contagem[tema_de(a)[0]] = contagem.get(tema_de(a)[0], 0) + 1
+
+    def escrever_listagem(lista, tema):
+        """Cada pagina de listagem e um arquivo de verdade. Robo que nao roda
+        JavaScript ve a lista inteira; quem tem JS ganha a busca por cima."""
+        total = max(1, -(-len(lista) // POR_PAGINA))
+        for n in range(1, total + 1):
+            fatia = lista[(n - 1) * POR_PAGINA:n * POR_PAGINA]
+            pasta = destino if (n == 1 and not tema) else os.path.join(
+                destino, *( ['tema', tema] if tema else [] ), *([] if n == 1 else [str(n)]))
+            os.makedirs(pasta, exist_ok=True)
+            io.open(os.path.join(pasta, 'index.html'), 'w', encoding='utf-8').write(
+                indice(fatia, css, tema=tema, pagina=n, total=total, contagem=contagem))
+        return total
+
+    paginas = escrever_listagem(artigos, None)
+    temas_gerados = []
+    for t in TEMAS_ROTULO:
+        do_tema = [a for a in artigos if tema_de(a)[0] == t]
+        if do_tema:
+            temas_gerados.append((t, escrever_listagem(do_tema, t), len(do_tema)))
+
+    print('listagem: %d pagina(s) no indice + %s'
+          % (paginas, ', '.join('%s(%d)' % (t, n) for t, _, n in temas_gerados)))
+
+    sitemap(artigos, destino, paginas, temas_gerados)
     feed(artigos, destino)
 
     print('artigos gerados:', len(artigos), '->', ', '.join(a['slug'] for a in artigos))
     return artigos
 
 
-def sitemap(artigos, destino):
+def sitemap(artigos, destino, paginas=1, temas=()):
     """O sitemap nasce do build. Nota nova entra sozinha; nao existe passo
     manual entre publicar e o Google saber que aquilo existe."""
     hoje = max((a.get('data', '') for a in artigos), default='')
@@ -608,6 +812,19 @@ def sitemap(artigos, destino):
         '  <url><loc>%s/artigos/</loc><lastmod>%s</lastmod>'
         '<changefreq>daily</changefreq><priority>0.9</priority></url>' % (SITE, hoje),
     ]
+    # As paginas 2, 3... e as de tema sao portas de entrada de busca tambem.
+    # Fora do sitemap, o Google so as acha seguindo link, o que e mais lento.
+    for n in range(2, paginas + 1):
+        linhas.append('  <url><loc>%s/artigos/%d/</loc><lastmod>%s</lastmod>'
+                      '<changefreq>daily</changefreq><priority>0.4</priority></url>'
+                      % (SITE, n, hoje))
+    for t, total_t, _ in temas:
+        for n in range(1, total_t + 1):
+            caminho = '/artigos/tema/%s/' % t if n == 1 else '/artigos/tema/%s/%d/' % (t, n)
+            linhas.append('  <url><loc>%s%s</loc><lastmod>%s</lastmod>'
+                          '<changefreq>daily</changefreq><priority>%s</priority></url>'
+                          % (SITE, caminho, hoje, '0.7' if n == 1 else '0.4'))
+
     for a in artigos:
         # noticia envelhece rapido; relato tecnico nao. o changefreq conta isso
         noticia = a.get('tipo') == 'noticia'

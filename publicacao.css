@@ -610,3 +610,170 @@ a { color: inherit; text-decoration: none; }
   .texto { font-size: 1.04rem; line-height: 1.68; }
   .autoria { margin-bottom: 2rem; }
 }
+
+/* =========================================================
+   FILTRO, BUSCA E PAGINAÇÃO
+   Trinta notas numa página só já pesava; em um mês seriam
+   cento e cinquenta. A paginação e os temas são páginas de
+   verdade, com link que o Google segue e que funcionam sem
+   JavaScript. A busca é a única parte client-side, porque
+   ela não precisa ser indexável e precisa responder
+   enquanto a pessoa digita.
+   ========================================================= */
+.filtros {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem 1.5rem;
+    margin-top: 2rem;
+}
+
+.busca {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex: 1 1 18rem;
+    max-width: 26rem;
+}
+.busca svg {
+    position: absolute;
+    left: 0.85rem;
+    width: 16px; height: 16px;
+    color: var(--tinta-3);
+    pointer-events: none;
+}
+.busca input {
+    width: 100%;
+    font: inherit;
+    font-size: 0.92rem;
+    color: var(--tinta);
+    background: var(--papel-2);
+    border: 1px solid var(--linha);
+    border-radius: 999px;
+    padding: 0.6rem 2.4rem 0.6rem 2.5rem;
+    transition: border-color 0.25s var(--ease), background 0.25s var(--ease);
+    -webkit-appearance: none;
+    appearance: none;
+}
+.busca input::placeholder { color: var(--tinta-3); }
+.busca input:focus {
+    outline: none;
+    border-color: var(--roxo);
+    background: var(--papel);
+}
+/* o X nativo do type=search some entre navegadores; este é previsível */
+.busca input::-webkit-search-cancel-button { display: none; }
+.busca button {
+    position: absolute;
+    right: 0.5rem;
+    width: 24px; height: 24px;
+    display: grid;
+    place-items: center;
+    font-size: 1.15rem;
+    line-height: 1;
+    color: var(--tinta-3);
+    background: none;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: color 0.2s var(--ease), background 0.2s var(--ease);
+}
+.busca button:hover { color: var(--tinta); background: var(--papel-3); }
+/* `display` explicito vence o atributo `hidden`, entao o X aparecia com o
+   campo vazio. Mesma armadilha que ja escondeu mal o painel da Bella. */
+.busca button[hidden] { display: none; }
+
+.chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+}
+.chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--tinta-2);
+    background: var(--papel-2);
+    border: 1px solid var(--linha);
+    border-radius: 999px;
+    padding: 0.4rem 0.8rem;
+    transition: color 0.2s var(--ease), background 0.2s var(--ease),
+                border-color 0.2s var(--ease);
+}
+.chip b { font-weight: 500; color: var(--tinta-3); font-size: 0.92em; }
+.chip:hover { border-color: var(--linha-2); color: var(--tinta); }
+.chip.on {
+    color: var(--papel);
+    background: var(--tinta);
+    border-color: var(--tinta);
+}
+.chip.on b { color: rgba(250, 248, 244, 0.6); }
+
+.quantos {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--tinta-3);
+    padding-top: 2rem;
+}
+.sem-nada {
+    padding: 4rem 0;
+    font-size: 1.05rem;
+    color: var(--tinta-2);
+}
+
+/* ---------- paginação ---------- */
+.paginacao {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 1rem 0 1rem;
+    border-top: 1px solid var(--linha);
+    margin-top: 1rem;
+}
+.pg-num, .pg-seta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mono);
+    font-size: 0.74rem;
+    color: var(--tinta-2);
+    border: 1px solid transparent;
+    border-radius: 8px;
+    padding: 0.45rem 0.7rem;
+    min-width: 2.1rem;
+    transition: color 0.2s var(--ease), background 0.2s var(--ease),
+                border-color 0.2s var(--ease);
+}
+.pg-num:hover, .pg-seta:hover { background: var(--papel-2); color: var(--tinta); }
+.pg-num.on {
+    color: var(--papel);
+    background: var(--tinta);
+    border-color: var(--tinta);
+}
+.pg-seta { letter-spacing: 0.04em; }
+
+@media (max-width: 640px) {
+    .filtros { gap: 0.9rem; }
+    .chips { gap: 0.35rem; }
+    .chip { font-size: 0.62rem; padding: 0.35rem 0.65rem; }
+    .busca { flex-basis: 100%; max-width: none; }
+}
+
+/* No celular o cabeçalho ficava apertado: a marca quebrava em duas linhas e
+   o botão do portfólio estourava a própria borda. Menos texto e menos folga
+   resolvem sem esconder nada. */
+@media (max-width: 520px) {
+    .topo-inner { gap: 0.75rem; }
+    .marca { font-size: 1.1rem; white-space: nowrap; }
+    .topo-links { gap: 0.85rem; font-size: 0.8rem; }
+    .topo-cta { padding: 0.35rem 0.75rem; white-space: nowrap; }
+    .topo-links li:first-child { display: none; }   /* "Projetos" mora no rodapé também */
+}
