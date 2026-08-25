@@ -441,7 +441,7 @@ def bloco_vizinhos(vizinhos):
             % '\n'.join(cartoes))
 
 
-POR_PAGINA = 20
+POR_PAGINA = 12
 
 
 def url_pagina(tema, n):
@@ -841,7 +841,9 @@ def sitemap(artigos, destino, paginas=1, temas=()):
     io.open(os.path.join(os.path.dirname(destino), 'sitemap.xml'), 'w',
             encoding='utf-8').write(texto)
     io.open('sitemap.xml', 'w', encoding='utf-8').write(texto)
-    print('sitemap:', len(artigos) + 2, 'urls')
+    # conta o que foi escrito de fato, senao o log mente quando a paginacao
+    # e as paginas de tema entram na conta
+    print('sitemap:', sum(1 for l in linhas if '<url>' in l), 'urls')
 
 
 
