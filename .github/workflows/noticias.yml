@@ -62,7 +62,11 @@ jobs:
         run: |
           git config user.name  "maquina de noticias"
           git config user.email "agentevibeflow@gmail.com"
-          git add noticias .noticias-vistas.json
+          # assets/media ENTRA AQUI. Sem isso, a capa desenhada na rodada ia
+          # pro ar naquele deploy e sumia: a rodada seguinte faz checkout
+          # limpo, nao encontra os arquivos e publica o site sem eles. Cada
+          # rodada apagava as capas de todas as anteriores.
+          git add noticias assets/media .noticias-vistas.json
           git diff --cached --quiet && echo "nada novo nesta rodada" && exit 0
           git commit -m "noticias: rodada de $(TZ=America/Sao_Paulo date '+%d/%m %H:%M')"
           git push
