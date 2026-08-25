@@ -9,6 +9,11 @@ mkdir -p _site/assets
 
 cp index.html style.css script.js bella.js _site/
 cp robots.txt sitemap.xml llms.txt _site/
+# O painel viaja junto, mas fora do sitemap e com noindex no proprio HTML.
+cp painel.html _site/
+# O wrangler precisa do wrangler.toml na RAIZ do que sobe: e ele que liga o
+# banco (env.DB) as Pages Functions. Sem isso a funcao roda e nao acha o D1.
+cp wrangler.toml _site/
 cp -r assets/opt _site/assets/opt
 cp -r assets/fonts _site/assets/fonts
 [ -d assets/media ] && cp -r assets/media _site/assets/media

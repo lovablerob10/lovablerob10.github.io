@@ -16,6 +16,10 @@ User-agent: *
 Content-Signal: search=yes, ai-input=yes, ai-train=no
 Allow: /
 
+# O painel interno nao e conteudo: e a lista de quem deixou telefone aqui.
+Disallow: /painel.html
+Disallow: /api/
+
 # ---- assistentes e busca com IA: bem-vindos -------------------------
 User-agent: GPTBot
 Allow: /

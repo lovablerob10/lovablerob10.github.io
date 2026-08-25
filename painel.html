@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contatos do site</title>
+<!-- Painel interno: nunca em buscador, nunca em resumo de IA. -->
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="theme-color" content="#08080c">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%2308080c'/%3E%3Ctext x='50' y='50' dy='.35em' text-anchor='middle' font-family='monospace' font-size='46' font-weight='700' fill='%237c5cff'%3ERN%3C/text%3E%3C/svg%3E">
+<style>
+  :root {
+    --fundo:#08080c; --painel:#101018; --painel2:#16161f;
+    --linha:#23232f; --linha2:#32323f;
+    --texto:#e8e8f0; --meio:#9a9aab; --fraco:#65657a;
+    --roxo:#7c5cff; --roxo2:#b06cff; --ciano:#22d3ee;
+    --verde:#34d399; --vermelho:#ff8b8b; --ambar:#fbbf24;
+    --mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    background:var(--fundo);color:var(--texto);
+    font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;
+  }
+  .faixa{width:min(100% - 2rem,1100px);margin-inline:auto}
+
+  /* ---------- entrada ---------- */
+  #entrada{min-height:100vh;display:grid;place-items:center;padding:2rem}
+  .cartao{
+    width:min(100%,22rem);background:var(--painel);
+    border:1px solid var(--linha);border-radius:16px;padding:2rem;
+  }
+  .cartao h1{font-size:1.15rem;font-weight:600;margin-bottom:.4rem}
+  .cartao p{color:var(--meio);font-size:.88rem;margin-bottom:1.5rem}
+  label{display:block;font-size:.78rem;color:var(--fraco);margin-bottom:.4rem}
+  input[type=password],input[type=search]{
+    width:100%;font:inherit;font-size:.95rem;color:var(--texto);
+    background:var(--fundo);border:1px solid var(--linha2);border-radius:10px;
+    padding:.7rem .85rem;
+  }
+  input:focus{outline:none;border-color:var(--roxo)}
+  button{
+    font:inherit;font-weight:600;cursor:pointer;border:none;border-radius:999px;
+    transition:opacity .2s,transform .2s;
+  }
+  button:disabled{opacity:.5;cursor:default}
+  .btn-cheio{
+    width:100%;margin-top:1rem;padding:.75rem;font-size:.95rem;
+    background:var(--texto);color:var(--fundo);
+  }
+  .btn-cheio:hover:not(:disabled){transform:translateY(-1px)}
+  .aviso{margin-top:.9rem;font-size:.85rem;color:var(--vermelho);min-height:1px}
+
+  /* ---------- topo ---------- */
+  header{border-bottom:1px solid var(--linha);position:sticky;top:0;
+    background:rgba(8,8,12,.9);backdrop-filter:blur(12px);z-index:10}
+  .topo{display:flex;align-items:center;justify-content:space-between;
+    gap:1rem;padding-block:1rem;flex-wrap:wrap}
+  .topo h1{font-size:1.05rem;font-weight:600}
+  .sair{background:none;color:var(--meio);font-size:.85rem;font-weight:400;
+    padding:.4rem .8rem;border:1px solid var(--linha2)}
+  .sair:hover{color:var(--texto)}
+
+  /* ---------- resumo ---------- */
+  .numeros{display:grid;grid-template-columns:repeat(auto-fit,minmax(9rem,1fr));
+    gap:.75rem;padding-block:1.5rem}
+  .num{background:var(--painel);border:1px solid var(--linha);
+    border-radius:12px;padding:.9rem 1rem}
+  .num b{display:block;font-size:1.6rem;font-weight:700;line-height:1.1}
+  .num span{font-size:.75rem;color:var(--fraco);letter-spacing:.04em;
+    text-transform:uppercase;font-family:var(--mono)}
+  .num.alerta b{color:var(--ambar)}
+
+  /* ---------- filtros ---------- */
+  .barra{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap;
+    padding-bottom:1.25rem}
+  .barra input{flex:1 1 14rem;max-width:22rem}
+  .alt{background:var(--painel);color:var(--meio);border:1px solid var(--linha2);
+    font-size:.8rem;font-weight:500;padding:.55rem .9rem}
+  .alt.on{background:var(--roxo);border-color:var(--roxo);color:#fff}
+
+  /* ---------- lista ---------- */
+  .lista{display:grid;gap:.7rem;padding-bottom:3rem}
+  .lead{background:var(--painel);border:1px solid var(--linha);
+    border-radius:12px;padding:1rem 1.1rem;transition:border-color .2s}
+  .lead.novo{border-left:3px solid var(--roxo)}
+  .lead:hover{border-color:var(--linha2)}
+  .lead-topo{display:flex;align-items:baseline;gap:.6rem;flex-wrap:wrap;
+    margin-bottom:.3rem}
+  .lead-topo strong{font-size:1rem}
+  .quando{font-family:var(--mono);font-size:.72rem;color:var(--fraco);
+    margin-left:auto}
+  .tel{font-family:var(--mono);font-size:.85rem;color:var(--ciano)}
+  .lead p{color:var(--meio);font-size:.9rem;margin:.5rem 0}
+  .de{font-size:.75rem;color:var(--fraco)}
+  .acoes{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.8rem}
+  .acoes a,.acoes button{font-size:.8rem;font-weight:500;padding:.45rem .85rem;
+    border-radius:999px;text-decoration:none;display:inline-block}
+  .zap{background:var(--verde);color:#04140d}
+  .marcar{background:none;color:var(--meio);border:1px solid var(--linha2)}
+  .marcar:hover{color:var(--texto)}
+  .selo{font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;
+    text-transform:uppercase;padding:.15rem .5rem;border-radius:999px}
+  .selo-falhou{background:rgba(255,139,139,.14);color:var(--vermelho)}
+  .selo-teste{background:rgba(154,154,171,.14);color:var(--meio)}
+  .vazio{padding:4rem 1rem;text-align:center;color:var(--fraco)}
+  .mais{margin:0 auto 3rem;display:block;background:var(--painel);
+    color:var(--texto);border:1px solid var(--linha2);padding:.7rem 1.6rem;
+    font-size:.9rem}
+  [hidden]{display:none !important}
+</style>
+</head>
+<body>
+
+<!-- ---------------- entrada ---------------- -->
+<section id="entrada" hidden>
+  <form class="cartao" id="formEntrar">
+    <h1>Contatos do site</h1>
+    <p>Painel interno. Entre para ver quem deixou contato.</p>
+    <label for="senha">Senha</label>
+    <input type="password" id="senha" autocomplete="current-password" required>
+    <button class="btn-cheio" type="submit">Entrar</button>
+    <p class="aviso" id="avisoEntrar" role="status" aria-live="polite"></p>
+  </form>
+</section>
+
+<!-- ---------------- painel ---------------- -->
+<div id="painel" hidden>
+  <header>
+    <div class="topo faixa">
+      <h1>Contatos do site</h1>
+      <button class="sair" id="btnSair">Sair</button>
+    </div>
+  </header>
+
+  <main class="faixa">
+    <div class="numeros">
+      <div class="num"><b id="nTotal">0</b><span>no total</span></div>
+      <div class="num"><b id="nNovos">0</b><span>não lidos</span></div>
+      <div class="num alerta"><b id="nFalhos">0</b><span>aviso não entregue</span></div>
+    </div>
+
+    <div class="barra">
+      <input type="search" id="busca" placeholder="Buscar por nome, telefone ou texto...">
+      <button class="alt" id="fNovos" type="button">Só não lidos</button>
+      <button class="alt" id="fTeste" type="button">Mostrar testes</button>
+    </div>
+
+    <div class="lista" id="lista"></div>
+    <p class="vazio" id="vazio" hidden>Nada por aqui ainda.</p>
+    <button class="mais" id="btnMais" type="button" hidden>Carregar mais</button>
+  </main>
+</div>
+
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var entrada = $('entrada'), painel = $('painel');
+  var pagina = 1, fim = false, estado = { q: '', novos: false, teste: false };
+
+  var esc = function (t) {
+    return String(t == null ? '' : t)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  };
+
+  /* A hora é gravada em UTC e mostrada no fuso de quem olha. Guardar já
+     convertido quebraria a ordenação e mentiria em viagem. */
+  var quando = function (iso) {
+    var d = new Date(iso);
+    if (isNaN(d)) return '';
+    var hoje = new Date();
+    var mesmoDia = d.toDateString() === hoje.toDateString();
+    var hora = d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+    return mesmoDia ? 'hoje ' + hora
+      : d.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' }) + ' ' + hora;
+  };
+
+  var telBonito = function (t) {
+    var d = String(t).replace(/[^0-9]/g, '');
+    var m = /^55(\d{2})(\d{4,5})(\d{4})$/.exec(d);
+    return m ? '(' + m[1] + ') ' + m[2] + '-' + m[3] : t;
+  };
+
+  function mostrarPainel() { entrada.hidden = true; painel.hidden = false; carregar(true); }
+  function mostrarEntrada() { painel.hidden = true; entrada.hidden = false; $('senha').focus(); }
+
+  // ---------- entrar ----------
+  $('formEntrar').addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var b = ev.target.querySelector('button'), aviso = $('avisoEntrar');
+    b.disabled = true; b.textContent = 'Entrando...'; aviso.textContent = '';
+    fetch('/api/painel/entrar', {
+      method: 'POST', headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ senha: $('senha').value }),
+    }).then(function (r) { return r.json(); }).then(function (j) {
+      b.disabled = false; b.textContent = 'Entrar';
+      if (j.ok) { $('senha').value = ''; mostrarPainel(); }
+      else aviso.textContent = j.erro || 'Não deu certo.';
+    }).catch(function () {
+      b.disabled = false; b.textContent = 'Entrar';
+      aviso.textContent = 'Sem conexão com o servidor.';
+    });
+  });
+
+  $('btnSair').addEventListener('click', function () {
+    fetch('/api/painel/entrar', { method: 'DELETE' }).then(mostrarEntrada);
+  });
+
+  // ---------- lista ----------
+  function cartao(l) {
+    var falhou = !l.entregue;
+    return '<article class="lead' + (l.lido ? '' : ' novo') + '">' +
+      '<div class="lead-topo"><strong>' + esc(l.nome) + '</strong>' +
+      (falhou ? '<span class="selo selo-falhou">aviso não entregue</span>' : '') +
+      (l.teste ? '<span class="selo selo-teste">teste</span>' : '') +
+      '<span class="quando">' + quando(l.criado_em) + '</span></div>' +
+      '<div class="tel">' + esc(telBonito(l.telefone)) + '</div>' +
+      (l.contexto ? '<p>' + esc(l.contexto) + '</p>' : '') +
+      '<div class="de">' + (l.pagina ? 'chegou por: ' + esc(l.pagina) : 'chegou pelo site') + '</div>' +
+      '<div class="acoes">' +
+      '<a class="zap" target="_blank" rel="noopener" href="https://wa.me/' +
+        esc(String(l.telefone).replace(/[^0-9]/g, '')) +
+        '?text=' + encodeURIComponent('Oi ' + l.nome + '! Aqui é o Robson, do site.') +
+        '">Responder no WhatsApp</a>' +
+      '<button class="marcar" data-id="' + l.id + '" data-lido="' + (l.lido ? 0 : 1) + '">' +
+        (l.lido ? 'Marcar não lido' : 'Marcar lido') + '</button>' +
+      '</div></article>';
+  }
+
+  function carregar(zerar) {
+    if (zerar) { pagina = 1; fim = false; $('lista').innerHTML = ''; }
+    var u = '/api/painel/leads?p=' + pagina +
+      (estado.q ? '&q=' + encodeURIComponent(estado.q) : '') +
+      (estado.novos ? '&novos=1' : '') + (estado.teste ? '&teste=1' : '');
+
+    fetch(u).then(function (r) {
+      if (r.status === 401) { mostrarEntrada(); return null; }
+      return r.json();
+    }).then(function (j) {
+      if (!j || !j.ok) return;
+      $('nTotal').textContent = j.resumo.total;
+      $('nNovos').textContent = j.resumo.novos;
+      $('nFalhos').textContent = j.resumo.falhos;
+
+      $('lista').insertAdjacentHTML('beforeend', j.leads.map(cartao).join(''));
+      fim = j.leads.length < j.porPagina;
+      $('btnMais').hidden = fim;
+      $('vazio').hidden = !($('lista').children.length === 0);
+    }).catch(function () {});
+  }
+
+  $('btnMais').addEventListener('click', function () { pagina++; carregar(false); });
+
+  var espera;
+  $('busca').addEventListener('input', function (e) {
+    clearTimeout(espera);
+    espera = setTimeout(function () { estado.q = e.target.value.trim(); carregar(true); }, 250);
+  });
+
+  [['fNovos', 'novos'], ['fTeste', 'teste']].forEach(function (par) {
+    $(par[0]).addEventListener('click', function () {
+      estado[par[1]] = !estado[par[1]];
+      $(par[0]).classList.toggle('on', estado[par[1]]);
+      carregar(true);
+    });
+  });
+
+  // delegação: os botões nascem depois, então o ouvinte mora na lista
+  $('lista').addEventListener('click', function (ev) {
+    var b = ev.target.closest('.marcar');
+    if (!b) return;
+    b.disabled = true;
+    fetch('/api/painel/leads', {
+      method: 'POST', headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ id: Number(b.dataset.id), lido: b.dataset.lido === '1' }),
+    }).then(function () { carregar(true); });
+  });
+
+  // ---------- começa aqui ----------
+  fetch('/api/painel/entrar').then(function (r) { return r.json(); })
+    .then(function (j) { j.ok ? mostrarPainel() : mostrarEntrada(); })
+    .catch(mostrarEntrada);
+})();
+</script>
+</body>
+</html>

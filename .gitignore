@@ -3,3 +3,4 @@ _site/
 node_modules/
 artigos/*.draft.md
 .ultima-rodada.json
+.wrangler/state/

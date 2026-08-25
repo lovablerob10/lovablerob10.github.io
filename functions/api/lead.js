@@ -1,12 +1,17 @@
 /* Recebe o formulário do site e entrega o contato no WhatsApp do Robson.
  *
- * POR QUE NÃO TEM BANCO
- * O token da Cloudflare disponível só alcança Pages, não KV nem D1. Em vez de
- * fingir persistência, o desenho assume que a entrega É o armazenamento e
- * cuida do caso em que ela falha: se o WhatsApp não aceitar, a resposta traz
- * um link wa.me com a mensagem já escrita e o formulário empurra a pessoa
- * para lá. O lead vira conversa de um jeito ou de outro; o que não pode
- * acontecer é a tela dizer "recebido" e nada ter chegado.
+ * GRAVA PRIMEIRO, ENTREGA DEPOIS. A ORDEM É A REGRA.
+ * O desenho anterior não tinha banco: assumia que a entrega no WhatsApp ERA o
+ * armazenamento. Isso vale enquanto a entrega funciona. Em 25/08 a API oficial
+ * ficou instável e o custo da aposta apareceu: mensagem que não chega é lead
+ * que nunca existiu, sem rastro nenhum para recuperar depois.
+ * Agora o contato vai para o D1 antes de qualquer tentativa de envio. Se o
+ * WhatsApp cair, o lead está salvo e aparece no painel; se o banco cair, ainda
+ * assim tentamos entregar. As duas pernas quebram separado.
+ *
+ * O caso de falha continua tendo saída para o visitante: a resposta traz um
+ * link wa.me com a mensagem já escrita. O que não pode acontecer é a tela
+ * dizer "recebido" e não existir registro em lugar nenhum.
  *
  * ONDE ISTO RODA
  * Cloudflare Pages Function, no mesmo deploy do site (POST /api/lead). Não há
@@ -65,6 +70,24 @@ const json = (dados, status = 200) =>
     headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' },
   });
 
+/** Hash do IP: contar repetição sem guardar o endereço de ninguém. */
+async function hashLeve(ip) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode('lead|' + ip));
+  return btoa(String.fromCharCode(...new Uint8Array(buf))).slice(0, 22);
+}
+
+/** Anota como a entrega terminou. Nunca lança: o lead já está salvo, e uma
+ *  falha ao anotar o status não pode virar erro para o visitante. */
+async function marcar(env, id, entregue, erro) {
+  if (!id) return;
+  try {
+    await env.DB.prepare('update leads set entregue = ?, erro = ? where id = ?')
+      .bind(entregue, erro, id).run();
+  } catch (e) {
+    console.error('status do lead nao anotado:', e.message);
+  }
+}
+
 export async function onRequestPost({ request, env }) {
   let corpo;
   try {
@@ -95,6 +118,23 @@ export async function onRequestPost({ request, env }) {
   const ip = request.headers.get('cf-connecting-ip') ?? 'desconhecido';
   if (limitado(ip)) {
     return json({ ok: false, erro: 'Você já mandou faz pouco. Já estou com sua mensagem.' }, 429);
+  }
+
+  /* O REGISTRO VEM ANTES DE TUDO. Se esta gravação falhar, seguimos para a
+     entrega assim mesmo: perder o registro é ruim, perder o lead é pior. */
+  let idLead = null;
+  try {
+    const r = await env.DB.prepare(
+      `insert into leads (criado_em, nome, telefone, contexto, pagina, origem, ip_hash, teste)
+       values (?, ?, ?, ?, ?, ?, ?, ?)`,
+    ).bind(
+      new Date().toISOString(), nome, telefone, contexto || null, pagina,
+      (request.headers.get('referer') || '').replace(/^https?:\/\//, '').split('/')[0] || null,
+      await hashLeve(ip), eTeste ? 1 : 0,
+    ).run();
+    idLead = r.meta?.last_row_id ?? null;
+  } catch (e) {
+    console.error('lead nao gravado:', e.message);
   }
 
   // O plano B fica pronto ANTES da tentativa: se a entrega falhar, a pessoa
@@ -141,11 +181,16 @@ export async function onRequestPost({ request, env }) {
     if (!r.ok) {
       const detalhe = await r.text();
       console.error('lead nao entregue:', r.status, detalhe.slice(0, 300));
-      return json({ ok: false, erro: 'não consegui registrar', whatsapp: fallback }, 502);
+      await marcar(env, idLead, 0, `${r.status}: ${detalhe.slice(0, 180)}`);
+      // O lead ESTÁ salvo, então a pessoa não precisa saber que o aviso falhou:
+      // ela fez a parte dela. O WhatsApp segue oferecido como atalho.
+      return json({ ok: true, whatsapp: fallback });
     }
+    await marcar(env, idLead, 1, null);
   } catch (e) {
     console.error('lead falhou:', e.message);
-    return json({ ok: false, erro: 'não consegui registrar', whatsapp: fallback }, 502);
+    await marcar(env, idLead, 0, String(e.message).slice(0, 180));
+    return json({ ok: true, whatsapp: fallback });
   }
 
   return json({ ok: true, whatsapp: fallback });

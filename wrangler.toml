@@ -1,0 +1,13 @@
+# Configuração do projeto no Cloudflare Pages.
+#
+# O site é estático e não precisava de nada disto até existir formulário. O
+# binding abaixo é o que faz `env.DB` existir dentro das Pages Functions: sem
+# ele a função roda, não encontra o banco e grava em lugar nenhum.
+name = "robsonobre"
+pages_build_output_dir = "_site"
+compatibility_date = "2026-08-25"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "leads-robsonobre"
+database_id = "05e1f504-47a0-414a-bfbe-04049f1bc05b"
