@@ -142,4 +142,12 @@ Em três horas, uma construtora saiu de um workspace vazio para um ambiente com 
 
 A tecnologia não veio para substituir o engenheiro. Veio para devolver o tempo que ele nunca teve.
 
-**Quer esse sistema rodando na sua empresa?** Deixa seu contato no formulário abaixo que eu te chamo no WhatsApp. O [vídeo completo da consultoria](https://nobresites.com.br/noticias/ia-na-engenharia-civil-consultoria-2l.html) está publicado na íntegra, e a Parte 2 já está sendo gravada.
+## Assista à consultoria inteira
+
+As três horas estão publicadas na íntegra, sem edição de vitrine:
+
+**[Ver a consultoria completa no YouTube](https://youtu.be/_GJYOxupAl0)**
+
+A Parte 2 já está sendo gravada. Ela entra na camada mais crítica: banco de dados, conectores e comandos por WhatsApp.
+
+**Quer esse sistema rodando na sua empresa?** Deixa seu contato no formulário abaixo que eu te chamo no WhatsApp.
