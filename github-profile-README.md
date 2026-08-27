@@ -7,6 +7,11 @@
 </p>
 
 <p align="center">
+  <strong><a href="https://robsonobre.com.br">robsonobre.com.br</a></strong> &nbsp;·&nbsp;
+  <a href="https://robsonobre.com.br/artigos/">IA em movimento</a> (notícias e bastidores, 2x por dia)
+</p>
+
+<p align="center">
   <em>Construindo pontes entre inteligência artificial e experiências digitais extraordinárias.</em><br/>
   <em>Especialista em criar plataformas SaaS que automatizam tarefas com IA, trazem dados em tempo real e entregam rentabilidade para empresas.</em>
 </p>
@@ -26,8 +31,10 @@
 
 | Projeto | Descrição | Stack |
 |---------|-----------|-------|
-| 🏠 **Valtair Imobiliária** | Gestora IA autônoma de tráfego pago — única no Brasil | React, Supabase, Meta Ads AI |
-| 🏡 **[Corretor 2.0](https://github.com/lovablerob10/corretor2.0)** | Plataforma completa para corretores com IA Bella | React, Supabase, WhatsApp API |
+| 🏡 **[Corretor 2.0](https://robsonobre.com.br/artigos/gestora-de-trafego-por-ia-mercado-imobiliario/)** | Plataforma para corretores com a Bella, gestora de tráfego autônoma — única no Brasil | React, Supabase, Meta Ads API |
+| 📅 **Semana CheIA** | Prospecção B2B autônoma: 9 agentes acham a empresa, escrevem a abordagem e marcam a reunião | TypeScript, LLM, WhatsApp API |
+| 🩺 **MedkAI** | Recepção virtual por voz para consultórios | React, Realtime API, Supabase |
+| 🧠 **FlowBrother OS** | Sistema operacional de IA para empresas, com clone de personas | React, Multi-LLM, RAG |
 | ⭐ **BackStageFy** | Ecossistema de comunidade com 24 agentes IA | React, Supabase, Multi-Agent AI |
 | 🤖 **Natibi IA** | IA assistente para Natalia Beauty | AI Agent, LLMs, WhatsApp API |
 | 🏎️ **Raceman Kart** | Plataforma de kartismo com cronometragem e rankings | React, Node.js, PostgreSQL |
@@ -67,6 +74,7 @@
 ## 📫 Contato
 
 <p align="center">
+  <a href="https://robsonobre.com.br"><img src="https://img.shields.io/badge/Portfólio-08080C?style=for-the-badge&logo=firefox&logoColor=A855F7" /></a>
   <a href="https://www.linkedin.com/in/robson-nobre-68a930379/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" /></a>
   <a href="https://wa.me/5519996597169"><img src="https://img.shields.io/badge/WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white" /></a>
   <a href="mailto:goo360brasilmcc@mail.com"><img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" /></a>
