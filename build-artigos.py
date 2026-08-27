@@ -175,6 +175,19 @@ def tema_de(meta):
     return t, forcado or TEMAS_ROTULO.get(t, 'Notícia')
 
 
+def trilha(*passos):
+    """BreadcrumbList: o Google troca a URL crua pelo caminho legivel no
+    resultado de busca. E a "melhoria" que o Search Console procura e nao
+    achava, porque nao existia nenhuma."""
+    return {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": i + 1, "name": nome, "item": SITE + url}
+            for i, (nome, url) in enumerate(passos)
+        ],
+    }
+
+
 CABECA = """<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -236,6 +249,12 @@ def pagina(meta, corpo_html, css_inline, vizinhos=()):
     }
     if meta.get('capa'):
         ld["image"] = SITE + '/' + meta['capa']
+
+    _, rot = tema_de(meta)
+    grafo_artigo = {"@context": "https://schema.org", "@graph": [
+        ld,
+        trilha(('Início', '/'), ('IA em movimento', '/artigos/'), (titulo, '/artigos/%s/' % slug)),
+    ]}
     if meta.get('tipo') == 'noticia':
         # NewsArticle diz ao Google que e conteudo noticioso datado; `citation`
         # aponta pra quem apurou, que e o que separa curadoria de copia.
@@ -404,7 +423,7 @@ def pagina(meta, corpo_html, css_inline, vizinhos=()):
         titulo=html.escape(titulo),
         titulo_tag=html.escape(titulo) + ' — IA em movimento',
         desc=html.escape(desc), url=url, autor=AUTOR, site=SITE,
-        og_type='article', css=css_inline, ld=json.dumps(ld, ensure_ascii=False),
+        og_type='article', css=css_inline, ld=json.dumps(grafo_artigo, ensure_ascii=False),
         og_img=('\n<meta property="og:image" content="%s/%s">' % (SITE, meta['capa'])) if meta.get('capa') else '',
         corpo=corpo_html, data_br=meta.get('data_br', ''),
         sep=' · ' if data and meta.get('leitura') else '', leitura=meta.get('leitura', ''),
@@ -571,6 +590,7 @@ def indice(artigos, css_inline, tema=None, pagina=1, total=1, contagem=None):
         titulo_tag += ' — página %d' % pagina
 
     return (CABECA + rel + r"""
+<script type="application/ld+json">{ld}</script>
 </head>
 <body class="pub">
 """ + TOPO + r"""
@@ -688,10 +708,31 @@ def indice(artigos, css_inline, tema=None, pagina=1, total=1, contagem=None):
         desc=html.escape(chamada),
         url=canonical, autor=AUTOR, site=SITE, og_type='website',
         css=css_inline, ld=json.dumps({
-            "@context": "https://schema.org", "@type": "Blog",
-            "name": "IA em movimento", "url": SITE + '/artigos/',
-            "inLanguage": "pt-BR",
-            "author": {"@type": "Person", "name": AUTOR, "url": SITE + '/'},
+            "@context": "https://schema.org",
+            "@graph": [
+                {
+                    "@type": "Blog",
+                    "name": "IA em movimento",
+                    "url": SITE + '/artigos/',
+                    "description": chamada,
+                    "inLanguage": "pt-BR",
+                    "author": {"@type": "Person", "name": AUTOR, "url": SITE + '/'},
+                    "publisher": {"@type": "Person", "name": AUTOR, "url": SITE + '/'},
+                    # blogPost transforma a listagem numa lista que o Google le,
+                    # em vez de uma pagina de links soltos
+                    "blogPost": [
+                        {"@type": "BlogPosting", "headline": a['titulo'],
+                         "url": '%s/artigos/%s/' % (SITE, a['slug']),
+                         "datePublished": a.get('data', ''),
+                         "author": {"@type": "Person", "name": AUTOR}}
+                        for a in artigos
+                    ],
+                },
+                trilha(('Início', '/'), ('IA em movimento', '/artigos/'))
+                if not tema else
+                trilha(('Início', '/'), ('IA em movimento', '/artigos/'),
+                       (rotulo_tema, '/artigos/tema/%s/' % tema)),
+            ],
         }, ensure_ascii=False),
         og_img='\n<meta property="og:image" content="%s/%s">' % (
             SITE, (destaque or (artigos[0] if artigos else {})).get('capa', '')
