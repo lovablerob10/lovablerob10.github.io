@@ -2007,3 +2007,82 @@ section { position: relative; z-index: 2; }
     color: var(--paper);
     text-decoration-color: var(--v2);
 }
+
+/* =========================================================
+   NOTAS RECENTES NA HOME
+   =========================================================
+   Isto não é enfeite: é o conserto de um problema de
+   descoberta. O Search Console mostrou UMA página indexada
+   (a home) e as outras 40 nem descobertas. O motivo estava
+   no HTML: a home tinha dois links internos no total, e as
+   notas ficavam a dois cliques. Domínio novo recebe
+   rastreamento raso, e dois cliques já é fundo demais.
+   Com as notas aqui, cada uma é link direto da única página
+   em que o Google já confia.
+   ========================================================= */
+.notas-home {
+    display: grid;
+    gap: 1.6rem 1.4rem;
+    margin-top: 2.5rem;
+}
+@media (min-width: 640px)  { .notas-home { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1000px) { .notas-home { grid-template-columns: repeat(3, 1fr); } }
+
+.nh-item {
+    display: grid;
+    gap: 0.7rem;
+    align-content: start;
+    color: inherit;
+    text-decoration: none;
+}
+.nh-arte {
+    display: block;
+    aspect-ratio: 3 / 2;
+    overflow: hidden;
+    border-radius: 10px;
+    background: var(--ink-2);
+    border: 1px solid var(--line);
+}
+.nh-arte img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s var(--ease);
+}
+.nh-item:hover .nh-arte img { transform: scale(1.04); }
+
+.nh-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    flex-wrap: wrap;
+    font-family: var(--mono);
+    font-size: 0.64rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+.nh-selo { font-style: normal; color: var(--v2); }
+.nh-selo--pesquisa { color: var(--cy); }
+.nh-selo--negocios, .nh-selo--regulacao { color: #ff9d7a; }
+.nh-selo--artigo { color: var(--paper); }
+.nh-meta > span { color: var(--faint); }
+
+.nh-item h3 {
+    font-size: 1.02rem;
+    font-weight: 600;
+    line-height: 1.35;
+    letter-spacing: -0.015em;
+    color: var(--paper);
+    transition: color 0.3s var(--ease);
+}
+.nh-item:hover h3 { color: var(--v2); }
+
+.nh-todas {
+    display: inline-block;
+    margin-top: 2.2rem;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    color: var(--v2);
+    transition: color 0.3s var(--ease);
+}
+.nh-todas:hover { color: var(--paper); }

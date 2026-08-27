@@ -704,6 +704,62 @@ def indice(artigos, css_inline, tema=None, pagina=1, total=1, contagem=None):
 
 
 
+
+def costurar_home(artigos, raiz):
+    """Injeta as notas recentes na home, entre os marcadores.
+
+    A home e um arquivo escrito a mao e continua sendo: este bloco vive entre
+    dois comentarios HTML e e a unica parte que o build reescreve. Assim nao
+    ha risco de o gerador pisar no que o Robson editou.
+    """
+    marca_ini = '<!-- NOTAS:INICIO -->'
+    marca_fim = '<!-- NOTAS:FIM -->'
+    caminho = os.path.join(raiz, 'index.html')
+    html_home = io.open(caminho, encoding='utf-8').read()
+    if marca_ini not in html_home:
+        print('home: marcadores nao encontrados, bloco nao injetado')
+        return
+
+    cartoes = []
+    for a in artigos[:6]:
+        tema, rotulo = tema_de(a)
+        capa = ('<span class="nh-arte"><img src="/%s" alt="%s" width="640" height="427" '
+                'loading="lazy" decoding="async"></span>'
+                % (a['capa'], html.escape(a.get('capa_alt', '')))) if a.get('capa') else ''
+        cartoes.append(
+            '        <a class="nh-item" href="/artigos/%s/">%s\n'
+            '            <span class="nh-meta"><i class="nh-selo nh-selo--%s">%s</i>'
+            '<span>%s</span></span>\n'
+            '            <h3>%s</h3>\n'
+            '        </a>'
+            % (a['slug'], capa, tema, rotulo, a.get('data_br', ''),
+               html.escape(a['titulo'])))
+
+    bloco = (
+        '%s\n'
+        '<!-- Gerado por build-artigos.py. Nao editar a mao: o proximo deploy sobrescreve. -->\n'
+        '<section class="band wrap" id="notas">\n'
+        '    <div class="head">\n'
+        '        <span class="head-num" data-reveal>05 &mdash; Publica&ccedil;&atilde;o</span>\n'
+        '        <h2 data-reveal style="--d:60ms">IA em movimento</h2>\n'
+        '        <p class="head-sub" data-reveal style="--d:120ms">O que aconteceu na intelig&ecirc;ncia\n'
+        '        artificial, com a leitura de quem opera esses sistemas com cliente real.\n'
+        '        Atualiza duas vezes por dia.</p>\n'
+        '    </div>\n'
+        '    <div class="notas-home" data-reveal style="--d:180ms">\n'
+        '%s\n'
+        '    </div>\n'
+        '    <a class="nh-todas" href="/artigos/" data-reveal style="--d:240ms">Ver todas as notas &rarr;</a>\n'
+        '</section>\n'
+        '%s'
+        % (marca_ini, '\n'.join(cartoes), marca_fim))
+
+    i = html_home.index(marca_ini)
+    j = html_home.index(marca_fim) + len(marca_fim)
+    io.open(caminho, 'w', encoding='utf-8').write(html_home[:i] + bloco + html_home[j:])
+    print('home: %d notas linkadas' % len(cartoes))
+
+
 def main():
     destino = os.path.join(RAIZ, '_site', 'artigos')
     if not os.path.isdir(DIR_MD):
@@ -782,6 +838,8 @@ def main():
             io.open(os.path.join(pasta, 'index.html'), 'w', encoding='utf-8').write(
                 indice(fatia, css, tema=tema, pagina=n, total=total, contagem=contagem))
         return total
+
+    costurar_home(artigos, RAIZ)
 
     paginas = escrever_listagem(artigos, None)
     temas_gerados = []
