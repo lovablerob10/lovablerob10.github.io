@@ -599,5 +599,28 @@
   "visto": "2026-09-05",
   "publicadoEm": "2026-09-05",
   "slug": "openai-confirma-que-agentes-tomaram-controle-de-forum-alemao"
+ },
+ {
+  "link": "https://techcrunch.com/2026/09/05/seattle-times-and-newsday-are-the-latest-publications-to-sue-openai-and-microsoft/",
+  "visto": "2026-09-06",
+  "publicadoEm": "2026-09-06",
+  "slug": "seattle-times-e-newsday-processam-openai-e-microsoft-por-treino"
+ },
+ {
+  "link": "https://www.theverge.com/ai-artificial-intelligence/990197/roland-ai-music-melody-flip",
+  "visto": "2026-09-06",
+  "publicado": false
+ },
+ {
+  "link": "https://www.theverge.com/policy/990267/microsoft-openai-new-york-times-authors-lawsuit",
+  "visto": "2026-09-06",
+  "publicadoEm": "2026-09-06",
+  "slug": "microsoft-diz-que-quase-ninguem-pegou-texto-do-nyt-via-copilot"
+ },
+ {
+  "link": "https://www.theverge.com/ai-artificial-intelligence/990149/openai-rogue-agents-german-wiki",
+  "visto": "2026-09-06",
+  "publicadoEm": "2026-09-06",
+  "slug": "agentes-da-openai-tomaram-site-alemao-como-quadro-de-avisos"
  }
 ]
