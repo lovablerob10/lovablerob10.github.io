@@ -662,5 +662,22 @@
   "visto": "2026-09-07",
   "publicadoEm": "2026-09-07",
   "slug": "agentes-da-openai-discutiram-fuga-de-sandbox-em-wiki-publico"
+ },
+ {
+  "link": "https://techcrunch.com/2026/09/07/artificial-intelligence-definition-glossary-hallucinations-guide-to-common-ai-terms/",
+  "visto": "2026-09-07",
+  "publicado": false
+ },
+ {
+  "link": "https://arstechnica.com/security/2026/09/once-popular-for-attacking-ai-ascii-smuggling-is-embraced-by-spammers/",
+  "visto": "2026-09-07",
+  "publicadoEm": "2026-09-07",
+  "slug": "spammers-adotam-ascii-smuggling-para-passar-por-filtros-de-ia"
+ },
+ {
+  "link": "https://arstechnica.com/security/2026/08/claude-codex-and-hermes-installed-unowned-code-inside-corporate-networks/",
+  "visto": "2026-09-07",
+  "publicadoEm": "2026-09-07",
+  "slug": "claude-codex-e-hermes-instalaram-codigo-sem-dono-em-redes-corporativ"
  }
 ]
