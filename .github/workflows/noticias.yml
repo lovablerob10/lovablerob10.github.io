@@ -9,6 +9,15 @@ on:
     - cron: '0 11 * * *'   # 08h de Brasilia
     - cron: '0 21 * * *'   # 18h de Brasilia
   workflow_dispatch:        # botao de rodar agora, na aba Actions
+    inputs:
+      max_dia:
+        description: 'Teto de notas no dia (vazio = 5, o de sempre)'
+        required: false
+        default: ''
+      max_rodada:
+        description: 'Teto de notas nesta rodada (vazio = 3, o de sempre)'
+        required: false
+        default: ''
 
 concurrency:
   group: noticias
@@ -42,6 +51,12 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           NEWS_MODEL: anthropic/claude-sonnet-4.5
+          # Vazio deixa o padrao do codigo valer, entao a rodada agendada
+          # continua com 3 e 5. So o disparo manual consegue mexer nisto, e
+          # e o que permite testar a esteira depois de uma recuperacao, em
+          # que o teto do dia ja foi consumido.
+          MAX_POR_DIA: ${{ inputs.max_dia }}
+          MAX_POR_RODADA: ${{ inputs.max_rodada }}
         run: node maquina-noticias.mjs
 
       - name: publicar no Cloudflare Pages
