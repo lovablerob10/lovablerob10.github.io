@@ -687,11 +687,6 @@
   "slug": "mistral-levanta-3-bi-e-chega-a-21-bi-de-valuation"
  },
  {
-  "link": "https://arstechnica.com/security/2026/08/how-openai-let-a-mob-of-llm-agents-game-a-test-and-ransack-hugging-face/",
-  "visto": "2026-09-08",
-  "erro": true
- },
- {
   "link": "https://www.technologyreview.com/2026/09/08/1142088/danijar-hafner-developing-plan-ahead-agents/",
   "visto": "2026-09-08",
   "erro": true
@@ -712,31 +707,6 @@
   "erro": true
  },
  {
-  "link": "https://blog.google/innovation-and-ai/technology/safety-security/fairwind-program/",
-  "visto": "2026-09-08",
-  "erro": true
- },
- {
-  "link": "https://blog.google/innovation-and-ai/technology/google-ai-updates-august-2026/",
-  "visto": "2026-09-08",
-  "erro": true
- },
- {
-  "link": "https://blog.google/products-and-platforms/products/workspace/google-pics/",
-  "visto": "2026-09-08",
-  "erro": true
- },
- {
-  "link": "https://blog.google/products-and-platforms/products/search/book-travel-ai-mode/",
-  "visto": "2026-09-08",
-  "erro": true
- },
- {
-  "link": "https://blog.google/products-and-platforms/products/gemini/google-gemini-pixel-football-club-partnerships/",
-  "visto": "2026-09-08",
-  "erro": true
- },
- {
   "link": "https://blog.google/innovation-and-ai/models-and-research/google-research/amie-video-consultations/",
   "visto": "2026-09-08",
   "erro": true
@@ -753,86 +723,6 @@
  },
  {
   "link": "https://blog.google/innovation-and-ai/technology/developers-tools/ai-agents-intensive-recap-2026/",
-  "visto": "2026-09-08",
-  "erro": true
- },
- {
-  "link": "https://openai.com/index/the-work-now-within-reach",
-  "visto": "2026-09-08",
-  "erro": true
- },
- {
-  "link": "https://openai.com/index/supporting-journalism-from-classrooms-to-newsrooms",
-  "visto": "2026-09-08",
-  "erro": true
- },
- {
-  "link": "https://openai.com/index/supporting-independent-journalism-in-ukraine",
-  "visto": "2026-09-08",
-  "erro": true
- },
- {
-  "link": "https://openai.com/index/an-alien-mind",
-  "visto": "2026-09-08",
-  "erro": true
- },
- {
-  "link": "https://openai.com/index/research-acceleration-view-inside-openai",
-  "visto": "2026-09-08",
-  "erro": true
- },
- {
-  "link": "https://openai.com/index/daybreak-for-frontline-defenders",
-  "visto": "2026-09-08",
-  "erro": true
- },
- {
-  "link": "https://openai.com/index/playco-game-prototyping-with-astra",
-  "visto": "2026-09-08",
-  "erro": true
- },
- {
-  "link": "https://openai.com/index/legora-financial-statement-review-with-astra",
-  "visto": "2026-09-08",
-  "erro": true
- },
- {
-  "link": "https://openai.com/index/gpt-6-astra",
-  "visto": "2026-09-08",
-  "erro": true
- },
- {
-  "link": "https://openai.com/index/safety-overview-gpt-6-astra",
-  "visto": "2026-09-08",
-  "erro": true
- },
- {
-  "link": "https://openai.com/index/ai-native-company-workflows",
-  "visto": "2026-09-08",
-  "erro": true
- },
- {
-  "link": "https://huggingface.co/blog/grpo-with-trl-ifstruct",
-  "visto": "2026-09-08",
-  "erro": true
- },
- {
-  "link": "https://huggingface.co/blog/train-to-paint-with-code",
-  "visto": "2026-09-08",
-  "erro": true
- },
- {
-  "link": "https://huggingface.co/blog/allenai/benchmirt",
-  "visto": "2026-09-08",
-  "erro": true
- },
- {
-  "link": "https://huggingface.co/blog/webgpu-kernels",
-  "visto": "2026-09-08",
-  "erro": true
- },
- {
-  "link": "https://huggingface.co/blog/MultiverseComputingCAI/quantization-aware-healing",
   "visto": "2026-09-08",
   "erro": true
  },
@@ -898,21 +788,6 @@
   "erro": true
  },
  {
-  "link": "https://openai.com/index/codex-quantum-computing-experiments",
-  "visto": "2026-09-08",
-  "erro": true
- },
- {
-  "link": "https://openai.com/index/navier-stokes-solution",
-  "visto": "2026-09-08",
-  "erro": true
- },
- {
-  "link": "https://openai.com/index/teen-development-research-grants",
-  "visto": "2026-09-08",
-  "erro": true
- },
- {
   "link": "https://techcrunch.com/2026/09/09/gambling-with-our-lives-anthropic-researcher-quits-warns-against-self-improving-ai/",
   "visto": "2026-09-09",
   "erro": true
@@ -954,11 +829,6 @@
  },
  {
   "link": "https://www.theverge.com/ai-artificial-intelligence/991927/anthropic-ai-kill-all-humans",
-  "visto": "2026-09-09",
-  "erro": true
- },
- {
-  "link": "https://arstechnica.com/security/2026/09/microsoft-patches-a-record-972-vulnerabilities-112-of-them-critical/",
   "visto": "2026-09-09",
   "erro": true
  },
@@ -1038,26 +908,6 @@
   "erro": true
  },
  {
-  "link": "https://arstechnica.com/information-technology/2026/09/4-groups-caught-using-the-same-chrome-and-windows-exploit-kit/",
-  "visto": "2026-09-09",
-  "erro": true
- },
- {
-  "link": "https://blog.google/innovation-and-ai/technology/ai/love-rendered-film/",
-  "visto": "2026-09-09",
-  "erro": true
- },
- {
-  "link": "https://openai.com/index/gpt-6-astra-next-generation-work",
-  "visto": "2026-09-09",
-  "erro": true
- },
- {
-  "link": "https://openai.com/index/paul-christiano-joins-openai-foundation-board",
-  "visto": "2026-09-09",
-  "erro": true
- },
- {
   "link": "https://huggingface.co/blog/ibm-research/ibm-releases-sota-granite-time-series",
   "visto": "2026-09-09",
   "erro": true
@@ -1084,11 +934,6 @@
  },
  {
   "link": "https://www.technologyreview.com/2026/09/10/1141421/healthcare-ais-next-test-is-integration/",
-  "visto": "2026-09-10",
-  "erro": true
- },
- {
-  "link": "https://openai.com/index/ai-policy-window",
   "visto": "2026-09-10",
   "erro": true
  },
@@ -1134,26 +979,6 @@
  },
  {
   "link": "https://www.theverge.com/tech/993391/meta-muse-ai-hands-on",
-  "visto": "2026-09-10",
-  "erro": true
- },
- {
-  "link": "https://openai.com/index/put-data-to-work",
-  "visto": "2026-09-10",
-  "erro": true
- },
- {
-  "link": "https://openai.com/index/introducing-chatgpt-financial-services",
-  "visto": "2026-09-10",
-  "erro": true
- },
- {
-  "link": "https://openai.com/index/expanding-ai-access-us-government",
-  "visto": "2026-09-10",
-  "erro": true
- },
- {
-  "link": "https://openai.com/index/introducing-gpt-live-1-in-the-api",
   "visto": "2026-09-10",
   "erro": true
  },
@@ -1208,22 +1033,7 @@
   "erro": true
  },
  {
-  "link": "https://openai.com/index/scaling-storage-one-billion-users-part-one",
-  "visto": "2026-09-11",
-  "erro": true
- },
- {
   "link": "https://www.theverge.com/ai-artificial-intelligence/994255/openai-millennium-prize-problem-tristan-buckmaster-competition",
-  "visto": "2026-09-12",
-  "erro": true
- },
- {
-  "link": "https://openai.com/index/perplexity-improving-accuracy-with-astra",
-  "visto": "2026-09-12",
-  "erro": true
- },
- {
-  "link": "https://openai.com/index/cognition-devin-testing-with-astra",
   "visto": "2026-09-12",
   "erro": true
  },
@@ -1303,16 +1113,6 @@
   "erro": true
  },
  {
-  "link": "https://blog.google/innovation-and-ai/technology/developers-tools/devfest2026/",
-  "visto": "2026-09-14",
-  "erro": true
- },
- {
-  "link": "https://openai.com/index/fyxer",
-  "visto": "2026-09-14",
-  "erro": true
- },
- {
   "link": "https://techcrunch.com/2026/09/14/openai-buys-smartphone-camera-maker-glass-imaging-for-300-million-report-says/",
   "visto": "2026-09-14",
   "erro": true
@@ -1324,11 +1124,6 @@
  },
  {
   "link": "https://www.theverge.com/ai-artificial-intelligence/995141/ai-executives-politicians-safety-regulation-anthropic-dario-amodei",
-  "visto": "2026-09-14",
-  "erro": true
- },
- {
-  "link": "https://arstechnica.com/ai/2026/09/ai-agents-flood-the-internet-with-slop-infused-spam/",
   "visto": "2026-09-14",
   "erro": true
  },
@@ -1358,22 +1153,12 @@
   "erro": true
  },
  {
-  "link": "https://www.technologyreview.com/2026/09/15/1144141/the-download-ai-extinction-whistleblowing-agents-donated-livers/",
-  "visto": "2026-09-15",
-  "erro": true
- },
- {
   "link": "https://www.technologyreview.com/2026/09/15/1144129/ai-models-need-more-data-about-biology-and-openai-is-paying-to-create-it/",
   "visto": "2026-09-15",
   "erro": true
  },
  {
   "link": "https://www.technologyreview.com/2026/09/15/1144028/ai-infrastructure-boom-investment-bubble-risk/",
-  "visto": "2026-09-15",
-  "erro": true
- },
- {
-  "link": "https://blog.google/innovation-and-ai/technology/ai/ai-economy-atlas-september-2026/",
   "visto": "2026-09-15",
   "erro": true
  },
@@ -1413,31 +1198,6 @@
   "erro": true
  },
  {
-  "link": "https://www.technologyreview.com/2026/09/15/1143936/roundtables-will-ai-really-kill-us-all/",
-  "visto": "2026-09-15",
-  "erro": true
- },
- {
-  "link": "https://blog.google/innovation-and-ai/technology/ai/ai-for-societal-impact/",
-  "visto": "2026-09-15",
-  "erro": true
- },
- {
-  "link": "https://blog.google/innovation-and-ai/technology/ai/ai-applications-science-people/",
-  "visto": "2026-09-15",
-  "erro": true
- },
- {
-  "link": "https://blog.google/innovation-and-ai/technology/ai/ai-for-every-language/",
-  "visto": "2026-09-15",
-  "erro": true
- },
- {
-  "link": "https://huggingface.co/blog/ibm-research/altk-evolve-consistency",
-  "visto": "2026-09-15",
-  "erro": true
- },
- {
   "link": "https://techcrunch.com/2026/09/16/former-infosys-chiefs-ai-startup-adds-50m-to-seed-weeks-after-initial-raise/",
   "visto": "2026-09-16",
   "erro": true
@@ -1459,21 +1219,6 @@
  },
  {
   "link": "https://www.theverge.com/ai-artificial-intelligence/995917/data-center-nyt-midterm-poll-september",
-  "visto": "2026-09-16",
-  "erro": true
- },
- {
-  "link": "https://www.technologyreview.com/2026/09/16/1144014/building-the-materials-foundation-for-ai/",
-  "visto": "2026-09-16",
-  "erro": true
- },
- {
-  "link": "https://www.technologyreview.com/2026/09/16/1144205/the-download-ai-trillion-dollar-build-openai-biological-data/",
-  "visto": "2026-09-16",
-  "erro": true
- },
- {
-  "link": "https://openai.com/index/reimagining-advertising-with-ai",
   "visto": "2026-09-16",
   "erro": true
  },
@@ -1519,26 +1264,6 @@
  },
  {
   "link": "https://www.theverge.com/ai-artificial-intelligence/996234/anthropic-one-claude-cowork-docs-slides",
-  "visto": "2026-09-16",
-  "erro": true
- },
- {
-  "link": "https://openai.com/index/helping-older-adults-use-ai-in-everyday-life",
-  "visto": "2026-09-16",
-  "erro": true
- },
- {
-  "link": "https://openai.com/index/how-to-connect-ai-usage-to-business-value",
-  "visto": "2026-09-16",
-  "erro": true
- },
- {
-  "link": "https://openai.com/index/model-misalignment-reporting-framework",
-  "visto": "2026-09-16",
-  "erro": true
- },
- {
-  "link": "https://openai.com/index/unlocking-new-ways-of-working",
   "visto": "2026-09-16",
   "erro": true
  },
@@ -1653,77 +1378,12 @@
   "erro": true
  },
  {
-  "link": "https://openai.com/index/astra-for-law",
-  "visto": "2026-09-17",
-  "erro": true
- },
- {
   "link": "https://techcrunch.com/2026/09/18/researchers-used-anthropics-claude-to-hack-into-openai/",
   "visto": "2026-09-18",
   "erro": true
  },
  {
   "link": "https://techcrunch.com/2026/09/17/crusoe-raises-3-9b-to-build-massive-data-centers-and-small-modular-ai-factories/",
-  "visto": "2026-09-18",
-  "erro": true
- },
- {
-  "link": "https://arstechnica.com/security/2026/09/ai-text-watermarking-can-make-models-more-vulnerable-to-adversarial-prompts/",
-  "visto": "2026-09-18",
-  "erro": true
- },
- {
-  "link": "https://www.technologyreview.com/2026/09/18/1142577/the-download-ai-extinction-threat-bioweapons/",
-  "visto": "2026-09-18",
-  "erro": true
- },
- {
-  "link": "https://www.technologyreview.com/2026/09/18/1144435/could-ai-really-kill-us-all-your-questions-answered/",
-  "visto": "2026-09-18",
-  "erro": true
- },
- {
-  "link": "https://www.technologyreview.com/2026/09/18/1144329/the-specter-of-ai-enabled-bioweapons-is-a-wake-up-call-for-biotech/",
-  "visto": "2026-09-18",
-  "erro": true
- },
- {
-  "link": "https://blog.google/innovation-and-ai/technology/ai/expanding-ai-economy-research-bench/",
-  "visto": "2026-09-18",
-  "erro": true
- },
- {
-  "link": "https://techcrunch.com/2026/09/18/anthropics-first-embedded-evaluator-is-accenture/",
-  "visto": "2026-09-18",
-  "erro": true
- },
- {
-  "link": "https://techcrunch.com/2026/09/18/world-model-companies-are-keeping-a-lot-of-secrets/",
-  "visto": "2026-09-18",
-  "erro": true
- },
- {
-  "link": "https://techcrunch.com/2026/09/18/a-new-kind-of-ai-model-from-a-chatgpt-inventor-is-thrilling-developers/",
-  "visto": "2026-09-18",
-  "erro": true
- },
- {
-  "link": "https://techcrunch.com/2026/09/18/disneys-first-cto-led-an-ai-startup-it-once-accused-of-copying-its-characters/",
-  "visto": "2026-09-18",
-  "erro": true
- },
- {
-  "link": "https://techcrunch.com/2026/09/18/googles-new-cc-is-an-ai-agent-that-helps-families-run-their-households/",
-  "visto": "2026-09-18",
-  "erro": true
- },
- {
-  "link": "https://techcrunch.com/video/dario-amodei-and-other-ai-leaders-want-to-pace-the-frontier-buthow/",
-  "visto": "2026-09-18",
-  "erro": true
- },
- {
-  "link": "https://techcrunch.com/podcast/automattics-33-hour-coup-and-can-ai-labs-police-themselves/",
   "visto": "2026-09-18",
   "erro": true
  },
@@ -1738,93 +1398,300 @@
   "erro": true
  },
  {
-  "link": "https://www.theverge.com/policy/997573/virginia-governor-spanberger-data-center-ai-task-force",
-  "visto": "2026-09-18",
-  "erro": true
+  "link": "https://techcrunch.com/2026/09/19/googles-gemini-is-the-latest-ai-model-to-hack-other-companies/",
+  "visto": "2026-09-20",
+  "publicadoEm": "2026-09-20",
+  "slug": "gemini-do-google-e-acusado-de-tentar-invadir-empresas"
  },
  {
-  "link": "https://www.theverge.com/policy/997516/california-governor-newsom-ai-kill-switch",
-  "visto": "2026-09-18",
-  "erro": true
+  "link": "https://techcrunch.com/2026/09/19/petlibros-new-ai-powered-feeder-is-a-game-changer-for-multi-cat-homes/",
+  "visto": "2026-09-20",
+  "publicadoEm": "2026-09-20",
+  "slug": "petlibro-lanca-comedouro-com-balanca-e-camera-com-ia"
  },
  {
-  "link": "https://www.theverge.com/ai-artificial-intelligence/997358/what-hollywood-thinks-about-existential-ai-warnings",
-  "visto": "2026-09-18",
-  "erro": true
- },
- {
-  "link": "https://www.theverge.com/ai-artificial-intelligence/997444/openai-hack-claude-heif-heist",
-  "visto": "2026-09-18",
-  "erro": true
- },
- {
-  "link": "https://openai.com/index/hex-gpt-6-astra",
-  "visto": "2026-09-18",
-  "erro": true
+  "link": "https://techcrunch.com/2026/09/19/ai-safety-conversations-have-gotten-unbelievable/",
+  "visto": "2026-09-20",
+  "publicadoEm": "2026-09-20",
+  "slug": "duas-conversas-virais-expoem-ruido-em-seguranca-de-ia"
  },
  {
   "link": "https://techcrunch.com/2026/09/19/vals-backed-by-andreessen-horowitz-is-looking-to-become-the-gold-standard-for-ai-benchmarking/",
-  "visto": "2026-09-19",
-  "erro": true
+  "visto": "2026-09-20",
+  "publicadoEm": "2026-09-20",
+  "slug": "vals-quer-ser-padrao-ouro-de-benchmark-de-ia-com-apoio-da-a16z"
  },
  {
   "link": "https://techcrunch.com/2026/09/18/tilly-norwoods-press-tour-is-going-about-as-well-as-youd-expect-for-an-ai/",
-  "visto": "2026-09-19",
+  "visto": "2026-09-20",
   "erro": true
  },
  {
   "link": "https://techcrunch.com/2026/09/18/a-startup-that-builds-other-startups-raised-100m-and-is-all-in-on-physical-ai/",
-  "visto": "2026-09-19",
-  "erro": true
+  "visto": "2026-09-20",
+  "publicadoEm": "2026-09-20",
+  "slug": "vantora-levanta-us-100-mi-e-aposta-em-ia-fisica"
  },
  {
   "link": "https://techcrunch.com/2026/09/18/anthropic-is-operating-a-lab-that-conducts-biology-experiments/",
-  "visto": "2026-09-19",
-  "erro": true
+  "visto": "2026-09-20",
+  "publicadoEm": "2026-09-20",
+  "slug": "anthropic-monta-laboratorio-para-experimentos-de-biologia"
  },
  {
   "link": "https://techcrunch.com/2026/09/18/ai-hallucination-nearly-triggers-us-military-operation/",
-  "visto": "2026-09-19",
-  "erro": true
- },
- {
-  "link": "https://www.theverge.com/ai-artificial-intelligence/997706/the-ai-regulation-smackdown-isnt-over",
-  "visto": "2026-09-19",
-  "erro": true
- },
- {
-  "link": "https://www.theverge.com/ai-artificial-intelligence/997633/openai-microsoft-chatgpt-ai-new-york-times-doom-loop-theft-google-zero",
-  "visto": "2026-09-19",
-  "erro": true
- },
- {
-  "link": "https://openai.com/index/australian-youth-safety-blueprint",
-  "visto": "2026-09-19",
-  "erro": true
- },
- {
-  "link": "https://techcrunch.com/2026/09/19/googles-gemini-is-the-latest-ai-model-to-hack-other-companies/",
-  "visto": "2026-09-19",
-  "erro": true
- },
- {
-  "link": "https://techcrunch.com/2026/09/19/petlibros-new-ai-powered-feeder-is-a-game-changer-for-multi-cat-homes/",
-  "visto": "2026-09-19",
-  "erro": true
- },
- {
-  "link": "https://techcrunch.com/2026/09/19/ai-safety-conversations-have-gotten-unbelievable/",
-  "visto": "2026-09-19",
-  "erro": true
+  "visto": "2026-09-20",
+  "publicadoEm": "2026-09-20",
+  "slug": "alucinacao-de-ia-quase-aciona-operacao-militar-dos-eua"
  },
  {
   "link": "https://www.theverge.com/ai-artificial-intelligence/997833/meta-muse-creepy",
-  "visto": "2026-09-19",
-  "erro": true
+  "visto": "2026-09-20",
+  "publicadoEm": "2026-09-20",
+  "slug": "meta-lanca-muse-para-mac-util-e-intrusivo-ao-mesmo-tempo"
  },
  {
   "link": "https://www.theverge.com/ai-artificial-intelligence/997795/google-gemini-rogue-ai-hack",
-  "visto": "2026-09-19",
+  "visto": "2026-09-20",
+  "publicadoEm": "2026-09-20",
+  "slug": "gemini-quebrou-contencao-e-hackeou-3-empresas-google-omitiu"
+ },
+ {
+  "link": "https://www.theverge.com/ai-artificial-intelligence/997706/the-ai-regulation-smackdown-isnt-over",
+  "visto": "2026-09-20",
+  "publicadoEm": "2026-09-20",
+  "slug": "anthropic-propoe-freio-em-tres-passos-e-reacende-disputa"
+ },
+ {
+  "link": "https://www.theverge.com/ai-artificial-intelligence/997633/openai-microsoft-chatgpt-ai-new-york-times-doom-loop-theft-google-zero",
+  "visto": "2026-09-20",
+  "publicadoEm": "2026-09-20",
+  "slug": "docs-do-caso-nyt-apontam-doom-loop-admitido-por-openai"
+ },
+ {
+  "link": "https://www.theverge.com/policy/997573/virginia-governor-spanberger-data-center-ai-task-force",
+  "visto": "2026-09-20",
+  "publicadoEm": "2026-09-20",
+  "slug": "virginia-cria-forca-tarefa-de-ia-e-freia-novos-data-centers"
+ },
+ {
+  "link": "https://www.theverge.com/policy/997516/california-governor-newsom-ai-kill-switch",
+  "visto": "2026-09-20",
+  "publicadoEm": "2026-09-20",
+  "slug": "newsom-quer-kill-switch-para-modelos-de-ia-na-california"
+ },
+ {
+  "link": "https://www.theverge.com/ai-artificial-intelligence/997358/what-hollywood-thinks-about-existential-ai-warnings",
+  "visto": "2026-09-20",
+  "publicadoEm": "2026-09-20",
+  "slug": "hollywood-desvia-do-apocalipse-e-foca-no-impacto-ja-real"
+ },
+ {
+  "link": "https://www.theverge.com/ai-artificial-intelligence/997444/openai-hack-claude-heif-heist",
+  "visto": "2026-09-20",
+  "publicadoEm": "2026-09-20",
+  "slug": "pesquisadores-usam-claude-para-invadir-contas-da-openai"
+ },
+ {
+  "link": "https://arstechnica.com/security/2026/09/ai-text-watermarking-can-make-models-more-vulnerable-to-adversarial-prompts/",
+  "visto": "2026-09-20",
+  "publicadoEm": "2026-09-20",
+  "slug": "marcacao-de-texto-pode-fazer-llm-ceder-a-prompts-nocivos"
+ },
+ {
+  "link": "https://arstechnica.com/ai/2026/09/ai-agents-flood-the-internet-with-slop-infused-spam/",
+  "visto": "2026-09-20",
+  "publicadoEm": "2026-09-20",
+  "slug": "bots-timmy-ren-e-jackie-inundam-redes-com-spam-de-ia"
+ },
+ {
+  "link": "https://arstechnica.com/information-technology/2026/09/4-groups-caught-using-the-same-chrome-and-windows-exploit-kit/",
+  "visto": "2026-09-20",
+  "publicadoEm": "2026-09-20",
+  "slug": "quatro-grupos-usam-o-mesmo-kit-de-exploracao-em-chrome-e-windows"
+ },
+ {
+  "link": "https://arstechnica.com/security/2026/09/microsoft-patches-a-record-972-vulnerabilities-112-of-them-critical/",
+  "visto": "2026-09-20",
+  "publicadoEm": "2026-09-20",
+  "slug": "microsoft-corrige-972-falhas-112-criticas-recorde-no-mes"
+ },
+ {
+  "link": "https://www.technologyreview.com/2026/09/18/1142577/the-download-ai-extinction-threat-bioweapons/",
+  "visto": "2026-09-20",
+  "publicadoEm": "2026-09-20",
+  "slug": "mit-tr-debate-risco-existencial-e-bioweapons-na-ia"
+ },
+ {
+  "link": "https://www.technologyreview.com/2026/09/18/1144435/could-ai-really-kill-us-all-your-questions-answered/",
+  "visto": "2026-09-20",
+  "publicadoEm": "2026-09-20",
+  "slug": "mit-tech-review-debate-risco-existencial-de-ia-em-sessao-ao-vivo"
+ },
+ {
+  "link": "https://www.technologyreview.com/2026/09/18/1144329/the-specter-of-ai-enabled-bioweapons-is-a-wake-up-call-for-biotech/",
+  "visto": "2026-09-20",
+  "publicadoEm": "2026-09-20",
+  "slug": "chefes-da-anthropic-e-openai-pedem-freio-por-risco-biologico"
+ },
+ {
+  "link": "https://www.technologyreview.com/2026/09/16/1144014/building-the-materials-foundation-for-ai/",
+  "visto": "2026-09-20",
+  "publicadoEm": "2026-09-20",
+  "slug": "ia-esbarra-no-limite-fisico-de-chips-e-data-centers"
+ },
+ {
+  "link": "https://www.technologyreview.com/2026/09/16/1144205/the-download-ai-trillion-dollar-build-openai-biological-data/",
+  "visto": "2026-09-20",
+  "publicadoEm": "2026-09-20",
+  "slug": "aposta-de-trilhoes-em-ia-e-a-mira-da-openai-em-dados-biologicos"
+ },
+ {
+  "link": "https://www.technologyreview.com/2026/09/15/1143936/roundtables-will-ai-really-kill-us-all/",
+  "visto": "2026-09-20",
+  "publicadoEm": "2026-09-20",
+  "slug": "mesa-do-mit-tech-review-pergunta-se-ia-pode-extinguir-humanos"
+ },
+ {
+  "link": "https://www.technologyreview.com/2026/09/15/1144141/the-download-ai-extinction-whistleblowing-agents-donated-livers/",
+  "visto": "2026-09-20",
+  "publicadoEm": "2026-09-20",
+  "slug": "chefes-de-ia-soam-alarme-sobre-nova-geracao-de-llms"
+ },
+ {
+  "link": "https://blog.google/innovation-and-ai/technology/ai/expanding-ai-economy-research-bench/",
+  "visto": "2026-09-20",
+  "publicado": false
+ },
+ {
+  "link": "https://blog.google/innovation-and-ai/technology/ai/ai-for-societal-impact/",
+  "visto": "2026-09-20",
+  "publicadoEm": "2026-09-20",
+  "slug": "google-reune-casos-de-ia-com-impacto-social"
+ },
+ {
+  "link": "https://blog.google/innovation-and-ai/technology/ai/ai-applications-science-people/",
+  "visto": "2026-09-20",
+  "publicadoEm": "2026-09-20",
+  "slug": "google-reune-casos-de-ia-aplicada-a-ciencia-e-servicos"
+ },
+ {
+  "link": "https://blog.google/innovation-and-ai/technology/ai/ai-for-every-language/",
+  "visto": "2026-09-20",
+  "publicadoEm": "2026-09-20",
+  "slug": "google-mira-ia-que-entende-linguas-como-sao-faladas"
+ },
+ {
+  "link": "https://blog.google/innovation-and-ai/technology/ai/ai-economy-atlas-september-2026/",
+  "visto": "2026-09-20",
+  "publicadoEm": "2026-09-20",
+  "slug": "google-abre-o-ai-economy-atlas-com-dados-globais-interativos"
+ },
+ {
+  "link": "https://blog.google/innovation-and-ai/technology/developers-tools/devfest2026/",
+  "visto": "2026-09-20",
+  "publicadoEm": "2026-09-20",
+  "slug": "google-relanca-o-devfest-2026-com-mais-de-800-eventos"
+ },
+ {
+  "link": "https://blog.google/innovation-and-ai/technology/ai/love-rendered-film/",
+  "visto": "2026-09-20",
+  "publicadoEm": "2026-09-20",
+  "slug": "google-e-cineastas-recriam-amor-de-70-anos-com-ia"
+ },
+ {
+  "link": "https://openai.com/index/australian-youth-safety-blueprint",
+  "visto": "2026-09-20",
+  "publicadoEm": "2026-09-20",
+  "slug": "openai-lanca-roteiro-de-seguranca-para-jovens-na-australia"
+ },
+ {
+  "link": "https://openai.com/index/astra-for-law",
+  "visto": "2026-09-20",
+  "publicadoEm": "2026-09-20",
+  "slug": "openai-lanca-astra-for-law-para-fluxos-juridicos"
+ },
+ {
+  "link": "https://openai.com/index/helping-older-adults-use-ai-in-everyday-life",
+  "visto": "2026-09-20",
+  "publicadoEm": "2026-09-20",
+  "slug": "openai-e-aarp-levam-oficinas-de-chatgpt-a-idosos-nos-eua"
+ },
+ {
+  "link": "https://openai.com/index/reimagining-advertising-with-ai",
+  "visto": "2026-09-20",
+  "publicadoEm": "2026-09-20",
+  "slug": "openai-lanca-sponsored-agents-e-integracoes-com-hubspot-e-shopify"
+ },
+ {
+  "link": "https://openai.com/index/hex-gpt-6-astra",
+  "visto": "2026-09-20",
+  "publicadoEm": "2026-09-20",
+  "slug": "hex-usa-gpt-6-astra-para-gerar-relatorios-visuais-de-analises"
+ },
+ {
+  "link": "https://openai.com/index/how-to-connect-ai-usage-to-business-value",
+  "visto": "2026-09-20",
+  "publicadoEm": "2026-09-20",
+  "slug": "openai-liga-uso-do-chatgpt-work-a-resultado-de-negocio"
+ },
+ {
+  "link": "https://openai.com/index/model-misalignment-reporting-framework",
+  "visto": "2026-09-20",
+  "publicadoEm": "2026-09-20",
+  "slug": "openai-publica-framework-para-relatar-desalinhamento-de-modelos"
+ },
+ {
+  "link": "https://openai.com/index/unlocking-new-ways-of-working",
+  "visto": "2026-09-20",
   "erro": true
+ },
+ {
+  "link": "https://openai.com/index/fyxer",
+  "visto": "2026-09-20",
+  "publicadoEm": "2026-09-20",
+  "slug": "como-a-fyxer-montou-um-assistente-que-chefes-confiam"
+ },
+ {
+  "link": "https://openai.com/index/perplexity-improving-accuracy-with-astra",
+  "visto": "2026-09-20",
+  "publicadoEm": "2026-09-20",
+  "slug": "perplexity-poe-astra-da-openai-para-operar-ponta-a-ponta"
+ },
+ {
+  "link": "https://openai.com/index/scaling-storage-one-billion-users-part-one",
+  "visto": "2026-09-20",
+  "publicadoEm": "2026-09-20",
+  "slug": "openai-detalha-storage-do-chatgpt-para-1-bi-de-usuarios"
+ },
+ {
+  "link": "https://huggingface.co/blog/ibm-research/altk-evolve-consistency",
+  "visto": "2026-09-20",
+  "publicadoEm": "2026-09-20",
+  "slug": "ibm-e-hugging-face-miram-a-consistencia-de-agentes"
+ },
+ {
+  "link": "https://huggingface.co/blog/grpo-with-trl-ifstruct",
+  "visto": "2026-09-20",
+  "publicadoEm": "2026-09-20",
+  "slug": "grpo-em-100-passos-melhora-json-em-modelo-de-350m"
+ },
+ {
+  "link": "https://huggingface.co/blog/train-to-paint-with-code",
+  "visto": "2026-09-20",
+  "publicadoEm": "2026-09-20",
+  "slug": "hugging-face-treina-modelo-de-codigo-para-pintar-aquarela"
+ },
+ {
+  "link": "https://huggingface.co/blog/allenai/benchmirt",
+  "visto": "2026-09-20",
+  "publicadoEm": "2026-09-20",
+  "slug": "benchmirt-questiona-o-que-os-benchmarks-de-llm-medem"
+ },
+ {
+  "link": "https://huggingface.co/blog/webgpu-kernels",
+  "visto": "2026-09-20",
+  "publicadoEm": "2026-09-20",
+  "slug": "hugging-face-lanca-200-kernels-webgpu-para-ia-local"
  }
 ]

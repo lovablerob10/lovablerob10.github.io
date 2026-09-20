@@ -4,3 +4,9 @@ node_modules/
 artigos/*.draft.md
 .ultima-rodada.json
 .wrangler/state/
+
+# chaves: ficam na maquina e nos secrets do Actions, nunca no repositorio
+.env
+.env.*
+!.env.example
+.recuperacao.log

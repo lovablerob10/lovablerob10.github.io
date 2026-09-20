@@ -18,8 +18,8 @@
  * quem sabe do que o texto trata.
  */
 import fs from 'node:fs/promises';
+import { desenhar } from './provedor.mjs';
 
-const MODELO = process.env.CAPA_MODEL || 'google/gemini-3.1-flash-image';
 
 /* Papel creme igual ao --papel da folha: a página vira continuação da
  * ilustração em vez de moldura dela. E "no text" repetido de várias formas
@@ -40,41 +40,26 @@ export function promptDaCapa(conceito) {
 
 /** Gera e grava a capa. Devolve o caminho relativo, ou null se não deu.
  *  Nunca lança: nota sem capa é uma nota feia, nota que não publicou é pior. */
-export async function gerarCapa({ conceito, destino, chave }) {
-  if (!conceito || !chave) return null;
+export async function gerarCapa({ conceito, destino }) {
+  if (!conceito) return null;
   try {
-    const r = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-      method: 'POST',
-      headers: { authorization: `Bearer ${chave}`, 'content-type': 'application/json' },
-      body: JSON.stringify({
-        model: MODELO,
-        modalities: ['image', 'text'],
-        messages: [{ role: 'user', content: promptDaCapa(conceito) }],
-      }),
-      signal: AbortSignal.timeout(180000),
-    });
-    const j = await r.json();
-    if (!r.ok) throw new Error(`${r.status}: ${JSON.stringify(j).slice(0, 160)}`);
+    const { buffer, provedor } = await desenhar(promptDaCapa(conceito));
 
-    const uri = j.choices?.[0]?.message?.images?.[0]?.image_url?.url;
-    if (!uri) throw new Error('resposta sem imagem');
-
-    const bruto = Buffer.from(uri.split(',')[1], 'base64');
-
-    // O modelo devolve PNG de ~1,5 MB. Sem converter, uma página de notícia
-    // carregaria mais imagem do que texto. O sharp é instalado na hora pelo
+    // O modelo devolve PNG grande. Sem converter, uma pagina de noticia
+    // carregaria mais imagem do que texto. O sharp e instalado na hora pelo
     // workflow: o repositorio segue sem dependencia declarada.
     const sharp = (await import('sharp')).default;
-    await sharp(bruto)
+    await sharp(buffer)
       .resize({ width: 1280, height: 720, fit: 'cover', position: 'centre' })
       .webp({ quality: 82, effort: 6 })
       .toFile(destino);
 
     const { size } = await fs.stat(destino);
-    console.log(`    capa: ${(size / 1024).toFixed(0)} KB  (US$ ${(j.usage?.cost ?? 0).toFixed(3)})`);
+    console.log(`    capa: ${(size / 1024).toFixed(0)} KB via ${provedor}`);
     return true;
   } catch (e) {
     console.warn(`    capa falhou: ${String(e.message).slice(0, 110)}`);
     return null;
   }
 }
+

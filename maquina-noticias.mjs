@@ -30,6 +30,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { gerarCapa } from './capa.mjs';
+import { conversar } from './provedor.mjs';
 import { fileURLToPath } from 'node:url';
 
 const RAIZ = path.dirname(fileURLToPath(import.meta.url));
@@ -51,8 +52,13 @@ const FONTES = [
 const RELEVANTE = /\b(ai|a\.i\.|artificial intelligence|llm|gpt|claude|gemini|openai|anthropic|agent|agentic|automation|machine learning|model|chatbot|copilot|regulation|regula|intelig[êe]ncia artificial)\b/i;
 const VETADO = /\b(election|eleic|eleiç|candidat|partido|partisan|trump|biden|lula|bolsonaro|crypto|bitcoin|nft|celebrity|gossip)\b/i;
 
-const MAX_POR_RODADA = 3;   // teto por execução
-const MAX_POR_DIA = 5;      // teto diário, somando as rodadas
+/* Os tetos existem para a rodada normal: duas execucoes por dia, cinco notas
+   no maximo, ritmo de editoria pequena. Uma recuperacao e outra coisa — depois
+   de doze dias parada ha uma fila inteira esperando — entao os dois aceitam
+   override por ambiente. O padrao continua sendo o ritmo de sempre: quem nao
+   define nada roda como sempre rodou. */
+const MAX_POR_RODADA = Number(process.env.MAX_POR_RODADA) || 3;
+const MAX_POR_DIA = Number(process.env.MAX_POR_DIA) || 5;
 
 /* ------------------------------------------------------------------ */
 /* RSS: um parser pequeno. Feed é XML previsível; uma dependência a
@@ -159,32 +165,21 @@ Bons exemplos:
 
 Se a notícia não tiver relevância real para quem constrói IA, responda {"publicar": false}.`;
 
-async function escrever(item, env) {
-  const body = {
-    model: env.modelo,
-    messages: [
-      { role: 'system', content: PROMPT },
-      { role: 'user', content: `TÍTULO: ${item.titulo}\nFONTE: ${item.fonte}\nLINK: ${item.link}\nRESUMO ORIGINAL: ${item.resumo}` },
-    ],
-    temperature: 0.6,
-    max_tokens: 1400,
-  };
+async function escrever(item) {
+  const { texto, provedor } = await conversar([
+    { role: 'system', content: PROMPT },
+    { role: 'user', content: `TÍTULO: ${item.titulo}
+FONTE: ${item.fonte}
+LINK: ${item.link}
+RESUMO ORIGINAL: ${item.resumo}` },
+  ]);
 
-  const r = await fetch(env.endpoint, {
-    method: 'POST',
-    headers: { authorization: `Bearer ${env.chave}`, 'content-type': 'application/json' },
-    body: JSON.stringify(body),
-    signal: AbortSignal.timeout(120000),
-  });
-  if (!r.ok) throw new Error(`LLM ${r.status}: ${(await r.text()).slice(0, 160)}`);
-
-  const j = await r.json();
-  const txt = (j.choices?.[0]?.message?.content || '').trim()
+  const limpo = String(texto).trim()
     .replace(/^```(?:json)?/i, '').replace(/```$/, '').trim();
 
   let nota;
   try {
-    nota = JSON.parse(txt);
+    nota = JSON.parse(limpo);
   } catch {
     throw new Error('resposta fora do formato JSON');
   }
@@ -202,8 +197,10 @@ async function escrever(item, env) {
     t === t.toUpperCase() && /[A-ZÁÉÍÓÚÂÊÔÃÕÇ]/.test(t)
       ? '## ' + t.charAt(0) + t.slice(1).toLowerCase()
       : '## ' + t);
+  nota.provedor = provedor;
   return nota;
 }
+
 
 /* ------------------------------------------------------------------ */
 /** A data da nota e a do leitor, nao a do servidor.
@@ -212,6 +209,21 @@ async function escrever(item, env) {
  * rodada da tarde roda exatamente nesse horario, toda nota da tarde nascia
  * datada de amanha: erro visivel num site de noticia, e ainda zerava o teto
  * diario cedo demais. O locale sv-SE e o atalho para ISO (AAAA-MM-DD). */
+/** A data da nota e a do fato, nao a da rodada.
+ *
+ *  Normalmente da no mesmo: a maquina roda duas vezes por dia e pega noticia
+ *  do dia. Mas quando ela fica parada (o saldo acabou e ficou 12 dias fora) e
+ *  depois recupera a fila, datar pelo processamento colocaria noticia de uma
+ *  semana atras como se fosse de hoje. A data do feed e a verdade; o dia da
+ *  rodada e so o teto, porque nenhum feed publica no futuro. */
+function diaDaNoticia(pubDate, hoje) {
+  if (!pubDate) return hoje;
+  const d = new Date(pubDate);
+  if (isNaN(d)) return hoje;
+  const iso = new Intl.DateTimeFormat('sv-SE', { timeZone: 'America/Sao_Paulo' }).format(d);
+  return iso > hoje ? hoje : iso;
+}
+
 function hojeEmBrasilia() {
   return new Intl.DateTimeFormat('sv-SE', { timeZone: 'America/Sao_Paulo' })
     .format(new Date());
@@ -232,12 +244,10 @@ function slugify(s) {
 }
 
 async function main() {
-  const chaveOR = process.env.OPENROUTER_API_KEY;
-  const chaveOA = process.env.OPENAI_API_KEY;
-  const env = chaveOR
-    ? { chave: chaveOR, endpoint: 'https://openrouter.ai/api/v1/chat/completions', modelo: process.env.NEWS_MODEL || 'anthropic/claude-sonnet-4.5' }
-    : { chave: chaveOA, endpoint: 'https://api.openai.com/v1/chat/completions', modelo: process.env.NEWS_MODEL || 'gpt-5.6-terra' };
-  if (!env.chave) { console.error('sem chave de LLM (OPENROUTER_API_KEY ou OPENAI_API_KEY)'); process.exit(1); }
+  if (!process.env.OPENAI_API_KEY && !process.env.OPENROUTER_API_KEY) {
+    console.error('sem chave de LLM (OPENAI_API_KEY ou OPENROUTER_API_KEY)');
+    process.exit(1);
+  }
 
   await fs.mkdir(DIR, { recursive: true });
   let vistas = [];
@@ -265,12 +275,15 @@ async function main() {
 
   const teto = Math.min(MAX_POR_RODADA, MAX_POR_DIA - publicadasHoje);
   let escritas = 0;
+  let tentadas = 0;
+  const falhas = [];
   const publicadas = [];
 
   for (const item of candidatos) {
     if (escritas >= teto) break;
+    tentadas++;
     try {
-      const nota = await escrever(item, env);
+      const nota = await escrever(item);
       jaVi.add(item.link);
       if (!nota) {
         vistas.push({ link: item.link, visto: hoje, publicado: false });
@@ -278,7 +291,8 @@ async function main() {
         continue;
       }
       const slug = slugify(nota.titulo);
-      const arquivo = path.join(DIR, `${hoje}-${slug}.md`);
+      const quando = diaDaNoticia(item.data, hoje);
+      const arquivo = path.join(DIR, `${quando}-${slug}.md`);
 
       // A capa e desenhada para ESTA nota. Se falhar, a nota sai sem imagem:
       // publicar sem capa e um problema pequeno, nao publicar e um grande.
@@ -286,13 +300,12 @@ async function main() {
       const temCapa = await gerarCapa({
         conceito: nota.arte,
         destino: path.join('assets', 'media', `nota-${slug}.webp`),
-        chave: process.env.OPENROUTER_API_KEY,
       });
       const md = `---
 slug: ${slug}
 titulo: "${nota.titulo.replace(/"/g, "'")}"
 descricao: "${(nota.resumo || '').replace(/"/g, "'")}"
-data: ${hoje}
+data: ${quando}
 hora: ${agoraEmBrasilia()}
 leitura: 3 min de leitura
 fonte: "${item.fonte}"
@@ -313,9 +326,32 @@ ${nota.corpo}
     } catch (e) {
       // falha de uma nota nao derruba a rodada
       console.warn(`  x ${item.titulo.slice(0, 46)}: ${String(e.message).slice(0, 70)}`);
+      falhas.push({ link: item.link, erro: String(e.message).slice(0, 160) });
       jaVi.add(item.link);
       vistas.push({ link: item.link, visto: hoje, erro: true });
     }
+  }
+
+  /* RODADA EM QUE TUDO FALHOU NAO SAI EM VERDE.
+   *
+   * Entre 14 e 26/09 a maquina rodou 24 vezes, tomou 402 (sem saldo) em toda
+   * nota, e terminou com sucesso todas as vezes. O painel do GitHub ficou
+   * verde por 12 dias enquanto o site nao publicava nada. O tratamento de
+   * erro por nota era certo demais: falha isolada nao pode derrubar a rodada,
+   * mas falha em TODAS e outra coisa — e problema de infraestrutura, e
+   * precisa gritar.
+   *
+   * Falha de provedor tambem guarda o link de volta para a fila: ele nao foi
+   * julgado, so nao chegou a ser lido. */
+  if (tentadas > 0 && escritas === 0) {
+    const links = falhas.map((f) => f.link);
+    vistas = vistas.filter((v) => !links.includes(v.link));
+    await fs.writeFile(HIST, JSON.stringify(vistas.slice(-400), null, 1), 'utf8');
+    console.error(`
+TODAS as ${tentadas} tentativas falharam. Motivo mais comum:`);
+    console.error(`  ${falhas[0].erro}`);
+    console.error('Os links voltaram para a fila e serao tentados na proxima rodada.');
+    process.exit(1);
   }
 
   // a memoria guarda 400 links: o suficiente para nao repetir, sem crescer para sempre

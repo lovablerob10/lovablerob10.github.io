@@ -37,6 +37,9 @@ jobs:
 
       - name: escrever as notas
         env:
+          # A OpenAI vem primeiro; o OpenRouter fica como reserva. Ver provedor.mjs:
+          # a troca acontece quando a resposta diz que nao da, nao quando a chave falta.
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           NEWS_MODEL: anthropic/claude-sonnet-4.5
         run: node maquina-noticias.mjs
