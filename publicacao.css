@@ -507,10 +507,16 @@ a { color: inherit; text-decoration: none; }
 .captura-form button:disabled { opacity: 0.5; cursor: default; transform: none; }
 
 .nada {
+  /* O !important e a largura travada existem porque a regra geral dos campos do formulario
+     ganhava desta e deixava o campo com 1000 px: invisivel, mas alargando a pagina inteira. */
   position: absolute !important;
-  width: 1px; height: 1px;
+  left: 0 !important;
+  width: 1px !important; min-width: 0 !important; max-width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important; border: 0 !important; margin: 0 !important;
   overflow: hidden;
   clip: rect(0 0 0 0);
+  clip-path: inset(50%);
   white-space: nowrap;
 }
 .captura-aviso { font-size: 0.83rem; line-height: 1.5; color: #b9b3c4; min-height: 1px; }

@@ -388,6 +388,28 @@
     });
 
     /* ---------------------------------------------------------
+       Vídeo no quadro do case: a imagem aparece primeiro; o vídeo só
+       baixa quando o cartão chega perto da tela, toca sem som e pausa
+       fora dela. Com movimento reduzido ou economia de dados, fica a imagem.
+       --------------------------------------------------------- */
+    $$('.shot-video[data-src]').forEach((v) => {
+        const economia = navigator.connection && navigator.connection.saveData;
+        if (reduced || economia) return;
+        const ioV = new IntersectionObserver(([e]) => {
+            if (e.isIntersecting) {
+                if (!v.getAttribute('src')) {
+                    v.addEventListener('canplay', () => v.classList.add('on'), { once: true });
+                    v.src = v.dataset.src;
+                }
+                v.play().catch(() => {});
+            } else if (v.getAttribute('src')) {
+                v.pause();
+            }
+        }, { rootMargin: '200px 0px', threshold: 0.2 });
+        ioV.observe(v);
+    });
+
+    /* ---------------------------------------------------------
        Portrait tilt
        --------------------------------------------------------- */
     if (!coarse && !reduced) {
