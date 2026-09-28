@@ -40,6 +40,9 @@ Cloudflare Workers e Pages, n8n, Gemini, OpenAI, WhatsApp API, Meta Ads API.
   Federal, mapas e Google Places, montam o dossiê da empresa, pontuam propensão de
   compra e escrevem a abordagem. Cada mensagem passa por aprovação humana antes do
   disparo; a SDR de IA conduz a conversa no WhatsApp até agendar no Google Calendar.
+- **GalpON Live** — Estúdio de live commerce em Santa Bárbara d'Oeste/SP, em
+  implantação. Identidade visual gerada em código, projeto das cabines, tour virtual e
+  site com abertura animada, sobre a mesma máquina de atendimento do Achei Bella.
 - **MedkAI** — Engenharia clínica com IA para consultórios. Recepção virtual que
   atende por voz e painel de visão geral para o médico. https://medikai-96q.pages.dev
 - **BackStageFy** — Ecossistema de comunidade com 24 assistentes de IA
