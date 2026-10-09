@@ -1,22 +1,5 @@
 [
  {
-  "link": "https://techcrunch.com/2026/08/20/ramp-launches-its-own-ai-model-router-called-router/",
-  "visto": "2026-08-20",
-  "publicadoEm": "2026-08-20",
-  "slug": "ramp-lanca-roteador-de-modelos-de-ia-chamado-router"
- },
- {
-  "link": "https://techcrunch.com/2026/08/20/meta-brings-pocket-an-app-that-lets-you-vibe-code-and-share-games-to-us-users/",
-  "visto": "2026-08-20",
-  "publicado": false
- },
- {
-  "link": "https://techcrunch.com/2026/08/20/meta-ais-new-mac-app-wants-you-to-talk-to-your-apps/",
-  "visto": "2026-08-20",
-  "publicadoEm": "2026-08-20",
-  "slug": "meta-lanca-app-de-ditado-por-voz-para-mac-com-ia-integrada"
- },
- {
   "link": "https://techcrunch.com/2026/08/20/ai-data-startup-micro1-reaches-500m-gross-run-rate-amid-ai-training-boom/",
   "visto": "2026-08-20",
   "publicadoEm": "2026-08-20",
@@ -2226,5 +2209,22 @@
   "visto": "2026-10-08",
   "publicadoEm": "2026-10-08",
   "slug": "cal-ai-levanta-us-10-mi-para-novo-agente-pessoal-de-ia"
+ },
+ {
+  "link": "https://techcrunch.com/2026/10/08/fired-openai-safety-researchers-dispute-misconduct-claims-warn-of-chilling-effect/",
+  "visto": "2026-10-08",
+  "publicadoEm": "2026-10-08",
+  "slug": "demitidos-da-openai-contestam-acusacoes-e-alertam-efeito-inibidor"
+ },
+ {
+  "link": "https://techcrunch.com/2026/10/08/ben-affleck-is-an-ai-nerd-and-the-internet-is-impressed/",
+  "visto": "2026-10-08",
+  "publicado": false
+ },
+ {
+  "link": "https://techcrunch.com/2026/10/08/popular-ai-leaderboard-arena-nearly-doubles-valuation-to-3-1b-valuation-in-10-months/",
+  "visto": "2026-10-08",
+  "publicadoEm": "2026-10-08",
+  "slug": "arena-levanta-us-200-mi-e-vale-us-3-1-bi-em-10-meses"
  }
 ]
