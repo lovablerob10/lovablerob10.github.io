@@ -1,23 +1,5 @@
 [
  {
-  "link": "https://techcrunch.com/2026/08/20/ai-data-startup-micro1-reaches-500m-gross-run-rate-amid-ai-training-boom/",
-  "visto": "2026-08-20",
-  "publicadoEm": "2026-08-20",
-  "slug": "micro1-atinge-us-500-milhoes-em-receita-anual-com-dados-de-treino"
- },
- {
-  "link": "https://www.theverge.com/tech/983088/google-discover-ai-chatbot-feed",
-  "visto": "2026-08-20",
-  "publicadoEm": "2026-08-20",
-  "slug": "google-discover-vai-aceitar-prompt-para-ajustar-o-feed"
- },
- {
-  "link": "https://www.theverge.com/ai-artificial-intelligence/982774/greg-brockman-openai-role-expansion",
-  "visto": "2026-08-20",
-  "publicadoEm": "2026-08-20",
-  "slug": "greg-brockman-assume-comando-tecnico-da-openai-antes-do-ipo"
- },
- {
   "link": "https://www.theverge.com/podcast/982434/ai-math-openai-astra-existential-crisis",
   "visto": "2026-08-21",
   "publicadoEm": "2026-08-21",
@@ -2226,5 +2208,23 @@
   "visto": "2026-10-08",
   "publicadoEm": "2026-10-08",
   "slug": "arena-levanta-us-200-mi-e-vale-us-3-1-bi-em-10-meses"
+ },
+ {
+  "link": "https://techcrunch.com/video/amazon-and-others-are-done-keeping-data-center-deals-secret-is-it-enough-to-build-trust/",
+  "visto": "2026-10-09",
+  "publicadoEm": "2026-10-09",
+  "slug": "amazon-e-microsoft-largam-nda-em-acordos-de-data-center"
+ },
+ {
+  "link": "https://techcrunch.com/podcast/amazon-drops-data-center-ndas-and-ai-agents-want-your-credit-card/",
+  "visto": "2026-10-09",
+  "publicadoEm": "2026-10-09",
+  "slug": "amazon-abandona-ndas-em-data-centers-agentes-pedem-cartao"
+ },
+ {
+  "link": "https://techcrunch.com/2026/10/09/we-cant-help-treating-ai-like-its-human-but-should-we/",
+  "visto": "2026-10-09",
+  "publicadoEm": "2026-10-09",
+  "slug": "a-gente-humaniza-ia-sem-querer-vale-a-pena-fazer-isso"
  }
 ]
