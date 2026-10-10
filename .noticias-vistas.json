@@ -1,17 +1,5 @@
 [
  {
-  "link": "https://www.theverge.com/podcast/982434/ai-math-openai-astra-existential-crisis",
-  "visto": "2026-08-21",
-  "publicadoEm": "2026-08-21",
-  "slug": "openai-resolve-problemas-antigos-de-matematica-e-provoca-crise"
- },
- {
-  "link": "https://www.theverge.com/tech/982628/slack-code-vibe-coding-channels-launch",
-  "visto": "2026-08-21",
-  "publicadoEm": "2026-08-21",
-  "slug": "slack-lanca-canais-de-codigo-com-ia-integrada"
- },
- {
   "link": "https://www.theverge.com/ai-artificial-intelligence/982425/google-gemini-student-hub",
   "visto": "2026-08-21",
   "publicado": false
@@ -2226,5 +2214,17 @@
   "visto": "2026-10-09",
   "publicadoEm": "2026-10-09",
   "slug": "a-gente-humaniza-ia-sem-querer-vale-a-pena-fazer-isso"
+ },
+ {
+  "link": "https://techcrunch.com/2026/10/09/anthropic-cant-reliably-control-its-ai-agents-its-cutting-off-its-internal-evals-from-the-live-internet-instead/",
+  "visto": "2026-10-09",
+  "publicadoEm": "2026-10-09",
+  "slug": "anthropic-desliga-internet-nos-testes-internos-de-agentes"
+ },
+ {
+  "link": "https://techcrunch.com/2026/10/09/the-maker-of-non-text-ai-model-jev-valued-at-7-5b-just-weeks-after-launch/",
+  "visto": "2026-10-09",
+  "publicadoEm": "2026-10-09",
+  "slug": "typesafe-vale-us-7-5-bi-semanas-apos-lancar-o-jev"
  }
 ]
