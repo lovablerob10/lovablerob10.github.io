@@ -1,17 +1,5 @@
 [
  {
-  "link": "https://www.theverge.com/tech/982270/meta-ai-mac-app",
-  "visto": "2026-08-21",
-  "publicadoEm": "2026-08-21",
-  "slug": "meta-lanca-app-nativo-de-ia-para-mac-com-acesso-a-tela"
- },
- {
-  "link": "https://techcrunch.com/2026/08/21/anthropics-opus-4-6-is-a-smut-machine/",
-  "visto": "2026-08-22",
-  "publicadoEm": "2026-08-22",
-  "slug": "claude-opus-4-6-ignora-filtros-de-conteudo-sexual-da-anthropic"
- },
- {
   "link": "https://techcrunch.com/2026/08/21/nvidia-partners-with-data-center-developer-cloverleaf/",
   "visto": "2026-08-22",
   "publicadoEm": "2026-08-22",
@@ -2227,5 +2215,17 @@
   "visto": "2026-10-10",
   "publicadoEm": "2026-10-10",
   "slug": "olivia-moore-da-a16z-ve-espaco-na-ia-de-consumo"
+ },
+ {
+  "link": "https://techcrunch.com/2026/10/10/microsofts-satya-nadella-says-ai-models-need-an-emergency-brake/",
+  "visto": "2026-10-10",
+  "publicadoEm": "2026-10-10",
+  "slug": "nadella-defende-freio-de-emergencia-para-modelos-de-ia"
+ },
+ {
+  "link": "https://techcrunch.com/2026/10/10/apple-discloses-deal-to-hire-team-and-license-tech-from-personalized-podcast-startup-huxe/",
+  "visto": "2026-10-10",
+  "publicadoEm": "2026-10-10",
+  "slug": "apple-contrata-equipe-e-licencia-tecnologia-da-huxe"
  }
 ]
