@@ -1,23 +1,5 @@
 [
  {
-  "link": "https://techcrunch.com/2026/08/21/nvidia-partners-with-data-center-developer-cloverleaf/",
-  "visto": "2026-08-22",
-  "publicadoEm": "2026-08-22",
-  "slug": "nvidia-investe-em-desenvolvedora-de-data-centers-cloverleaf"
- },
- {
-  "link": "https://techcrunch.com/2026/08/21/nvidia-just-showed-that-the-harness-not-the-ai-model-is-now-the-real-hero/",
-  "visto": "2026-08-22",
-  "publicadoEm": "2026-08-22",
-  "slug": "nvidia-mostra-que-o-harness-importa-mais-que-o-modelo"
- },
- {
-  "link": "https://techcrunch.com/2026/08/22/inherent-founded-by-deepmind-alumni-says-its-ai-teammate-just-outperformed-anthropic-and-openai-at-replicating-research/",
-  "visto": "2026-08-22",
-  "publicadoEm": "2026-08-22",
-  "slug": "startup-britanica-diz-que-seu-agente-reproduz-papers-melhor-que-o3"
- },
- {
   "link": "https://techcrunch.com/2026/08/22/openai-says-california-should-strengthen-its-ai-safety-bill/",
   "visto": "2026-08-22",
   "publicadoEm": "2026-08-22",
@@ -2227,5 +2209,23 @@
   "visto": "2026-10-10",
   "publicadoEm": "2026-10-10",
   "slug": "apple-contrata-equipe-e-licencia-tecnologia-da-huxe"
+ },
+ {
+  "link": "https://techcrunch.com/2026/10/11/these-execs-think-voice-ai-hasnt-reached-its-chatgpt-moment-yet/",
+  "visto": "2026-10-11",
+  "publicadoEm": "2026-10-11",
+  "slug": "executivos-dizem-que-voz-com-ia-ainda-nao-teve-seu-momento"
+ },
+ {
+  "link": "https://www.theverge.com/ai-artificial-intelligence/1008484/learning-local-ai-hermes-qwen-model-mac-studio-testing-diary-progress",
+  "visto": "2026-10-11",
+  "publicadoEm": "2026-10-11",
+  "slug": "the-verge-testa-ia-local-no-mac-entre-euforia-e-tropecos"
+ },
+ {
+  "link": "https://www.theverge.com/ai-artificial-intelligence/1009337/satya-nadella-says-we-should-assume-all-ai-models-are-compromised",
+  "visto": "2026-10-11",
+  "publicadoEm": "2026-10-11",
+  "slug": "nadella-diz-que-devemos-assumir-modelos-de-ia-comprometidos"
  }
 ]
