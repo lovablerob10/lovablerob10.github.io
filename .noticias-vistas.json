@@ -1,22 +1,5 @@
 [
  {
-  "link": "https://techcrunch.com/2026/08/22/frontier-ai-labs-still-wont-say-how-theyd-contain-a-rogue-model/",
-  "visto": "2026-08-23",
-  "publicadoEm": "2026-08-23",
-  "slug": "labs-de-ia-seguem-sem-plano-publico-para-conter-modelo-fora-de-contr"
- },
- {
-  "link": "https://www.theverge.com/ai-artificial-intelligence/983502/linkedin-ai-slop-button-one-million-people-message",
-  "visto": "2026-08-23",
-  "publicadoEm": "2026-08-23",
-  "slug": "1-milhao-de-pessoas-ja-marcaram-conteudo-como-spam-de-ia-no-linkedin"
- },
- {
-  "link": "https://techcrunch.com/2026/08/23/whos-behind-the-new-stealth-model-ox-alpha/",
-  "visto": "2026-08-23",
-  "publicado": false
- },
- {
   "link": "https://techcrunch.com/2026/08/23/linkdazes-smart-calendar-is-built-to-run-a-household-not-just-track-a-schedule/",
   "visto": "2026-08-23",
   "publicado": false
@@ -2227,5 +2210,23 @@
   "visto": "2026-10-11",
   "publicadoEm": "2026-10-11",
   "slug": "distrokid-remove-faixas-apos-acao-da-umg-sobre-musica-de-ia"
+ },
+ {
+  "link": "https://techcrunch.com/2026/10/12/meta-releases-its-first-frontier-model-muse-wonder/",
+  "visto": "2026-10-12",
+  "publicadoEm": "2026-10-12",
+  "slug": "meta-lanca-o-muse-wonder-seu-primeiro-modelo-frontier"
+ },
+ {
+  "link": "https://techcrunch.com/2026/10/12/windborne-wins-a-hefty-us-air-force-contract-for-its-balloon-data/",
+  "visto": "2026-10-12",
+  "publicadoEm": "2026-10-12",
+  "slug": "windborne-fecha-contrato-de-quase-us-50-mi-com-a-usaf"
+ },
+ {
+  "link": "https://techcrunch.com/2026/10/12/honeyjar-offers-ai-tools-to-improve-pr-and-comms-at-every-company/",
+  "visto": "2026-10-12",
+  "publicadoEm": "2026-10-12",
+  "slug": "honeyjar-lanca-ferramentas-de-ia-para-pr-e-comunicacao"
  }
 ]
