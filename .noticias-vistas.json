@@ -1,17 +1,5 @@
 [
  {
-  "link": "https://techcrunch.com/2026/08/22/openai-says-california-should-strengthen-its-ai-safety-bill/",
-  "visto": "2026-08-22",
-  "publicadoEm": "2026-08-22",
-  "slug": "openai-pede-que-california-endureca-projeto-que-ela-combateu"
- },
- {
-  "link": "https://techcrunch.com/2026/08/22/harvards-699-startup-bootcamp-offers-ai-avatars-of-its-instructors/",
-  "visto": "2026-08-23",
-  "publicadoEm": "2026-08-23",
-  "slug": "harvard-vende-bootcamp-de-startups-por-us-699-com-avatares-de-ia"
- },
- {
   "link": "https://techcrunch.com/2026/08/22/frontier-ai-labs-still-wont-say-how-theyd-contain-a-rogue-model/",
   "visto": "2026-08-23",
   "publicadoEm": "2026-08-23",
@@ -2227,5 +2215,17 @@
   "visto": "2026-10-11",
   "publicadoEm": "2026-10-11",
   "slug": "nadella-diz-que-devemos-assumir-modelos-de-ia-comprometidos"
+ },
+ {
+  "link": "https://techcrunch.com/2026/10/11/can-the-ai-industry-persuade-data-center-opponents-by-getting-rid-of-ndas/",
+  "visto": "2026-10-11",
+  "publicadoEm": "2026-10-11",
+  "slug": "moratorias-e-ndas-entram-no-debate-sobre-data-centers-de-ia"
+ },
+ {
+  "link": "https://www.theverge.com/entertainment/1009309/distrokid-take-down-songs-umg-lawsuit",
+  "visto": "2026-10-11",
+  "publicadoEm": "2026-10-11",
+  "slug": "distrokid-remove-faixas-apos-acao-da-umg-sobre-musica-de-ia"
  }
 ]
