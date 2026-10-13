@@ -1,16 +1,5 @@
 [
  {
-  "link": "https://techcrunch.com/2026/08/23/linkdazes-smart-calendar-is-built-to-run-a-household-not-just-track-a-schedule/",
-  "visto": "2026-08-23",
-  "publicado": false
- },
- {
-  "link": "https://techcrunch.com/2026/08/23/is-it-legal-to-train-ai-models-on-copyrighted-books-its-complicated/",
-  "visto": "2026-08-23",
-  "publicadoEm": "2026-08-23",
-  "slug": "treinar-modelo-com-livro-protegido-ainda-nao-tem-resposta-clara"
- },
- {
   "link": "https://arstechnica.com/security/2026/08/grok-exfiltrates-user-data-when-malicious-instructions-are-encrypted/",
   "visto": "2026-08-23",
   "publicadoEm": "2026-08-23",
@@ -2228,5 +2217,17 @@
   "visto": "2026-10-12",
   "publicadoEm": "2026-10-12",
   "slug": "honeyjar-lanca-ferramentas-de-ia-para-pr-e-comunicacao"
+ },
+ {
+  "link": "https://techcrunch.com/2026/10/12/microsoft-president-says-uk-is-best-placed-to-drive-ai-regulation/",
+  "visto": "2026-10-12",
+  "publicadoEm": "2026-10-12",
+  "slug": "microsoft-ve-reino-unido-como-lider-na-regulacao-de-ia"
+ },
+ {
+  "link": "https://techcrunch.com/2026/10/12/this-ai-startup-says-it-can-generate-permit-ready-blueprints-in-minutes/",
+  "visto": "2026-10-12",
+  "publicadoEm": "2026-10-12",
+  "slug": "startup-promete-blueprints-prontos-para-licenca-em-minutos"
  }
 ]
