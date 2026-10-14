@@ -1,17 +1,5 @@
 [
  {
-  "link": "https://arstechnica.com/security/2026/08/terabytes-of-credentials-leaked-in-massive-supply-chain-attack/",
-  "visto": "2026-08-24",
-  "publicadoEm": "2026-08-24",
-  "slug": "pacote-de-ia-comprometido-vazou-credenciais-de-2-500-usuarios"
- },
- {
-  "link": "https://techcrunch.com/2026/08/24/instincts-powerful-ai-assistant-is-raising-privacy-and-security-concerns/",
-  "visto": "2026-08-24",
-  "publicadoEm": "2026-08-24",
-  "slug": "assistente-instinct-preocupa-testadores-por-acesso-amplo"
- },
- {
   "link": "https://techcrunch.com/2026/08/24/valor-point72-back-general-intuition-at-6b-valuation-as-ai-startup-pushes-into-robotics/",
   "visto": "2026-08-24",
   "publicadoEm": "2026-08-24",
@@ -2229,5 +2217,17 @@
   "visto": "2026-10-13",
   "publicadoEm": "2026-10-13",
   "slug": "google-play-libera-apps-privados-gerados-por-ia-no-android"
+ },
+ {
+  "link": "https://techcrunch.com/2026/10/13/cerebras-ceo-says-were-nearing-a-future-where-everyone-has-a-personal-ai-assistant-at-home/",
+  "visto": "2026-10-13",
+  "publicadoEm": "2026-10-13",
+  "slug": "cerebras-preve-assistente-de-ia-pessoal-em-toda-casa"
+ },
+ {
+  "link": "https://techcrunch.com/2026/10/13/cerebras-ceo-pushes-back-on-ai-doomsday-warnings/",
+  "visto": "2026-10-13",
+  "publicadoEm": "2026-10-13",
+  "slug": "ceo-da-cerebras-rebate-alarmismo-sobre-riscos-de-ia"
  }
 ]
