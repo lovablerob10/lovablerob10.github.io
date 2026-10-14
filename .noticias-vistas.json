@@ -1,17 +1,5 @@
 [
  {
-  "link": "https://techcrunch.com/2026/08/25/stability-ai-maker-of-image-generator-stable-diffusion-raises-76-million-in-fresh-funding/",
-  "visto": "2026-08-25",
-  "publicadoEm": "2026-08-25",
-  "slug": "stability-ai-levanta-us-76-milhoes-e-chega-a-us-232-mi"
- },
- {
-  "link": "https://techcrunch.com/2026/08/25/claude-cowork-finally-remembers-what-you-told-the-app-in-chat/",
-  "visto": "2026-08-25",
-  "publicadoEm": "2026-08-25",
-  "slug": "claude-ganha-memoria-compartilhada-entre-chat-e-cowork"
- },
- {
   "link": "https://techcrunch.com/2026/08/26/runable-hits-21m-to-bet-ai-agents-can-go-from-building-businesses-to-growing-them/",
   "visto": "2026-08-26",
   "erro": true
@@ -2228,5 +2216,17 @@
   "visto": "2026-10-14",
   "publicadoEm": "2026-10-14",
   "slug": "floqer-lanca-agentes-de-ia-para-pesquisa-de-prospects-b2b"
+ },
+ {
+  "link": "https://techcrunch.com/2026/10/14/youtube-music-launches-new-labels-as-ai-generated-music-floods-streaming-platforms/",
+  "visto": "2026-10-14",
+  "publicadoEm": "2026-10-14",
+  "slug": "youtube-music-passa-a-sinalizar-faixas-com-uso-de-ia"
+ },
+ {
+  "link": "https://techcrunch.com/2026/10/14/apate-sends-ai-agents-undercover-to-get-scammed-so-they-can-gather-fraud-intelligence/",
+  "visto": "2026-10-14",
+  "publicadoEm": "2026-10-14",
+  "slug": "apate-usa-agentes-de-ia-para-ser-enganada-e-mapear-fraudes"
  }
 ]
