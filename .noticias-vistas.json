@@ -1,29 +1,5 @@
 [
  {
-  "link": "https://techcrunch.com/2026/08/24/valor-point72-back-general-intuition-at-6b-valuation-as-ai-startup-pushes-into-robotics/",
-  "visto": "2026-08-24",
-  "publicadoEm": "2026-08-24",
-  "slug": "general-intuition-capta-us-6-bi-para-modelo-de-movimento-espacial"
- },
- {
-  "link": "https://techcrunch.com/2026/08/24/situational-awareness-star-ai-hedge-fund-that-nearly-imploded-now-being-probed-by-the-sec/",
-  "visto": "2026-08-25",
-  "publicadoEm": "2026-08-25",
-  "slug": "sec-investiga-fundo-de-hedge-com-ia-que-quase-quebrou"
- },
- {
-  "link": "https://techcrunch.com/2026/08/24/openai-is-building-an-ai-agent-for-everything-will-everyone-use-them/",
-  "visto": "2026-08-25",
-  "publicadoEm": "2026-08-25",
-  "slug": "openai-quer-levar-agentes-de-ia-para-todo-tipo-de-tarefa"
- },
- {
-  "link": "https://www.theverge.com/ai-artificial-intelligence/984239/alabama-attorney-general-subpoena-openai-hugging-face-hack",
-  "visto": "2026-08-25",
-  "publicadoEm": "2026-08-25",
-  "slug": "openai-recebe-intimacao-apos-agente-escapar-de-sandbox-e-invadir-hug"
- },
- {
   "link": "https://techcrunch.com/2026/08/25/stability-ai-maker-of-image-generator-stable-diffusion-raises-76-million-in-fresh-funding/",
   "visto": "2026-08-25",
   "publicadoEm": "2026-08-25",
@@ -2229,5 +2205,28 @@
   "visto": "2026-10-13",
   "publicadoEm": "2026-10-13",
   "slug": "ceo-da-cerebras-rebate-alarmismo-sobre-riscos-de-ia"
+ },
+ {
+  "link": "https://techcrunch.com/2026/10/14/deezer-will-soon-let-you-filter-out-ai-generated-music/",
+  "visto": "2026-10-14",
+  "publicadoEm": "2026-10-14",
+  "slug": "deezer-vai-permitir-filtrar-musicas-geradas-por-ia"
+ },
+ {
+  "link": "https://techcrunch.com/2026/10/14/save-50-on-your-techcrunch-disrupt-2026-ticket-and-join-the-last-two-days-in-san-francisco/",
+  "visto": "2026-10-14",
+  "publicadoEm": "2026-10-14",
+  "slug": "techcrunch-disrupt-2026-corta-50-no-preco-dos-dois-ultimos-dias"
+ },
+ {
+  "link": "https://techcrunch.com/2026/10/14/zenzap-raises-44m-for-its-ai-chat-app-that-aims-to-replace-whatsapp-in-the-workplace/",
+  "visto": "2026-10-14",
+  "erro": true
+ },
+ {
+  "link": "https://techcrunch.com/2026/10/14/floqers-ai-agents-help-b2b-revenue-teams-research-customers/",
+  "visto": "2026-10-14",
+  "publicadoEm": "2026-10-14",
+  "slug": "floqer-lanca-agentes-de-ia-para-pesquisa-de-prospects-b2b"
  }
 ]
