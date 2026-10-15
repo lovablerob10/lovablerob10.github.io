@@ -1,17 +1,5 @@
 [
  {
-  "link": "https://techcrunch.com/2026/08/25/openai-loses-a-top-data-center-exec-as-stream-of-high-profile-departures-continues/",
-  "visto": "2026-08-26",
-  "publicadoEm": "2026-08-26",
-  "slug": "openai-perde-executivo-de-data-center-em-nova-saida"
- },
- {
-  "link": "https://techcrunch.com/2026/08/26/viral-ai-startup-instinct-has-raised-350-million-at-a-2-5-billion-valuation/",
-  "visto": "2026-08-26",
-  "publicadoEm": "2026-08-26",
-  "slug": "instinct-levanta-us-350-mi-com-valuation-de-us-2-5-bi-em-um-ano"
- },
- {
   "link": "https://techcrunch.com/2026/08/26/anthropic-continues-compute-gobbling-streak-in-45-billion-deal-with-nscale/",
   "visto": "2026-08-26",
   "publicadoEm": "2026-08-26",
@@ -2229,5 +2217,17 @@
   "visto": "2026-10-15",
   "publicadoEm": "2026-10-15",
   "slug": "amazon-bee-lanca-dois-dispositivos-de-ia-pessoal-desde-us-75"
+ },
+ {
+  "link": "https://techcrunch.com/2026/10/15/meta-launches-an-open-weight-model-that-runs-on-macs/",
+  "visto": "2026-10-15",
+  "publicadoEm": "2026-10-15",
+  "slug": "meta-lanca-modelo-open-weight-que-roda-em-macs-apple-silicon"
+ },
+ {
+  "link": "https://techcrunch.com/2026/10/15/amazon-devices-chief-panos-panay-sees-a-future-where-ai-devices-replace-the-need-to-use-apps/",
+  "visto": "2026-10-15",
+  "publicadoEm": "2026-10-15",
+  "slug": "chefe-de-devices-da-amazon-preve-ia-sem-apps-na-disrupt"
  }
 ]
