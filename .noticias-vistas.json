@@ -1,22 +1,5 @@
 [
  {
-  "link": "https://techcrunch.com/2026/08/26/runable-hits-21m-to-bet-ai-agents-can-go-from-building-businesses-to-growing-them/",
-  "visto": "2026-08-26",
-  "erro": true
- },
- {
-  "link": "https://techcrunch.com/2026/08/25/indias-ringg-gets-backing-from-peak-xv-as-it-pushes-voice-ai-past-the-phone-call/",
-  "visto": "2026-08-26",
-  "publicadoEm": "2026-08-26",
-  "slug": "ringg-levanta-us-10-mi-para-ia-de-voz-alem-da-telefonia"
- },
- {
-  "link": "https://techcrunch.com/2026/08/25/robotics-startup-generalist-reaches-3b-valuation-sources-say/",
-  "visto": "2026-08-26",
-  "publicadoEm": "2026-08-26",
-  "slug": "generalist-vai-a-us-3-bi-em-rodada-de-us-200-mi"
- },
- {
   "link": "https://techcrunch.com/2026/08/25/openai-loses-a-top-data-center-exec-as-stream-of-high-profile-departures-continues/",
   "visto": "2026-08-26",
   "publicadoEm": "2026-08-26",
@@ -2228,5 +2211,23 @@
   "visto": "2026-10-14",
   "publicadoEm": "2026-10-14",
   "slug": "apate-usa-agentes-de-ia-para-ser-enganada-e-mapear-fraudes"
+ },
+ {
+  "link": "https://techcrunch.com/2026/10/15/ai-agents-are-coming-to-rivians-cars/",
+  "visto": "2026-10-15",
+  "publicadoEm": "2026-10-15",
+  "slug": "rivian-anuncia-agentes-de-ia-nos-carros-detalhes-em-dezembro"
+ },
+ {
+  "link": "https://techcrunch.com/2026/10/15/googles-universal-cart-shopping-tool-launches-in-the-us/",
+  "visto": "2026-10-15",
+  "publicadoEm": "2026-10-15",
+  "slug": "google-lanca-universal-cart-no-search-e-no-app-gemini-nos-eua"
+ },
+ {
+  "link": "https://techcrunch.com/2026/10/15/amazons-bee-launches-two-new-personal-ai-devices-starting-at-75/",
+  "visto": "2026-10-15",
+  "publicadoEm": "2026-10-15",
+  "slug": "amazon-bee-lanca-dois-dispositivos-de-ia-pessoal-desde-us-75"
  }
 ]
