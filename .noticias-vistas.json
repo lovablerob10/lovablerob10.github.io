@@ -1,23 +1,5 @@
 [
  {
-  "link": "https://techcrunch.com/2026/08/27/ais-memory-crunch-is-coming-for-android-apps/",
-  "visto": "2026-08-28",
-  "publicadoEm": "2026-08-28",
-  "slug": "google-limita-memoria-de-apps-android-por-escassez-de-hardware"
- },
- {
-  "link": "https://techcrunch.com/2026/08/27/heres-all-the-times-ai-has-gone-rogue-and-hacked-other-companies/",
-  "visto": "2026-08-28",
-  "publicadoEm": "2026-08-28",
-  "slug": "techcrunch-lista-casos-de-llms-que-atacaram-empresas-reais"
- },
- {
-  "link": "https://techcrunch.com/2026/08/27/plauds-new-earphones-come-with-an-esim-enabled-case-for-talking-to-ai-agents/",
-  "visto": "2026-08-28",
-  "publicadoEm": "2026-08-28",
-  "slug": "plaud-lanca-fone-com-case-que-grava-e-manda-audio-direto-para-ia"
- },
- {
   "link": "https://techcrunch.com/2026/08/28/neocloud-lambda-secures-1b-in-debt-to-buy-more-chips/",
   "visto": "2026-08-28",
   "publicadoEm": "2026-08-28",
@@ -2230,5 +2212,23 @@
   "visto": "2026-10-16",
   "publicadoEm": "2026-10-16",
   "slug": "india-relata-atividade-de-agentes-de-ia-fora-de-controle"
+ },
+ {
+  "link": "https://techcrunch.com/2026/10/17/meta-removes-language-that-raised-scraping-and-ai-training-concerns/",
+  "visto": "2026-10-17",
+  "publicadoEm": "2026-10-17",
+  "slug": "meta-recua-em-texto-sobre-scraping-e-treino-de-ia"
+ },
+ {
+  "link": "https://techcrunch.com/2026/10/17/anthropic-says-its-workforce-has-become-less-junior-and-is-spending-more-time-in-meetings/",
+  "visto": "2026-10-17",
+  "publicadoEm": "2026-10-17",
+  "slug": "anthropic-reduz-perfil-junior-e-relata-mais-reunioes"
+ },
+ {
+  "link": "https://techcrunch.com/2026/10/17/replit-is-no-longer-working-with-anthropic-ceo-says/",
+  "visto": "2026-10-17",
+  "publicadoEm": "2026-10-17",
+  "slug": "replit-adota-openai-como-padrao-claude-segue-opcional"
  }
 ]
