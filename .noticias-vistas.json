@@ -1,17 +1,5 @@
 [
  {
-  "link": "https://techcrunch.com/2026/08/28/meta-executive-leaves-for-openai-as-the-social-media-giant-faces-growing-scrutiny-in-india/",
-  "visto": "2026-08-29",
-  "publicadoEm": "2026-08-29",
-  "slug": "executiva-da-meta-na-asia-vai-para-a-openai"
- },
- {
-  "link": "https://www.theverge.com/tech/985567/google-gemini-notebook-expert-sources-books",
-  "visto": "2026-08-29",
-  "publicadoEm": "2026-08-29",
-  "slug": "google-conecta-biblioteca-do-play-books-ao-gemini-notebook"
- },
- {
   "link": "https://techcrunch.com/2026/08/29/nvidias-ai-advantage-is-moving-beyond-the-gpu/",
   "visto": "2026-08-29",
   "publicadoEm": "2026-08-29",
@@ -2230,5 +2218,17 @@
   "visto": "2026-10-18",
   "publicadoEm": "2026-10-18",
   "slug": "elorian-lanca-glimpse-para-raciocinar-com-imagens-e-video-curto"
+ },
+ {
+  "link": "https://techcrunch.com/2026/10/18/anthropic-says-its-committing-5-of-its-shares-to-a-public-benefit-fund/",
+  "visto": "2026-10-18",
+  "publicadoEm": "2026-10-18",
+  "slug": "anthropic-destina-5-das-acoes-a-fundo-de-interesse-publico"
+ },
+ {
+  "link": "https://techcrunch.com/2026/10/18/disney-agrees-to-hire-the-majority-of-character-ais-workforce/",
+  "visto": "2026-10-18",
+  "publicadoEm": "2026-10-18",
+  "slug": "disney-vai-contratar-a-maior-parte-da-equipe-da-character-ai"
  }
 ]
