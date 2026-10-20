@@ -1,17 +1,5 @@
 [
  {
-  "link": "https://techcrunch.com/2026/08/29/were-not-doing-30-bets-a-year-vijay-pande-on-betting-small-after-running-4-billion-at-a16z/",
-  "visto": "2026-08-30",
-  "publicadoEm": "2026-08-30",
-  "slug": "ex-socio-da-a16z-aposta-que-ia-transforma-biologia-em-engenharia"
- },
- {
-  "link": "https://www.theverge.com/ai-artificial-intelligence/986438/sony-music-warner-chappell-anthropic-lawsuit-copyright",
-  "visto": "2026-08-30",
-  "publicadoEm": "2026-08-30",
-  "slug": "sony-e-warner-processam-anthropic-por-direitos-autorais"
- },
- {
   "link": "https://techcrunch.com/2026/08/30/caterpillar-is-bringing-to-ai-deployment-what-it-learned-from-automating-mining/",
   "visto": "2026-08-30",
   "publicadoEm": "2026-08-30",
@@ -2230,5 +2218,17 @@
   "visto": "2026-10-19",
   "publicadoEm": "2026-10-19",
   "slug": "jev-e-o-modelo-mais-rapidamente-adotado-na-vercel"
+ },
+ {
+  "link": "https://techcrunch.com/2026/10/19/nscale-and-anthropic-are-reportedly-in-talks-for-yet-another-45-billion-compute-deal/",
+  "visto": "2026-10-19",
+  "publicadoEm": "2026-10-19",
+  "slug": "anthropic-negocia-outro-acordo-de-us-45-bi-com-a-nscale"
+ },
+ {
+  "link": "https://techcrunch.com/2026/10/19/embedded-ai-evaluators-wont-be-an-easy-solution-hugging-faces-policy-chief-says/",
+  "visto": "2026-10-19",
+  "publicadoEm": "2026-10-19",
+  "slug": "hugging-face-alerta-avaliadores-embutidos-nao-serao-simples"
  }
 ]
