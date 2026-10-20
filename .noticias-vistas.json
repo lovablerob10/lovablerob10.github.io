@@ -1,22 +1,5 @@
 [
  {
-  "link": "https://techcrunch.com/2026/08/30/caterpillar-is-bringing-to-ai-deployment-what-it-learned-from-automating-mining/",
-  "visto": "2026-08-30",
-  "publicadoEm": "2026-08-30",
-  "slug": "caterpillar-leva-experiencia-de-mineracao-autonoma-para-ia"
- },
- {
-  "link": "https://www.theverge.com/ai-artificial-intelligence/986541/texas-governor-abbott-flock-cameras",
-  "visto": "2026-08-30",
-  "publicado": false
- },
- {
-  "link": "https://www.theverge.com/ai-artificial-intelligence/985597/jensen-huang-says-nvidia-achieved-senseless-agi",
-  "visto": "2026-08-30",
-  "publicadoEm": "2026-08-30",
-  "slug": "jensen-huang-diz-que-agi-ja-foi-alcancada-e-nao-importa"
- },
- {
   "link": "https://techcrunch.com/2026/08/31/three-year-old-ai-media-search-startup-clipto-hits-a-250m-valuation/",
   "visto": "2026-08-31",
   "erro": true
@@ -2230,5 +2213,23 @@
   "visto": "2026-10-19",
   "publicadoEm": "2026-10-19",
   "slug": "hugging-face-alerta-avaliadores-embutidos-nao-serao-simples"
+ },
+ {
+  "link": "https://techcrunch.com/2026/10/20/us-orders-federal-agencies-to-remove-chinas-deepseek-ai-from-their-systems/",
+  "visto": "2026-10-20",
+  "publicadoEm": "2026-10-20",
+  "slug": "eua-mandam-agencias-removerem-a-ia-chinesa-deepseek"
+ },
+ {
+  "link": "https://techcrunch.com/2026/10/20/eka-is-worth-1-45-billion-thanks-to-a-physical-ai-model-that-has-experts-raving/",
+  "visto": "2026-10-20",
+  "publicadoEm": "2026-10-20",
+  "slug": "eka-atinge-us-1-45-bi-com-ia-fisica-para-braco-robotico"
+ },
+ {
+  "link": "https://techcrunch.com/2026/10/20/yelp-can-now-call-on-your-behalf-to-check-wait-times-at-a-restaurant/",
+  "visto": "2026-10-20",
+  "publicadoEm": "2026-10-20",
+  "slug": "yelp-liga-para-o-restaurante-e-checa-a-fila-por-voce"
  }
 ]
