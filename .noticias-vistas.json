@@ -1,15 +1,5 @@
 [
  {
-  "link": "https://techcrunch.com/2026/08/31/three-year-old-ai-media-search-startup-clipto-hits-a-250m-valuation/",
-  "visto": "2026-08-31",
-  "erro": true
- },
- {
-  "link": "https://techcrunch.com/2026/08/31/nvidias-3-5b-mediatek-bet-reveals-its-plan-for-tackling-big-techs-ai-chip-buildout/",
-  "visto": "2026-08-31",
-  "erro": true
- },
- {
   "link": "https://techcrunch.com/2026/08/29/at-techbbq-europes-ai-conversations-kept-coming-back-to-whos-actually-in-control/",
   "visto": "2026-08-31",
   "publicado": false
@@ -2231,5 +2221,17 @@
   "visto": "2026-10-20",
   "publicadoEm": "2026-10-20",
   "slug": "yelp-liga-para-o-restaurante-e-checa-a-fila-por-voce"
+ },
+ {
+  "link": "https://techcrunch.com/2026/10/20/anthropic-pitches-ai-safety-bill-that-may-block-a-model-if-50-people-could-be-killed/",
+  "visto": "2026-10-20",
+  "publicadoEm": "2026-10-20",
+  "slug": "anthropic-propoe-lei-de-seguranca-de-ia-com-gatilho-de-50-mortes"
+ },
+ {
+  "link": "https://techcrunch.com/2026/10/20/hugging-face-ceo-warns-that-netflixs-openai-hack-documentary-isnt-accurate/",
+  "visto": "2026-10-20",
+  "publicadoEm": "2026-10-20",
+  "slug": "ceo-da-hugging-face-critica-doc-da-netflix-sobre-hack-da-openai"
  }
 ]
