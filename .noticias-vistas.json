@@ -1,21 +1,5 @@
 [
  {
-  "link": "https://techcrunch.com/2026/08/29/at-techbbq-europes-ai-conversations-kept-coming-back-to-whos-actually-in-control/",
-  "visto": "2026-08-31",
-  "publicado": false
- },
- {
-  "link": "https://www.theverge.com/podcast/985332/openai-greg-brockman-sam-altman-leader-executive-exodus",
-  "visto": "2026-08-31",
-  "publicadoEm": "2026-08-31",
-  "slug": "greg-brockman-concentra-poder-na-openai-enquanto-executivos-saem"
- },
- {
-  "link": "https://www.theverge.com/gadgets/985549/hugging-face-microduck-robot",
-  "visto": "2026-08-31",
-  "publicado": false
- },
- {
   "link": "https://www.theverge.com/ai-artificial-intelligence/985500/plaud-one-earbuds-ai-recorder-price-availability",
   "visto": "2026-08-31",
   "publicadoEm": "2026-08-31",
@@ -2233,5 +2217,23 @@
   "visto": "2026-10-20",
   "publicadoEm": "2026-10-20",
   "slug": "ceo-da-hugging-face-critica-doc-da-netflix-sobre-hack-da-openai"
+ },
+ {
+  "link": "https://techcrunch.com/2026/10/21/ai-promises-productivity-but-for-managers-its-mostly-a-headache-for-now-says-new-survey/",
+  "visto": "2026-10-21",
+  "publicadoEm": "2026-10-21",
+  "slug": "gestores-dizem-que-ia-dificulta-avaliar-trabalho-diz-pesquisa"
+ },
+ {
+  "link": "https://techcrunch.com/2026/10/20/anthropics-cloud-partnerships-are-getting-messy/",
+  "visto": "2026-10-21",
+  "publicadoEm": "2026-10-21",
+  "slug": "anthropic-enfrenta-aperto-de-compute-antes-do-ipo"
+ },
+ {
+  "link": "https://techcrunch.com/2026/10/20/spacexs-ai-business-is-beating-expectations/",
+  "visto": "2026-10-21",
+  "publicadoEm": "2026-10-21",
+  "slug": "spacex-lucra-no-3-tri-e-a-divisao-de-ia-puxa-o-saldo"
  }
 ]
