@@ -1,17 +1,5 @@
 [
  {
-  "link": "https://techcrunch.com/2026/08/31/instagram-puts-new-limits-on-undisclosed-ai-profiles/",
-  "visto": "2026-09-01",
-  "publicadoEm": "2026-09-01",
-  "slug": "instagram-limita-alcance-de-perfis-de-ia-nao-declarados"
- },
- {
-  "link": "https://techcrunch.com/2026/08/31/harvard-law-dropout-raises-6m-for-blue-voice-to-build-a-harvey-for-police-officers/",
-  "visto": "2026-09-01",
-  "publicadoEm": "2026-09-01",
-  "slug": "blue-voice-levanta-us-6-mi-para-ia-treinada-em-regras-policiais"
- },
- {
   "link": "https://www.theverge.com/tech/986378/nvidia-dlss-5-launch-nba-2k27",
   "visto": "2026-09-01",
   "publicado": false
@@ -2236,5 +2224,17 @@
   "visto": "2026-10-22",
   "publicadoEm": "2026-10-22",
   "slug": "nirva-capta-us-33-mi-para-pingente-de-ia-de-us-249"
+ },
+ {
+  "link": "https://techcrunch.com/2026/10/22/openai-working-on-new-30b-raise-at-1-25t-valuation-ahead-of-ipo/",
+  "visto": "2026-10-22",
+  "publicadoEm": "2026-10-22",
+  "slug": "openai-busca-us-30-bi-a-us-1-25-tri-antes-do-ipo"
+ },
+ {
+  "link": "https://techcrunch.com/2026/10/22/1password-launches-a-way-for-ai-agents-to-log-in-on-your-behalf-without-seeing-your-password/",
+  "visto": "2026-10-22",
+  "publicadoEm": "2026-10-22",
+  "slug": "1password-libera-login-de-agentes-de-ia-sem-expor-senhas"
  }
 ]
