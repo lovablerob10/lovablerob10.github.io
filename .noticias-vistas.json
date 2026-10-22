@@ -1,22 +1,5 @@
 [
  {
-  "link": "https://techcrunch.com/2026/08/31/apple-shares-shocking-evidence-against-former-employee-accused-of-stealing-company-data-for-openai/",
-  "visto": "2026-08-31",
-  "publicadoEm": "2026-08-31",
-  "slug": "apple-acusa-ex-funcionario-de-roubar-dados-para-a-openai"
- },
- {
-  "link": "https://techcrunch.com/2026/08/31/the-pentagon-now-has-its-own-version-of-chatgpt-and-grok/",
-  "visto": "2026-08-31",
-  "publicadoEm": "2026-08-31",
-  "slug": "pentagono-adiciona-chatgpt-e-grok-ao-portal-de-ia-militar"
- },
- {
-  "link": "https://techcrunch.com/2026/09/01/fambot-introduces-an-ai-chief-of-staff-for-families/",
-  "visto": "2026-09-01",
-  "publicado": false
- },
- {
   "link": "https://techcrunch.com/2026/08/31/instagram-puts-new-limits-on-undisclosed-ai-profiles/",
   "visto": "2026-09-01",
   "publicadoEm": "2026-09-01",
@@ -2235,5 +2218,23 @@
   "visto": "2026-10-21",
   "publicadoEm": "2026-10-21",
   "slug": "meta-muse-supera-10-mi-de-usuarios-compras-lideram-uso"
+ },
+ {
+  "link": "https://techcrunch.com/2026/10/22/spotifys-current-ai-bet-is-about-being-the-music-service-that-agents-choose/",
+  "visto": "2026-10-22",
+  "publicadoEm": "2026-10-22",
+  "slug": "spotify-mira-ser-o-servico-que-os-agentes-vao-escolher"
+ },
+ {
+  "link": "https://techcrunch.com/2026/10/22/claude-duet-app-is-anthropics-bet-on-agents/",
+  "visto": "2026-10-22",
+  "publicadoEm": "2026-10-22",
+  "slug": "anthropic-lanca-claude-duet-app-de-agentes-em-espera"
+ },
+ {
+  "link": "https://techcrunch.com/2026/10/22/nirva-raises-33m-for-a-pendant-that-only-listens-to-you/",
+  "visto": "2026-10-22",
+  "publicadoEm": "2026-10-22",
+  "slug": "nirva-capta-us-33-mi-para-pingente-de-ia-de-us-249"
  }
 ]
