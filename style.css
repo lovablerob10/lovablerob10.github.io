@@ -2173,3 +2173,11 @@ section { position: relative; z-index: 2; }
 .shot-video.on { opacity: 1; }
 .shot-frame:has(.shot-video.on) .shot-dots { opacity: 0; }
 /* <<< GalpON Live no portfólio */
+
+/* Coluna "Como eu entro numa empresa": as frases são maiores que os nomes de ferramenta
+   que ficavam aqui antes, então elas quebram linha em vez de empurrar a página para o lado. */
+.stack-meta { flex: 0 1 auto; min-width: 0; max-width: 60%; }
+@media (max-width: 560px) {
+    .stack-row { flex-direction: column; align-items: flex-start; gap: 0.3rem; }
+    .stack-meta { max-width: none; text-align: left; }
+}
